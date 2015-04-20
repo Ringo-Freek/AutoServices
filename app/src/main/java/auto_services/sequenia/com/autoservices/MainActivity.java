@@ -32,6 +32,8 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    // Тестовый комментарий
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
