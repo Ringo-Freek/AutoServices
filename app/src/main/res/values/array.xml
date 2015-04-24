@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="icon">
+        <item>@drawable/ic_directions_car_white_24dp</item>
+        <item>@drawable/ic_class_white_24dp</item>
+        <item>@drawable/ic_share_white_24dp</item>
+        <item>@drawable/ic_system_update_white_24dp</item>
+    </array>
+
+    <array name="title">
+        <item>Мой автомобиль</item>
+        <item>История посещений</item>
+        <item>Поделиться с друзьями</item>
+        <item>Выйти</item>
+    </array>
+
+    <array name="sub_menu_title">
+        <item>О нас</item>
+        <item>Контакты</item>
+    </array>
+</resources>

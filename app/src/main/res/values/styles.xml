@@ -1,8 +1,21 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+
     </style>
 
+    <style name="DrawerRow">
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="DrawerIcon">
+        <item name="android:layout_margin">@dimen/material_padding</item>
+    </style>
+    
+    <style name="ContentBlock">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginTop">@dimen/material_padding_between_row</item>
+        <item name="android:layout_marginBottom">@dimen/material_padding_between_row</item>
+    </style>
 </resources>
