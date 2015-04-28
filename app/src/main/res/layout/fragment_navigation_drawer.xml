@@ -1,4 +1,4 @@
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,86 +8,98 @@
     android:dividerHeight="0dp"
     android:orientation="vertical"
     android:background="@color/drawer"
+    android:fillViewport="true"
     tools:context=".NavigationDrawerFragment">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/drawer_header_height"
-            android:background="@color/drawer_header"
-            android:orientation="horizontal"
-            android:id="@+id/drawer_header"
-            android:paddingLeft="@dimen/material_padding"
-            android:paddingRight="@dimen/material_padding"
-            android:gravity="center_vertical"
-            >
-
-            <ImageView
-                android:layout_width="@dimen/avatar_size"
-                android:layout_height="@dimen/avatar_size"
-                android:src="@drawable/ic_face_grey600_48dp"
-                />
-
-            <LinearLayout
-                android:paddingLeft="@dimen/material_padding"
-                android:paddingRight="@dimen/material_padding"
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
-                    android:id="@+id/user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Михаил"
-                    android:textSize="@dimen/user_name_font_size"
-                    android:layout_marginBottom="@dimen/user_data_padding_row"
-                    />
-
-                <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
-                    android:id="@+id/car_mark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Toyota"
-                    android:layout_marginBottom="@dimen/user_data_padding_row"
-                    />
-
-                <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
-                    android:id="@+id/car_registration_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="O 432 CM 54"
-                    />
-            </LinearLayout>
-        </LinearLayout>
+    <RelativeLayout
+        android:minHeight="@dimen/drawer_min_height"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/content"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/sub_menu_up"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/DrawerRow">
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/drawer_header_height"
+                    android:background="@color/drawer_header"
+                    android:orientation="horizontal"
+                    android:id="@+id/drawer_header"
+                    android:paddingLeft="@dimen/material_padding"
+                    android:paddingRight="@dimen/material_padding"
+                    android:gravity="center_vertical"
+                    >
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/border"
-                />
+                    <ImageView
+                        android:layout_width="@dimen/avatar_size"
+                        android:layout_height="@dimen/avatar_size"
+                        android:src="@drawable/ic_face_grey600_48dp"
+                        />
 
-            <LinearLayout
-                android:id="@+id/sub_menu_down"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/DrawerRow">
-            </LinearLayout>
+                    <LinearLayout
+                        android:paddingLeft="@dimen/material_padding"
+                        android:paddingRight="@dimen/material_padding"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
+                        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+                            android:id="@+id/user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Михаил"
+                            android:textSize="@dimen/user_name_font_size"
+                            android:layout_marginBottom="@dimen/user_data_padding_row"
+                            />
+
+                        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+                            android:id="@+id/car_mark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Toyota"
+                            android:layout_marginBottom="@dimen/user_data_padding_row"
+                            />
+
+                        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+                            android:id="@+id/car_registration_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="O 432 CM 54"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/content"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/sub_menu_up"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/DrawerRow">
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/border"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/sub_menu_down"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/DrawerRow">
+                    </LinearLayout>
+
+                </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -95,7 +107,8 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/drawer_menu_item_height">
+            android:layout_height="@dimen/drawer_menu_item_height"
+            android:layout_alignParentBottom="true">
 
             <ImageView
                 android:id="@+id/icon"
@@ -113,4 +126,5 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-</LinearLayout>
+    </RelativeLayout>
+</ScrollView>

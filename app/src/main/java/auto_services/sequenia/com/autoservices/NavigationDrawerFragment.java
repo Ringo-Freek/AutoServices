@@ -23,6 +23,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +57,7 @@ public class NavigationDrawerFragment extends Fragment {
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
-    private LinearLayout mDrawerListView;
+    private ScrollView mDrawerListView;
     private View mFragmentContainerView;
 
     private int mCurrentSelectedPosition = 0;
@@ -94,7 +96,7 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mDrawerListView = (LinearLayout)inflater.inflate(
+        mDrawerListView = (ScrollView)inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
 
         LinearLayout linearLayout = ((LinearLayout)mDrawerListView.findViewById(R.id.sub_menu_up));

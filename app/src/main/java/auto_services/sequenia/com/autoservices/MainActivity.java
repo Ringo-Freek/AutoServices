@@ -1,5 +1,6 @@
 package auto_services.sequenia.com.autoservices;
 
+import android.location.Location;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
@@ -10,17 +11,16 @@ import android.support.v4.widget.DrawerLayout;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import auto_services.sequenia.com.autoservices.drawer_fragment.MainPage;
 
 
 public class MainActivity extends ActionBarActivity
@@ -113,9 +113,6 @@ public class MainActivity extends ActionBarActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar();
             return true;
@@ -125,9 +122,6 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -139,15 +133,64 @@ public class MainActivity extends ActionBarActivity
     }
 
     @Override
-    public void onMapReady(GoogleMap map) {
+    /**
+     * Работа с картой (выставление положения на карте - Новосибирск)
+     * Поиск локации (местоположения пользователя)
+     * Отправка запроса на сервер и обработка ответа
+     * Выставление на карте ближайших моек
+     */
+    public void onMapReady(final GoogleMap map) {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(41.889, -87.622), 16));
+                new LatLng(55.0167, 82.9333), 10));
 
-        // You can customize the marker image using images bundled with
-        // your app, or dynamically generated bitmaps.
-        map.addMarker(new MarkerOptions()
-                //.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_directions_car_white_24dp))
-                .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-                .position(new LatLng(41.889, -87.622)));
+        map.setMyLocationEnabled(true);
+        map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(location.getLatitude(), location.getLongitude()), 16));
+
+                new AsyncTaskGet(
+                        "items/nearest.json?auth_token=123&latitude="
+                                + location.getLatitude()
+                                + "&longitude="
+                                + location.getLongitude()
+                                + "&radius="
+                                + Global.radius) {
+                    @Override
+                    public void initNotConnection() {
+
+                    }
+
+                    @Override
+                    public void initRuntimeError() {
+
+                    }
+
+                    @Override
+                    public void initErrorLoadData() {
+
+                    }
+
+                    @Override
+                    protected void onPostExecute(String s) {
+                        super.onPostExecute(s);
+                        if(s != null){
+                            JsonResponse<CarWash> carWash = new Gson().fromJson(s, new TypeToken<JsonResponse<CarWash>>(){}.getType());
+                            if(carWash.getSuccess()){
+                                ArrayList<CarWash> carWashes = carWash.getData();
+                                for(int i = 0; i < carWashes.size(); i++){
+                                    CarWash carWashI = carWashes.get(i);
+                                    map.addMarker(new MarkerOptions()
+                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker))
+                                            .anchor(0.0f, 1.0f)
+                                            .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
+                                }
+                            }
+                        }
+                    }
+                }.execute();
+            }
+        });
     }
 }

@@ -7,6 +7,8 @@
 
     <style name="DrawerRow">
         <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingBottom">@dimen/material_padding_between_row</item>
+        <item name="android:paddingTop">@dimen/material_padding_between_row</item>
     </style>
 
     <style name="DrawerIcon">
