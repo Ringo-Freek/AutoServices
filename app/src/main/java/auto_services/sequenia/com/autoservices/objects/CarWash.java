@@ -1,4 +1,4 @@
-package auto_services.sequenia.com.autoservices;
+package auto_services.sequenia.com.autoservices.objects;
 
 /**
  * Created by Ringo on 28.04.2015.

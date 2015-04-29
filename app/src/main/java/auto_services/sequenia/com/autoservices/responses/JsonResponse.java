@@ -1,4 +1,4 @@
-package auto_services.sequenia.com.autoservices;
+package auto_services.sequenia.com.autoservices.responses;
 
 import java.util.ArrayList;
 

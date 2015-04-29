@@ -1,4 +1,4 @@
-package auto_services.sequenia.com.autoservices;
+package auto_services.sequenia.com.autoservices.fragments;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -27,6 +27,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import auto_services.sequenia.com.autoservices.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.

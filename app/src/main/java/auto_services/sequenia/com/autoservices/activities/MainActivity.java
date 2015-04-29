@@ -1,4 +1,4 @@
-package auto_services.sequenia.com.autoservices;
+package auto_services.sequenia.com.autoservices.activities;
 
 import android.location.Location;
 import android.support.v7.app.ActionBarActivity;
@@ -21,6 +21,14 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import auto_services.sequenia.com.autoservices.async_tasks.AsyncTaskGet;
+import auto_services.sequenia.com.autoservices.async_tasks.NearCarWashesTask;
+import auto_services.sequenia.com.autoservices.objects.CarWash;
+import auto_services.sequenia.com.autoservices.Global;
+import auto_services.sequenia.com.autoservices.responses.JsonResponse;
+import auto_services.sequenia.com.autoservices.fragments.NavigationDrawerFragment;
+import auto_services.sequenia.com.autoservices.R;
 
 
 public class MainActivity extends ActionBarActivity
@@ -149,48 +157,34 @@ public class MainActivity extends ActionBarActivity
             public void onMyLocationChange(Location location) {
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(location.getLatitude(), location.getLongitude()), 16));
-
-                new AsyncTaskGet(
-                        "items/nearest.json?auth_token=123&latitude="
-                                + location.getLatitude()
-                                + "&longitude="
-                                + location.getLongitude()
-                                + "&radius="
-                                + Global.radius) {
-                    @Override
-                    public void initNotConnection() {
-
-                    }
-
-                    @Override
-                    public void initRuntimeError() {
-
-                    }
-
-                    @Override
-                    public void initErrorLoadData() {
-
-                    }
-
-                    @Override
-                    protected void onPostExecute(String s) {
-                        super.onPostExecute(s);
-                        if(s != null){
-                            JsonResponse<CarWash> carWash = new Gson().fromJson(s, new TypeToken<JsonResponse<CarWash>>(){}.getType());
-                            if(carWash.getSuccess()){
-                                ArrayList<CarWash> carWashes = carWash.getData();
-                                for(int i = 0; i < carWashes.size(); i++){
-                                    CarWash carWashI = carWashes.get(i);
-                                    map.addMarker(new MarkerOptions()
-                                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker))
-                                            .anchor(0.0f, 1.0f)
-                                            .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
-                                }
-                            }
-                        }
-                    }
-                }.execute();
+                onLocationChange(location, map);
             }
         });
+    }
+
+    private void onLocationChange(Location location, final GoogleMap map) {
+        new NearCarWashesTask((float) location.getLatitude(), (float) location.getLongitude(),
+                Global.radius) {
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if(s != null){
+                    JsonResponse<CarWash> carWash = new Gson().fromJson(s, new TypeToken<JsonResponse<CarWash>>(){}.getType());
+                    if(carWash.getSuccess()){
+                        showCarWashesOnMap(carWash.getData(), map);
+                    }
+                }
+            }
+        }.execute();
+    }
+
+    private void showCarWashesOnMap(ArrayList<CarWash> carWashes, GoogleMap map) {
+        for(int i = 0; i < carWashes.size(); i++){
+            CarWash carWashI = carWashes.get(i);
+            map.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker))
+                    .anchor(0.0f, 1.0f)
+                    .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
+        }
     }
 }

@@ -1,4 +1,4 @@
-package auto_services.sequenia.com.autoservices;
+package auto_services.sequenia.com.autoservices.async_tasks;
 
 import android.os.AsyncTask;
 
@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+
+import auto_services.sequenia.com.autoservices.Global;
 
 /**
  * Created by Ringo on 28.04.2015.

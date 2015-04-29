@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import auto_services.sequenia.com.autoservices.MainActivity;
+import auto_services.sequenia.com.autoservices.activities.MainActivity;
 import auto_services.sequenia.com.autoservices.R;
 
 /**
