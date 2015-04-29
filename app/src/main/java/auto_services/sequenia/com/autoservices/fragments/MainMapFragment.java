@@ -4,8 +4,10 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,9 +34,18 @@ import auto_services.sequenia.com.autoservices.responses.JsonResponse;
 public class MainMapFragment extends PlaceholderFragment
         implements OnMapReadyCallback {
 
+    private LinearLayout carWashList;
+    private LinearLayout carWashMap;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_map, container, false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
+
+        carWashList = (LinearLayout) view.findViewById(R.id.car_wash_list);
+        carWashMap = (LinearLayout) view.findViewById(R.id.car_wash_map);
+
+        return view;
     }
 
     @Override
@@ -104,5 +115,25 @@ public class MainMapFragment extends PlaceholderFragment
                     .anchor(0.0f, 1.0f)
                     .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == R.id.show_list) {
+            carWashList.setVisibility(View.VISIBLE);
+            carWashMap.setVisibility(View.GONE);
+            return true;
+        }
+
+        if(id == R.id.show_map) {
+            carWashList.setVisibility(View.GONE);
+            carWashMap.setVisibility(View.VISIBLE);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

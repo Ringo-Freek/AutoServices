@@ -87,8 +87,12 @@ public class MainActivity extends ActionBarActivity
         actionBar.setTitle(mTitle);
     }
 
-    public void updateBackItem() {
-        mNavigationDrawerFragment.setDrawerIndicatorEnabled(fragmentStack.size() == 1);
+    private void updateBackItem() {
+        mNavigationDrawerFragment.setDrawerIndicatorEnabled(needsShowBackItem());
+    }
+
+    private boolean needsShowBackItem() {
+        return fragmentStack.size() == 1;
     }
 
     @Override

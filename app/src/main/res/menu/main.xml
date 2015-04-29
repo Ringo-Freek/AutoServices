@@ -13,6 +13,11 @@
         android:id="@+id/show_list"/>
 
     <item
+        app:showAsAction="always"
+        android:title="@string/action_show_map"
+        android:id="@+id/show_map"/>
+
+    <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
