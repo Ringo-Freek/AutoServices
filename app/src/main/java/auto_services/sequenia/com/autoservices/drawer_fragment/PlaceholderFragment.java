@@ -17,6 +17,8 @@ import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
 public class PlaceholderFragment extends Fragment {
     public static final int MAP_SECTION = -1;
 
+    private int number;
+
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -67,6 +69,12 @@ public class PlaceholderFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        ((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
+        number = getArguments().getInt(ARG_SECTION_NUMBER);
+
+        ((MainActivity) activity).onSectionAttached(number);
+    }
+
+    public int getNumber() {
+        return number;
     }
 }

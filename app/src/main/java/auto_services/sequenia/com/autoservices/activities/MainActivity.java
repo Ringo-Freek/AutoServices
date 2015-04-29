@@ -26,9 +26,10 @@ public class MainActivity extends ActionBarActivity
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
 
+    // Стек фрагментов. Используется для навигации между фрагментами.
     private Stack<PlaceholderFragment> fragmentStack;
 
-    ArrayList<String> title;
+    ArrayList<String> titles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +39,16 @@ public class MainActivity extends ActionBarActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // init titles
+        titles = new ArrayList(Arrays.asList(getResources().getStringArray(R.array.title)));
+        titles.addAll(new ArrayList(Arrays.asList(getResources().getStringArray(R.array.sub_menu_title))));
+        titles.add(getString(R.string.login_admin));
+
         // Инициализация стека фрагментов
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentStack = new Stack<PlaceholderFragment>();
 
-        // Помещаем главный фрагмент
+        // Помещаем главный фрагмент в стек
         MainMapFragment mapFragment = (MainMapFragment) PlaceholderFragment.newInstance(PlaceholderFragment.MAP_SECTION);
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.add(R.id.content, mapFragment);
@@ -61,25 +67,25 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int number) {
-        title = new ArrayList(Arrays.asList(getResources().getStringArray(R.array.title)));
-        title.addAll(new ArrayList(Arrays.asList(getResources().getStringArray(R.array.sub_menu_title))));
-        title.add(getString(R.string.login_admin));
-
-        mTitle = title.get(number);
-
         addSubFragment(PlaceholderFragment.newInstance(number));
     }
 
     public void onSectionAttached(int number) {
-
+        if(number >= 0) {
+            mTitle = titles.get(number);
+        } else {
+            mTitle = getString(R.string.app_name);
+        }
     }
 
+    /**
+     * Задание вида тулбара в зависимости от секции меню
+     */
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,6 +125,9 @@ public class MainActivity extends ActionBarActivity
         ft.commit();
     }
 
+    /**
+     * Вызывается при нажатии кнопки назад
+     */
     @Override
     public void onBackPressed() {
         if (fragmentStack.size() >= 2) {
@@ -129,6 +138,10 @@ public class MainActivity extends ActionBarActivity
             fragmentStack.lastElement().onResume();
             ft.show(fragmentStack.lastElement());
             ft.commit();
+
+            PlaceholderFragment currentFragment = fragmentStack.lastElement();
+            onSectionAttached(currentFragment.getNumber());
+            restoreActionBar();
         } else {
             super.onBackPressed();
         }
