@@ -62,7 +62,7 @@ public class MainActivity extends ActionBarActivity
 
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+                (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     @Override
@@ -87,6 +87,10 @@ public class MainActivity extends ActionBarActivity
         actionBar.setTitle(mTitle);
     }
 
+    public void updateBackItem() {
+        mNavigationDrawerFragment.setDrawerIndicatorEnabled(fragmentStack.size() == 1);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -100,6 +104,11 @@ public class MainActivity extends ActionBarActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
+        if(id == android.R.id.home && fragmentStack.size() > 1) {
+            onBackPressed();
+            return true;
+        }
 
         if (id == R.id.action_settings) {
             return true;
@@ -118,11 +127,26 @@ public class MainActivity extends ActionBarActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
-        ft.add(R.id.content, fragment);
-        fragmentStack.lastElement().onPause();
-        ft.hide(fragmentStack.lastElement());
-        fragmentStack.push(fragment);
+        ft.add(R.id.content, fragment); // Добавляем фрагмент на экран
+
+        // Если фрагмент является элементом меню, то очищаем стек,
+        // перед там как показать его
+        if(fragment.isMain()) {
+            while(fragmentStack.size() > 1) {
+                fragmentStack.lastElement().onPause();  // Останавливаем верхний фрагмент
+                ft.remove(fragmentStack.pop());         // Удаляем его с экрана и из стека
+            }
+        // Иначе, просто ставим верхний фрагмент на паузу
+        } else {
+            fragmentStack.lastElement().onPause(); // Останавливаем предыдущий фрагмент
+            ft.hide(fragmentStack.lastElement());  // Скрываем предыдущий фрагмент с экрана
+        }
+
+        fragmentStack.push(fragment);          // Добавляем новый фрагмент в стек
+
         ft.commit();
+
+        updateBackItem();
     }
 
     /**
@@ -133,15 +157,19 @@ public class MainActivity extends ActionBarActivity
         if (fragmentStack.size() >= 2) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            fragmentStack.lastElement().onPause();
-            ft.remove(fragmentStack.pop());
-            fragmentStack.lastElement().onResume();
-            ft.show(fragmentStack.lastElement());
+
+            fragmentStack.lastElement().onPause();  // Останавливаем текущий фрагмент
+            ft.remove(fragmentStack.pop());         // Удаляем его с экрана и из стека
+            fragmentStack.lastElement().onResume(); // Возобновляем предыдущий фрагмент
+            ft.show(fragmentStack.lastElement());   // Показываем предыдущий фрагмент на экране
+
             ft.commit();
 
+            // Настройка тулбара для предыдущего фрагмента
             PlaceholderFragment currentFragment = fragmentStack.lastElement();
             onSectionAttached(currentFragment.getNumber());
             restoreActionBar();
+            updateBackItem();
         } else {
             super.onBackPressed();
         }
