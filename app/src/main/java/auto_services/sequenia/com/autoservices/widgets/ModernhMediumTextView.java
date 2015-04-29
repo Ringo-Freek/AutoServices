@@ -12,11 +12,21 @@ import android.widget.TextView;
 public class ModernhMediumTextView extends TextView {
     public ModernhMediumTextView(Context context) {
         super(context);
+
+        if (isInEditMode()) {
+            return;
+        }
+
         setTypeface(Typeface.createFromAsset(context.getAssets(), "modernh-medium.ttf"));
     }
 
     public ModernhMediumTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        if (isInEditMode()) {
+            return;
+        }
+
         setTypeface(Typeface.createFromAsset(context.getAssets(), "modernh-medium.ttf"));
     }
 }

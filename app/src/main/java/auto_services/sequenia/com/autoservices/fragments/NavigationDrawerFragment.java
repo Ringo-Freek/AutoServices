@@ -28,6 +28,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import auto_services.sequenia.com.autoservices.R;
 
 /**
@@ -66,7 +68,10 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
+    private ArrayList<View> items;
+
     public NavigationDrawerFragment() {
+        items = new ArrayList<View>();
     }
 
     @Override
@@ -103,46 +108,36 @@ public class NavigationDrawerFragment extends Fragment {
 
         LinearLayout linearLayout = ((LinearLayout)mDrawerListView.findViewById(R.id.sub_menu_up));
         String[] s = getResources().getStringArray(R.array.title);
-        int i;
-        for(i = 0; i < s.length; i++){
+        for(int i = 0; i < s.length; i++){
             View view = inflater.inflate(R.layout.item_drawer, null);
             ((TextView)view.findViewById(R.id.title)).setText(s[i]);
             ((ImageView)view.findViewById(R.id.icon)).setImageResource(getResources().obtainTypedArray(R.array.icon).getResourceId(i, 0));
 
-            final int position = i;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    selectItem(position);
-                }
-            });
             linearLayout.addView(view);
+            items.add(view);
         }
 
         linearLayout = ((LinearLayout)mDrawerListView.findViewById(R.id.sub_menu_down));
         s = getResources().getStringArray(R.array.sub_menu_title);
-        for(int j = 0; j < s.length; j++){
+        for(int i = 0; i < s.length; i++){
             View view = inflater.inflate(R.layout.item_drawer_sub_menu, null);
-            ((TextView)view.findViewById(R.id.title)).setText(s[j]);
+            ((TextView)view.findViewById(R.id.title)).setText(s[i]);
 
+            linearLayout.addView(view);
+            items.add(view);
+        }
+
+        items.add(mDrawerListView.findViewById(R.id.login_admin));
+
+        for(int i = 0; i < items.size(); i++) {
             final int position = i;
-            view.setOnClickListener(new View.OnClickListener() {
+            items.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     selectItem(position);
                 }
             });
-            linearLayout.addView(view);
-            i++;
         }
-
-        final int position = i;
-        (mDrawerListView.findViewById(R.id.sub_menu_down)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectItem(position);
-            }
-        });
 
         return mDrawerListView;
     }
@@ -227,6 +222,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
+        System.out.println(position);
         if (mDrawerListView != null) {
             //mDrawerListView.setItemChecked(position, true);
         }

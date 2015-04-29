@@ -11,11 +11,21 @@ import android.widget.Button;
 public class ModernhMediumButton extends Button{
     public ModernhMediumButton(Context context) {
         super(context);
+
+        if (isInEditMode()) {
+            return;
+        }
+
         setTypeface(Typeface.createFromAsset(context.getAssets(), "modernh-medium.ttf"));
     }
 
     public ModernhMediumButton(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        if (isInEditMode()) {
+            return;
+        }
+
         setTypeface(Typeface.createFromAsset(context.getAssets(), "modernh-medium.ttf"));
     }
 }

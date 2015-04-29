@@ -11,11 +11,21 @@ import android.widget.TextView;
 public class ModernhBoldTextView extends TextView {
     public ModernhBoldTextView(Context context) {
         super(context);
+
+        if (isInEditMode()) {
+            return;
+        }
+
         setTypeface(Typeface.createFromAsset(context.getAssets(), "modernh-bold.ttf"));
     }
 
     public ModernhBoldTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        if (isInEditMode()) {
+            return;
+        }
+
         setTypeface(Typeface.createFromAsset(context.getAssets(), "modernh-bold.ttf"));
     }
 }

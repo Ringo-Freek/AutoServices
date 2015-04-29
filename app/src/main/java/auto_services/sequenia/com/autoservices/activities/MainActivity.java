@@ -80,6 +80,7 @@ public class MainActivity extends ActionBarActivity
 
         title = new ArrayList(Arrays.asList(getResources().getStringArray(R.array.title)));
         title.addAll(new ArrayList(Arrays.asList(getResources().getStringArray(R.array.sub_menu_title))));
+        title.add(getString(R.string.login_admin));
 
         mTitle = title.get(number);
         switch (number) {
@@ -149,14 +150,14 @@ public class MainActivity extends ActionBarActivity
      */
     public void onMapReady(final GoogleMap map) {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(55.0167, 82.9333), 10));
+                new LatLng(Global.startLatitude, Global.startLongitude), Global.startZoom));
 
         map.setMyLocationEnabled(true);
         map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(location.getLatitude(), location.getLongitude()), 16));
+                        new LatLng(location.getLatitude(), location.getLongitude()), Global.myPositionZoom));
                 onLocationChange(location, map);
             }
         });
