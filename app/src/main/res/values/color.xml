@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="toolbar_color">#607d8d</color>
+    <color name="toolbar_color">@color/blue_grey_700</color>
     <color name="status_bar_color">#465a65</color>
-    <color name="drawer_header">#80607d8d</color>
-    <color name="drawer">#80000000</color>
-    <color name="border">#80cccccc</color>
+    <color name="drawer_header">#46607d8b</color>
+    <color name="drawer">#32000000</color>
+    <color name="border">#32cccccc</color>
+
     <color name="bgr">#cccccc</color>
     <color name="color_white">#ffffff</color>
+
+    <color name="blue_grey_700">#455a64</color>
+    <color name="blue_grey_500">#607d8b</color>
+    <color name="amber_700">#ffa000</color>
+    <color name="teal_800">#00695c</color>
+    <color name="teal_300">#4db6ac</color>
 </resources>

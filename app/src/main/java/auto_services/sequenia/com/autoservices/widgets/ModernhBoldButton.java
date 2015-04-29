@@ -7,25 +7,26 @@ import android.widget.Button;
 
 /**
  * Created by Ringo on 22.04.2015.
+ * Кнопка со шрифтом modernh-bold
  */
-public class ModernhMediumButton extends Button{
-    public ModernhMediumButton(Context context) {
+public class ModernhBoldButton extends Button{
+    public ModernhBoldButton(Context context) {
         super(context);
 
         if (isInEditMode()) {
             return;
         }
 
-        setTypeface(Typeface.createFromAsset(context.getAssets(), "modernh-medium.ttf"));
+        setTypeface(Typeface.createFromAsset(context.getAssets(), "modernh-bold.ttf"));
     }
 
-    public ModernhMediumButton(Context context, AttributeSet attrs) {
+    public ModernhBoldButton(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         if (isInEditMode()) {
             return;
         }
 
-        setTypeface(Typeface.createFromAsset(context.getAssets(), "modernh-medium.ttf"));
+        setTypeface(Typeface.createFromAsset(context.getAssets(), "modernh-bold.ttf"));
     }
 }

@@ -44,8 +44,8 @@
         android:paddingTop="@dimen/material_padding_between_row"
         android:paddingBottom="@dimen/material_padding_between_row">
 
-        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumButton
-            android:padding="@dimen/btn_padding"
+        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldButton
+            style="@style/Btn"
             android:text="@string/reserve"
             android:background="#ff9f00"
             android:layout_width="wrap_content"

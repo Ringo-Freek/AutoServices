@@ -1,5 +1,6 @@
 package auto_services.sequenia.com.autoservices.fragments;
 
+import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 
 import auto_services.sequenia.com.autoservices.Global;
 import auto_services.sequenia.com.autoservices.R;
+import auto_services.sequenia.com.autoservices.activities.MainActivity;
 import auto_services.sequenia.com.autoservices.async_tasks.NearCarWashesTask;
 import auto_services.sequenia.com.autoservices.drawer_fragment.PlaceholderFragment;
 import auto_services.sequenia.com.autoservices.objects.CarWash;
@@ -37,6 +40,7 @@ public class MainMapFragment extends PlaceholderFragment
     private LinearLayout carWashList;
     private LinearLayout carWashMap;
 
+    JsonResponse<CarWash> carWash;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,7 +96,7 @@ public class MainMapFragment extends PlaceholderFragment
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 if(s != null){
-                    JsonResponse<CarWash> carWash = new Gson().fromJson(s, new TypeToken<JsonResponse<CarWash>>(){}.getType());
+                    carWash = new Gson().fromJson(s, new TypeToken<JsonResponse<CarWash>>(){}.getType());
                     if(carWash.getSuccess()){
                         showCarWashesOnMap(carWash.getData(), map);
                     }
@@ -108,9 +112,18 @@ public class MainMapFragment extends PlaceholderFragment
      * @param map - карта, на которой отображать мойки
      */
     private void showCarWashesOnMap(ArrayList<CarWash> carWashes, GoogleMap map) {
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                ((MainActivity)getActivity()).addSubFragment(PlaceholderFragment.newInstance(-2));
+                return true;
+            }
+        });
+
         for(int i = 0; i < carWashes.size(); i++){
             CarWash carWashI = carWashes.get(i);
             map.addMarker(new MarkerOptions()
+                    .title(carWashI.getId().toString())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker))
                     .anchor(0.0f, 1.0f)
                     .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
