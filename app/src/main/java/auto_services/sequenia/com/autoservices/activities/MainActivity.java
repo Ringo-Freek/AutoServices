@@ -34,17 +34,8 @@ import auto_services.sequenia.com.autoservices.R;
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, OnMapReadyCallback {
 
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private CharSequence mTitle;
-
-    // Тестовый комментарий
 
     ArrayList<String> title;
 
@@ -163,6 +154,12 @@ public class MainActivity extends ActionBarActivity
         });
     }
 
+    /**
+     * Срабатывает во время смены местоположения
+     *
+     * @param location - текущие координаты
+     * @param map - карта
+     */
     private void onLocationChange(Location location, final GoogleMap map) {
         new NearCarWashesTask((float) location.getLatitude(), (float) location.getLongitude(),
                 Global.radius) {
@@ -179,6 +176,12 @@ public class MainActivity extends ActionBarActivity
         }.execute();
     }
 
+    /**
+     * Отображает переданные мойки на карте
+     *
+     * @param carWashes - мойки, которые нужно отобразить на карте
+     * @param map - карта, на которой отображать мойки
+     */
     private void showCarWashesOnMap(ArrayList<CarWash> carWashes, GoogleMap map) {
         for(int i = 0; i < carWashes.size(); i++){
             CarWash carWashI = carWashes.get(i);
@@ -187,5 +190,13 @@ public class MainActivity extends ActionBarActivity
                     .anchor(0.0f, 1.0f)
                     .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
         }
+    }
+
+    private void addSubFragment() {
+
+    }
+
+    private void addMainFragment() {
+
     }
 }

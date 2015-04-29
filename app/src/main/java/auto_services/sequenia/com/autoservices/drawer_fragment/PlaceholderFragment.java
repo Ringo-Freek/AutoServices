@@ -13,7 +13,7 @@ import auto_services.sequenia.com.autoservices.R;
 /**
  * Created by Ringo on 21.04.2015.
  */
-public class MainPage extends Fragment {
+public class PlaceholderFragment extends Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -24,15 +24,15 @@ public class MainPage extends Fragment {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static MainPage newInstance(int sectionNumber) {
-        MainPage fragment = new MainPage();
+    public static PlaceholderFragment newInstance(int sectionNumber) {
+        PlaceholderFragment fragment = new PlaceholderFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public MainPage() {
+    public PlaceholderFragment() {
     }
 
     @Override
