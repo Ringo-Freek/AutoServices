@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 
 import auto_services.sequenia.com.autoservices.activities.MainActivity;
 import auto_services.sequenia.com.autoservices.R;
+import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
 
 /**
  * Created by Ringo on 21.04.2015.
  */
 public class PlaceholderFragment extends Fragment {
+    public static final int MAP_SECTION = -1;
+
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -25,14 +28,32 @@ public class PlaceholderFragment extends Fragment {
      * number.
      */
     public static PlaceholderFragment newInstance(int sectionNumber) {
-        PlaceholderFragment fragment = new PlaceholderFragment();
+        PlaceholderFragment fragment;
+
+        switch (sectionNumber) {
+            case MAP_SECTION:
+                fragment = new MainMapFragment();
+                break;
+
+            default:
+                fragment = new PlaceholderFragment();
+                break;
+        }
+
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     public PlaceholderFragment() {
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -45,7 +66,7 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(
-                getArguments().getInt(ARG_SECTION_NUMBER));
+
+        ((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
     }
 }

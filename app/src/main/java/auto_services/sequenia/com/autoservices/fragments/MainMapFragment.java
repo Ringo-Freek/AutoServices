@@ -1,0 +1,108 @@
+package auto_services.sequenia.com.autoservices.fragments;
+
+import android.location.Location;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+
+import auto_services.sequenia.com.autoservices.Global;
+import auto_services.sequenia.com.autoservices.R;
+import auto_services.sequenia.com.autoservices.async_tasks.NearCarWashesTask;
+import auto_services.sequenia.com.autoservices.drawer_fragment.PlaceholderFragment;
+import auto_services.sequenia.com.autoservices.objects.CarWash;
+import auto_services.sequenia.com.autoservices.responses.JsonResponse;
+
+/**
+ * Created by chybakut2004 on 29.04.15.
+ */
+public class MainMapFragment extends PlaceholderFragment
+        implements OnMapReadyCallback {
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_map, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    /**
+     * Работа с картой (выставление положения на карте - Новосибирск)
+     * Поиск локации (местоположения пользователя)
+     * Отправка запроса на сервер и обработка ответа
+     * Выставление на карте ближайших моек
+     */
+    public void onMapReady(final GoogleMap map) {
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(Global.startLatitude, Global.startLongitude), Global.startZoom));
+
+        map.setMyLocationEnabled(true);
+        map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        new LatLng(location.getLatitude(), location.getLongitude()), Global.myPositionZoom));
+                onLocationChange(location, map);
+            }
+        });
+    }
+
+    /**
+     * Срабатывает во время смены местоположения
+     *
+     * @param location - текущие координаты
+     * @param map - карта
+     */
+    private void onLocationChange(Location location, final GoogleMap map) {
+        new NearCarWashesTask((float) location.getLatitude(), (float) location.getLongitude(),
+                Global.radius) {
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if(s != null){
+                    JsonResponse<CarWash> carWash = new Gson().fromJson(s, new TypeToken<JsonResponse<CarWash>>(){}.getType());
+                    if(carWash.getSuccess()){
+                        showCarWashesOnMap(carWash.getData(), map);
+                    }
+                }
+            }
+        }.execute();
+    }
+
+    /**
+     * Отображает переданные мойки на карте
+     *
+     * @param carWashes - мойки, которые нужно отобразить на карте
+     * @param map - карта, на которой отображать мойки
+     */
+    private void showCarWashesOnMap(ArrayList<CarWash> carWashes, GoogleMap map) {
+        for(int i = 0; i < carWashes.size(); i++){
+            CarWash carWashI = carWashes.get(i);
+            map.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker))
+                    .anchor(0.0f, 1.0f)
+                    .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
+        }
+    }
+}

@@ -1,6 +1,7 @@
 package auto_services.sequenia.com.autoservices.activities;
 
-import android.location.Location;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
@@ -9,33 +10,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Stack;
 
-import auto_services.sequenia.com.autoservices.async_tasks.AsyncTaskGet;
-import auto_services.sequenia.com.autoservices.async_tasks.NearCarWashesTask;
-import auto_services.sequenia.com.autoservices.objects.CarWash;
-import auto_services.sequenia.com.autoservices.Global;
-import auto_services.sequenia.com.autoservices.responses.JsonResponse;
+import auto_services.sequenia.com.autoservices.drawer_fragment.PlaceholderFragment;
+import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
 import auto_services.sequenia.com.autoservices.fragments.NavigationDrawerFragment;
 import auto_services.sequenia.com.autoservices.R;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, OnMapReadyCallback {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
+
+    private Stack<PlaceholderFragment> fragmentStack;
 
     ArrayList<String> title;
 
@@ -47,56 +38,36 @@ public class MainActivity extends ActionBarActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Инициализация стека фрагментов
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentStack = new Stack<PlaceholderFragment>();
+
+        // Помещаем главный фрагмент
+        MainMapFragment mapFragment = (MainMapFragment) PlaceholderFragment.newInstance(PlaceholderFragment.MAP_SECTION);
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.add(R.id.content, mapFragment);
+        fragmentStack.push(mapFragment);
+        ft.commit();
+
+        // Set up the drawer.
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
-        // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int number) {
-        // update the main content by replacing fragments
-        /*FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, MainPage.newInstance(position))
-                .commit();*/
-
         title = new ArrayList(Arrays.asList(getResources().getStringArray(R.array.title)));
         title.addAll(new ArrayList(Arrays.asList(getResources().getStringArray(R.array.sub_menu_title))));
         title.add(getString(R.string.login_admin));
 
         mTitle = title.get(number);
-        switch (number) {
-            case 0: // Мой автомобиль
 
-                break;
-            case 1: // История посещеней
-
-                break;
-            case 2: // Поделиться с друзьями
-
-                break;
-            case 3: // Выйти
-
-                break;
-            case 4: // О нас
-
-                break;
-            case 5: // Контакты
-
-                break;
-            case 6: // Вход для администратора
-
-                break;
-        }
+        addSubFragment(PlaceholderFragment.newInstance(number));
     }
 
     public void onSectionAttached(int number) {
@@ -124,7 +95,6 @@ public class MainActivity extends ActionBarActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -132,71 +102,35 @@ public class MainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Добавляет фрагмент в стек таким образом,
+     * что можно вернуться к главному фрагменту, нажав кнопку назад.
+     *
+     * @param fragment
+     */
+    private void addSubFragment(PlaceholderFragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+
+        ft.add(R.id.content, fragment);
+        fragmentStack.lastElement().onPause();
+        ft.hide(fragmentStack.lastElement());
+        fragmentStack.push(fragment);
+        ft.commit();
+    }
+
     @Override
-    /**
-     * Работа с картой (выставление положения на карте - Новосибирск)
-     * Поиск локации (местоположения пользователя)
-     * Отправка запроса на сервер и обработка ответа
-     * Выставление на карте ближайших моек
-     */
-    public void onMapReady(final GoogleMap map) {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(Global.startLatitude, Global.startLongitude), Global.startZoom));
-
-        map.setMyLocationEnabled(true);
-        map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-            @Override
-            public void onMyLocationChange(Location location) {
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(location.getLatitude(), location.getLongitude()), Global.myPositionZoom));
-                onLocationChange(location, map);
-            }
-        });
-    }
-
-    /**
-     * Срабатывает во время смены местоположения
-     *
-     * @param location - текущие координаты
-     * @param map - карта
-     */
-    private void onLocationChange(Location location, final GoogleMap map) {
-        new NearCarWashesTask((float) location.getLatitude(), (float) location.getLongitude(),
-                Global.radius) {
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                if(s != null){
-                    JsonResponse<CarWash> carWash = new Gson().fromJson(s, new TypeToken<JsonResponse<CarWash>>(){}.getType());
-                    if(carWash.getSuccess()){
-                        showCarWashesOnMap(carWash.getData(), map);
-                    }
-                }
-            }
-        }.execute();
-    }
-
-    /**
-     * Отображает переданные мойки на карте
-     *
-     * @param carWashes - мойки, которые нужно отобразить на карте
-     * @param map - карта, на которой отображать мойки
-     */
-    private void showCarWashesOnMap(ArrayList<CarWash> carWashes, GoogleMap map) {
-        for(int i = 0; i < carWashes.size(); i++){
-            CarWash carWashI = carWashes.get(i);
-            map.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker))
-                    .anchor(0.0f, 1.0f)
-                    .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
+    public void onBackPressed() {
+        if (fragmentStack.size() >= 2) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            fragmentStack.lastElement().onPause();
+            ft.remove(fragmentStack.pop());
+            fragmentStack.lastElement().onResume();
+            ft.show(fragmentStack.lastElement());
+            ft.commit();
+        } else {
+            super.onBackPressed();
         }
-    }
-
-    private void addSubFragment() {
-
-    }
-
-    private void addMainFragment() {
-
     }
 }
