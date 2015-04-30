@@ -122,7 +122,9 @@ public class MainMapFragment extends PlaceholderFragment
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                ((MainActivity)getActivity()).addSubFragment(PlaceholderFragment.newInstance(DIALOG_SECTION));
+                CarWashCard fragment = (CarWashCard) PlaceholderFragment.newInstance(DIALOG_SECTION);
+                fragment.setInfo(6);
+                ((MainActivity)getActivity()).addSubFragment(fragment);
                 return true;
             }
         });

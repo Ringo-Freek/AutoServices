@@ -1,5 +1,6 @@
 package auto_services.sequenia.com.autoservices.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,10 @@ import auto_services.sequenia.com.autoservices.widgets.ProportionalImageView;
  */
 public class CarWashCard extends PlaceholderDialogFragment {
 
+    private static final String ARG_CAR_WASH_ID = "CarWashId";
+
+    private int carWashId;
+
     public CarWashCard() {
         setIsMain(false);
     }
@@ -29,6 +34,8 @@ public class CarWashCard extends PlaceholderDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_car_wash_card, container, false);
+
+        System.out.println(carWashId);
 
         Picasso
                 .with(getActivity())
@@ -59,5 +66,16 @@ public class CarWashCard extends PlaceholderDialogFragment {
 
     private void showReservationForm() {
         ((MainActivity) getActivity()).addSubFragment(PlaceholderFragment.newInstance(PlaceholderDialogFragment.RESERVATION_SECTION));
+    }
+
+    public void setInfo(int carWashId) {
+        Bundle args = getArguments();
+        args.putInt(ARG_CAR_WASH_ID, carWashId);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        carWashId = getArguments().getInt(ARG_CAR_WASH_ID);
     }
 }
