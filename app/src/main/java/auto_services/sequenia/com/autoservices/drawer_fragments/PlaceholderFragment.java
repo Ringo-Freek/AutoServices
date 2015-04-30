@@ -10,9 +10,14 @@ import android.view.ViewGroup;
 
 import auto_services.sequenia.com.autoservices.activities.MainActivity;
 import auto_services.sequenia.com.autoservices.R;
+import auto_services.sequenia.com.autoservices.fragments.AboutFragment;
 import auto_services.sequenia.com.autoservices.fragments.CarWashCard;
+import auto_services.sequenia.com.autoservices.fragments.ContactsFragment;
 import auto_services.sequenia.com.autoservices.fragments.FiltersFragment;
+import auto_services.sequenia.com.autoservices.fragments.HistoryFragment;
 import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
+import auto_services.sequenia.com.autoservices.fragments.MyCarFragment;
+import auto_services.sequenia.com.autoservices.fragments.ShareFragment;
 
 /**
  * Created by Ringo on 21.04.2015.
@@ -20,6 +25,12 @@ import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
 public class PlaceholderFragment extends Fragment {
     public static final int MAP_SECTION = -1;
     public static final int DIALOG_SECTION = -2;
+
+    public static final int MY_CAR_SECTION = 0;
+    public static final int HISTORY_SECTION = 1;
+    public static final int SHARE_SECTION = 2;
+    public static final int ABOUT_SECTION = 4;
+    public static final int CONTACTS_SECTION = 5;
 
     // Количество элементов в меню. С этой позиции начинаются айдишники остальных фрагментов.
     public static final int MENU_ITEMS_COUNT = 7;
@@ -60,6 +71,31 @@ public class PlaceholderFragment extends Fragment {
 
             case FILTERS_SECTION:
                 fragment = new FiltersFragment();
+                args.putBoolean(ARG_IS_MAIN, true);
+                break;
+
+            case MY_CAR_SECTION:
+                fragment = new MyCarFragment();
+                args.putBoolean(ARG_IS_MAIN, true);
+                break;
+
+            case HISTORY_SECTION:
+                fragment = new HistoryFragment();
+                args.putBoolean(ARG_IS_MAIN, true);
+                break;
+
+            case SHARE_SECTION:
+                fragment = new ShareFragment();
+                args.putBoolean(ARG_IS_MAIN, true);
+                break;
+
+            case ABOUT_SECTION:
+                fragment = new AboutFragment();
+                args.putBoolean(ARG_IS_MAIN, true);
+                break;
+
+            case CONTACTS_SECTION:
+                fragment = new ContactsFragment();
                 args.putBoolean(ARG_IS_MAIN, true);
                 break;
 
