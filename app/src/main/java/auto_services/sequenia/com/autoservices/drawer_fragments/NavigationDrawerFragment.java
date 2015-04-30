@@ -1,4 +1,4 @@
-package auto_services.sequenia.com.autoservices.fragments;
+package auto_services.sequenia.com.autoservices.drawer_fragments;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;

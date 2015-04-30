@@ -1,6 +1,5 @@
 package auto_services.sequenia.com.autoservices.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import auto_services.sequenia.com.autoservices.R;
 import auto_services.sequenia.com.autoservices.activities.MainActivity;
+import auto_services.sequenia.com.autoservices.drawer_fragments.PlaceholderDialogFragment;
 import auto_services.sequenia.com.autoservices.drawer_fragments.PlaceholderFragment;
 import auto_services.sequenia.com.autoservices.widgets.ModernhBoldButton;
 import auto_services.sequenia.com.autoservices.widgets.ProportionalImageView;
@@ -35,8 +35,6 @@ public class CarWashCard extends PlaceholderDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_car_wash_card, container, false);
-
-        System.out.println(carWashId);
 
         Picasso
                 .with(getActivity())

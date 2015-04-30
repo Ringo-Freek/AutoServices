@@ -18,7 +18,7 @@ import java.util.Stack;
 
 import auto_services.sequenia.com.autoservices.drawer_fragments.PlaceholderFragment;
 import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
-import auto_services.sequenia.com.autoservices.fragments.NavigationDrawerFragment;
+import auto_services.sequenia.com.autoservices.drawer_fragments.NavigationDrawerFragment;
 import auto_services.sequenia.com.autoservices.R;
 
 
