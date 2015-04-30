@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
-import auto_services.sequenia.com.autoservices.drawer_fragment.PlaceholderFragment;
+import auto_services.sequenia.com.autoservices.drawer_fragments.PlaceholderFragment;
 import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
 import auto_services.sequenia.com.autoservices.fragments.NavigationDrawerFragment;
 import auto_services.sequenia.com.autoservices.R;
@@ -48,6 +48,7 @@ public class MainActivity extends ActionBarActivity
         titles = new ArrayList(Arrays.asList(getResources().getStringArray(R.array.title)));
         titles.addAll(new ArrayList(Arrays.asList(getResources().getStringArray(R.array.sub_menu_title))));
         titles.add(getString(R.string.login_admin));
+        titles.add(getString(R.string.filters));
 
         // Инициализация стека фрагментов
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -82,6 +83,10 @@ public class MainActivity extends ActionBarActivity
             mTitle = titles.get(number);
         } else {
             mTitle = getString(R.string.app_name);
+        }
+
+        if(number >= PlaceholderFragment.MENU_ITEMS_COUNT) {
+            ((TextView)findViewById(R.id.toolbar_title)).setText(mTitle);
         }
     }
 
@@ -161,6 +166,15 @@ public class MainActivity extends ActionBarActivity
 
         if(id == android.R.id.home && fragmentStack.size() > 1) {
             onBackPressed();
+            return true;
+        }
+
+        if(id == R.id.show_filter) {
+            if(fragmentStack.lastElement().getNumber() == PlaceholderFragment.FILTERS_SECTION) {
+                onBackPressed();
+            } else {
+                addSubFragment(PlaceholderFragment.newInstance(PlaceholderFragment.FILTERS_SECTION));
+            }
             return true;
         }
 

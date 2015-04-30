@@ -3,7 +3,7 @@ package auto_services.sequenia.com.autoservices.fragments;
 import android.view.Menu;
 
 import auto_services.sequenia.com.autoservices.activities.MainActivity;
-import auto_services.sequenia.com.autoservices.drawer_fragment.PlaceholderFragment;
+import auto_services.sequenia.com.autoservices.drawer_fragments.PlaceholderFragment;
 
 /**
  * Диалог. Отличия от обычного фрагмента:

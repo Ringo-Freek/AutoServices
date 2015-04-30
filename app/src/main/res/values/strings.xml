@@ -14,6 +14,7 @@
     <string name="action_show_list">Лист</string>
     <string name="action_show_map">Карта</string>
     <string name="login_admin">Вход для администратора</string>
+    <string name="filters">Фильтры</string>
 
     <!--Названия кнопок-->
     <string name="reserve">ЗАПИСАТЬСЯ НА МОЙКУ</string>

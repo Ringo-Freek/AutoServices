@@ -1,6 +1,5 @@
 package auto_services.sequenia.com.autoservices.fragments;
 
-import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,7 +27,7 @@ import auto_services.sequenia.com.autoservices.Global;
 import auto_services.sequenia.com.autoservices.R;
 import auto_services.sequenia.com.autoservices.activities.MainActivity;
 import auto_services.sequenia.com.autoservices.async_tasks.NearCarWashesTask;
-import auto_services.sequenia.com.autoservices.drawer_fragment.PlaceholderFragment;
+import auto_services.sequenia.com.autoservices.drawer_fragments.PlaceholderFragment;
 import auto_services.sequenia.com.autoservices.objects.CarWash;
 import auto_services.sequenia.com.autoservices.responses.JsonResponse;
 
