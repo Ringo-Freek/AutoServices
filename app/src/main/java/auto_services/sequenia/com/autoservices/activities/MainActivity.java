@@ -50,6 +50,7 @@ public class MainActivity extends ActionBarActivity
         titles.add(getString(R.string.login_admin));
         titles.add(getString(R.string.filters));
         titles.add(getString(R.string.reservation));
+        titles.add(getString(R.string.reviews));
 
         // Инициализация стека фрагментов
         FragmentManager fragmentManager = getSupportFragmentManager();

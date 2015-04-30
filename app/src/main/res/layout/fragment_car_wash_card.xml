@@ -125,6 +125,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/reviews_button"
                         android:layout_marginLeft="@dimen/material_padding"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"

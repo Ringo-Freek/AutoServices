@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -61,11 +62,22 @@ public class CarWashCard extends PlaceholderDialogFragment {
             }
         });
 
+        ((LinearLayout) rootView.findViewById(R.id.reviews_button)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showReviewsForm();
+            }
+        });
+
         return rootView;
     }
 
     private void showReservationForm() {
         ((MainActivity) getActivity()).addSubFragment(PlaceholderFragment.newInstance(PlaceholderDialogFragment.RESERVATION_SECTION));
+    }
+
+    private void showReviewsForm() {
+        ((MainActivity) getActivity()).addSubFragment(PlaceholderFragment.newInstance(PlaceholderDialogFragment.REVIEWS_SECTION));
     }
 
     public void setInfo(int carWashId) {

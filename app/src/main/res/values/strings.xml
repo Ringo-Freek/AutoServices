@@ -16,6 +16,7 @@
     <string name="login_admin">Вход для администратора</string>
     <string name="filters">Фильтры</string>
     <string name="reservation">Запись на мойку</string>
+    <string name="reviews">Отзывы</string>
 
     <!--Названия кнопок-->
     <string name="reserve">ЗАПИСАТЬСЯ НА МОЙКУ</string>
