@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import auto_services.sequenia.com.autoservices.activities.MainActivity;
 import auto_services.sequenia.com.autoservices.R;
+import auto_services.sequenia.com.autoservices.fragments.CarWashCard;
 import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
 
 /**
@@ -16,6 +17,7 @@ import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
  */
 public class PlaceholderFragment extends Fragment {
     public static final int MAP_SECTION = -1;
+    public static final int DIALOG_SECTION = -2;
 
     private int number;                 // Номер секции меню.
     private boolean isMain = true;      // Главный ли фрагмент. Если главный, то все фрагменты в стеке удалятся.
@@ -41,6 +43,11 @@ public class PlaceholderFragment extends Fragment {
             case MAP_SECTION:
                 fragment = new MainMapFragment();
                 args.putBoolean(ARG_IS_MAIN, true);
+                break;
+
+            case DIALOG_SECTION:
+                fragment = new CarWashCard();
+                args.putBoolean(ARG_IS_MAIN, false);
                 break;
 
             default:

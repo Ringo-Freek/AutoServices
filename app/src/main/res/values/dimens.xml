@@ -7,13 +7,15 @@
          https://developer.android.com/design/patterns/navigation-drawer.html -->
     <dimen name="navigation_drawer_width">240dp</dimen>
 
+    <dimen name="toolbar_title_size">17dp</dimen>
+
     <!--Размеры различных элементов дровера-->
     <dimen name="avatar_size">72dp</dimen>
     <dimen name="drawer_header_height">112dp</dimen>
     <dimen name="drawer_menu_icon_size">24dp</dimen>
     <dimen name="drawer_menu_title_size">14sp</dimen>
     <dimen name="drawer_menu_item_height">56dp</dimen>
-    <dimen name="user_name_font_size">16sp</dimen>
+    <dimen name="user_name_font_size">17sp</dimen>
     <dimen name="user_data_padding_row">4dp</dimen>
     <dimen name="drawer_min_height">640dp</dimen>
 
@@ -23,4 +25,8 @@
     <!--Размеры для кнопок-->
     <dimen name="btn_height">48dp</dimen>
     <dimen name="btn_padding">12dp</dimen>
+    <dimen name="btn_text_size">16sp</dimen>
+
+    <!--Карточка просмотра-->
+    <dimen name="card_header">48dp</dimen>
 </resources>

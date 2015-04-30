@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,8 +84,8 @@ public class MainActivity extends ActionBarActivity
      */
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        actionBar.setDisplayShowTitleEnabled(false);
+        ((TextView)findViewById(R.id.toolbar_title)).setText(mTitle);
     }
 
     private void updateBackItem() {
@@ -127,7 +128,7 @@ public class MainActivity extends ActionBarActivity
      *
      * @param fragment
      */
-    private void addSubFragment(PlaceholderFragment fragment) {
+    public void addSubFragment(PlaceholderFragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 

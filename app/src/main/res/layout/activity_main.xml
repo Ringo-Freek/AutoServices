@@ -20,9 +20,14 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+                    android:id="@+id/toolbar_title"
+                    android:textSize="@dimen/toolbar_title_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
             </android.support.v7.widget.Toolbar>
-
-
         </LinearLayout>
 
         <!-- Фрагмент, в который помещаются элементы меню -->
