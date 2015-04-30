@@ -20,7 +20,7 @@ import auto_services.sequenia.com.autoservices.widgets.ProportionalImageView;
  * Created by Ringo on 29.04.2015.
  * Фрагмент карточки просмотра мойки
  */
-public class CarWashCard extends PlaceholderFragment {
+public class CarWashCard extends PlaceholderDialogFragment {
 
     public CarWashCard(){}
 
@@ -46,10 +46,5 @@ public class CarWashCard extends PlaceholderFragment {
         ((TextView)rootView.findViewById(R.id.review)).setText("45 отзывов");
         ((TextView)rootView.findViewById(R.id.count_stars)).setText("4");
         return rootView;
-    }
-
-    @Override
-    public void restoreMenu(Menu menu) {
-        ((MainActivity) getActivity()).restorePreviousFragmentMenu(this);
     }
 }

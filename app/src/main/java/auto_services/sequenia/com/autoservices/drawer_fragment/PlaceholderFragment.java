@@ -22,6 +22,7 @@ public class PlaceholderFragment extends Fragment {
 
     private int number;                 // Номер секции меню.
     private boolean isMain = true;      // Главный ли фрагмент. Если главный, то все фрагменты в стеке удалятся.
+    private boolean shadowVisible = false; // Видна ли тень под фрагментом.
 
     /**
      * The fragment argument representing the section number for this
@@ -68,7 +69,11 @@ public class PlaceholderFragment extends Fragment {
     }
 
     /**
-     * Настройка иконок тулбара в зависимости от открытого фрагмента
+     * Настройка иконок тулбара в зависимости от открытого фрагмента.
+     *
+     * Стандартно все скрыто.
+     *
+     * Нужно перегрузить, чтобы настроить свой вид в дочерних фрагментах.
      */
     public void restoreMenu(Menu menu) {
         MainActivity activity = (MainActivity) getActivity();
@@ -108,5 +113,13 @@ public class PlaceholderFragment extends Fragment {
 
     public boolean isMain() {
         return isMain;
+    }
+
+    public boolean isShadowVisible() {
+        return shadowVisible;
+    }
+
+    public void setShadowVisible(boolean flag) {
+        this.shadowVisible = flag;
     }
 }

@@ -14,4 +14,6 @@
     <color name="amber_700">#ffa000</color>
     <color name="teal_800">#00695c</color>
     <color name="teal_300">#4db6ac</color>
+
+    <color name="black54">#89000000</color>
 </resources>

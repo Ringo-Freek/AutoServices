@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class MainActivity extends ActionBarActivity
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
+    private View dialogShadow;
 
     // Стек фрагментов. Используется для навигации между фрагментами.
     private Stack<PlaceholderFragment> fragmentStack;
@@ -66,6 +68,8 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        dialogShadow = findViewById(R.id.dialog_shadow);
     }
 
     @Override
@@ -92,6 +96,14 @@ public class MainActivity extends ActionBarActivity
 
     private void updateBackItem() {
         mNavigationDrawerFragment.setDrawerIndicatorEnabled(needsShowBackItem());
+    }
+
+    private void updateShadow() {
+        if(fragmentStack.lastElement().isShadowVisible()) {
+            showDialogShadow();
+        } else {
+            hideDialogShadow();
+        }
     }
 
     private boolean needsShowBackItem() {
@@ -181,6 +193,7 @@ public class MainActivity extends ActionBarActivity
             restoreActionBar();
             restoreMenu();
             updateBackItem();
+            updateShadow();
         } else {
             super.onBackPressed();
         }
@@ -216,6 +229,7 @@ public class MainActivity extends ActionBarActivity
         ft.commit();
 
         updateBackItem();
+        updateShadow();
     }
 
     public void showMenuItem(int itemId) {
@@ -233,5 +247,13 @@ public class MainActivity extends ActionBarActivity
                 item.setVisible(isVisible);
             }
         }
+    }
+
+    public void showDialogShadow() {
+        dialogShadow.setVisibility(View.VISIBLE);
+    }
+
+    public void hideDialogShadow() {
+        dialogShadow.setVisibility(View.GONE);
     }
 }

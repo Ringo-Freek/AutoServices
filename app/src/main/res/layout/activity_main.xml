@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -28,15 +28,25 @@
                     android:layout_height="wrap_content" />
 
             </android.support.v7.widget.Toolbar>
+
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dialog_shadow"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:background="@color/black54"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <!-- Фрагмент, в который помещаются элементы меню -->
         <FrameLayout
             android:id="@+id/content"
+            android:layout_below="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <fragment android:id="@+id/navigation_drawer"
         android:layout_width="@dimen/navigation_drawer_width"
