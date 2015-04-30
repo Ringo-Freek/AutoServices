@@ -17,6 +17,7 @@ import auto_services.sequenia.com.autoservices.fragments.FiltersFragment;
 import auto_services.sequenia.com.autoservices.fragments.HistoryFragment;
 import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
 import auto_services.sequenia.com.autoservices.fragments.MyCarFragment;
+import auto_services.sequenia.com.autoservices.fragments.ReservationFragment;
 import auto_services.sequenia.com.autoservices.fragments.ShareFragment;
 
 /**
@@ -35,6 +36,7 @@ public class PlaceholderFragment extends Fragment {
     // Количество элементов в меню. С этой позиции начинаются айдишники остальных фрагментов.
     public static final int MENU_ITEMS_COUNT = 7;
     public static final int FILTERS_SECTION = MENU_ITEMS_COUNT + 0;
+    public static final int RESERVATION_SECTION = MENU_ITEMS_COUNT + 1;
 
     private int number;                    // Номер секции меню.
     private boolean isMain = true;         // Главный ли фрагмент. Если главный, то все фрагменты в стеке удалятся.
@@ -45,7 +47,6 @@ public class PlaceholderFragment extends Fragment {
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private static final String ARG_IS_MAIN = "is_main";
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -61,47 +62,42 @@ public class PlaceholderFragment extends Fragment {
             case MAP_SECTION:
                 fragment = new MainMapFragment();
                 fragment.setHasOptionsMenu(true);
-                args.putBoolean(ARG_IS_MAIN, true);
                 break;
 
             case DIALOG_SECTION:
                 fragment = new CarWashCard();
-                args.putBoolean(ARG_IS_MAIN, false);
                 break;
 
             case FILTERS_SECTION:
                 fragment = new FiltersFragment();
-                args.putBoolean(ARG_IS_MAIN, true);
                 break;
 
             case MY_CAR_SECTION:
                 fragment = new MyCarFragment();
-                args.putBoolean(ARG_IS_MAIN, true);
                 break;
 
             case HISTORY_SECTION:
                 fragment = new HistoryFragment();
-                args.putBoolean(ARG_IS_MAIN, true);
                 break;
 
             case SHARE_SECTION:
                 fragment = new ShareFragment();
-                args.putBoolean(ARG_IS_MAIN, true);
                 break;
 
             case ABOUT_SECTION:
                 fragment = new AboutFragment();
-                args.putBoolean(ARG_IS_MAIN, true);
                 break;
 
             case CONTACTS_SECTION:
                 fragment = new ContactsFragment();
-                args.putBoolean(ARG_IS_MAIN, true);
+                break;
+
+            case RESERVATION_SECTION:
+                fragment = new ReservationFragment();
                 break;
 
             default:
                 fragment = new PlaceholderFragment();
-                args.putBoolean(ARG_IS_MAIN, true);
                 break;
         }
 
@@ -111,7 +107,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     public PlaceholderFragment() {
-
+        this.isMain = true;
     }
 
     /**
@@ -148,7 +144,6 @@ public class PlaceholderFragment extends Fragment {
         Bundle args = getArguments();
 
         number = args.getInt(ARG_SECTION_NUMBER);
-        isMain = args.getBoolean(ARG_IS_MAIN);
 
         ((MainActivity) activity).onSectionAttached(number);
     }
@@ -167,5 +162,9 @@ public class PlaceholderFragment extends Fragment {
 
     public void setShadowVisible(boolean flag) {
         this.shadowVisible = flag;
+    }
+
+    public void setIsMain(boolean isMain) {
+        this.isMain = isMain;
     }
 }

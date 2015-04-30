@@ -49,6 +49,7 @@ public class MainActivity extends ActionBarActivity
         titles.addAll(new ArrayList(Arrays.asList(getResources().getStringArray(R.array.sub_menu_title))));
         titles.add(getString(R.string.login_admin));
         titles.add(getString(R.string.filters));
+        titles.add(getString(R.string.reservation));
 
         // Инициализация стека фрагментов
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -87,6 +88,7 @@ public class MainActivity extends ActionBarActivity
 
         if(number >= PlaceholderFragment.MENU_ITEMS_COUNT) {
             ((TextView)findViewById(R.id.toolbar_title)).setText(mTitle);
+            fragmentStack.lastElement().restoreMenu(menu);
         }
     }
 

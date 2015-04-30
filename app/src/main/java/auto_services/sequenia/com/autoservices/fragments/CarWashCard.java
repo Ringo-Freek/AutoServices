@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import auto_services.sequenia.com.autoservices.R;
+import auto_services.sequenia.com.autoservices.activities.MainActivity;
+import auto_services.sequenia.com.autoservices.drawer_fragments.PlaceholderFragment;
 import auto_services.sequenia.com.autoservices.widgets.ModernhBoldButton;
 import auto_services.sequenia.com.autoservices.widgets.ProportionalImageView;
 
@@ -18,7 +21,9 @@ import auto_services.sequenia.com.autoservices.widgets.ProportionalImageView;
  */
 public class CarWashCard extends PlaceholderDialogFragment {
 
-    public CarWashCard(){}
+    public CarWashCard() {
+        setIsMain(false);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +46,18 @@ public class CarWashCard extends PlaceholderDialogFragment {
 
         ((TextView)rootView.findViewById(R.id.review)).setText("45 отзывов");
         ((TextView)rootView.findViewById(R.id.count_stars)).setText("4");
+
+        ((Button) rootView.findViewById(R.id.reservation_button)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showReservationForm();
+            }
+        });
+
         return rootView;
+    }
+
+    private void showReservationForm() {
+        ((MainActivity) getActivity()).addSubFragment(PlaceholderFragment.newInstance(PlaceholderDialogFragment.RESERVATION_SECTION));
     }
 }

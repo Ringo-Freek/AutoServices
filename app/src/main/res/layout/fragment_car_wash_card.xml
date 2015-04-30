@@ -164,6 +164,7 @@
         android:layout_height="wrap_content">
 
         <auto_services.sequenia.com.autoservices.widgets.ModernhBoldButton
+            android:id="@+id/reservation_button"
             style="@style/Btn"
             android:text="@string/reserve"
             android:background="#ff9f00"
