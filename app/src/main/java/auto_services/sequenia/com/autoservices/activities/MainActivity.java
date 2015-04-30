@@ -30,6 +30,8 @@ public class MainActivity extends ActionBarActivity
     // Стек фрагментов. Используется для навигации между фрагментами.
     private Stack<PlaceholderFragment> fragmentStack;
 
+    private Menu menu; // Меню с элементами управления на тулбаре.
+
     ArrayList<String> titles;
 
     @Override
@@ -98,12 +100,47 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+        //if (!mNavigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar();
+            this.menu = menu;
+            restoreMenu();
+
             return true;
+        //}
+        //return super.onCreateOptionsMenu(menu);
+    }
+
+
+    /**
+     * Задает вид для меню айтемов в тулбаре для текущего фрагмента
+     */
+    public void restoreMenu() {
+        PlaceholderFragment fragment = fragmentStack.lastElement();
+        if(fragment != null) {
+            fragment.restoreMenu(menu);
         }
-        return super.onCreateOptionsMenu(menu);
+    }
+
+    /**
+     * Задает вид для меню айтемов в тулбаре для предыдущего фрагмента.
+     * Нужен для диалогов.
+     *
+     * Если в диалоге открывается еще один диалог, то этот метод аккуратно спустится до обычного фрагмента
+     * и покажет его меню.
+     *
+     * @param fragment
+     */
+    public void restorePreviousFragmentMenu(PlaceholderFragment fragment) {
+        if(fragment != null) {
+            int index = fragmentStack.search(fragment);
+            if(index > 0) {
+                PlaceholderFragment previousFragment = fragmentStack.get(index - 1);
+                if(previousFragment != null) {
+                    previousFragment.restoreMenu(menu);
+                }
+            }
+        }
     }
 
     @Override
@@ -120,38 +157,6 @@ public class MainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Добавляет фрагмент в стек таким образом,
-     * что можно вернуться к главному фрагменту, нажав кнопку назад.
-     *
-     * @param fragment
-     */
-    public void addSubFragment(PlaceholderFragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-
-        ft.add(R.id.content, fragment); // Добавляем фрагмент на экран
-
-        // Если фрагмент является элементом меню, то очищаем стек,
-        // перед там как показать его
-        if(fragment.isMain()) {
-            while(fragmentStack.size() > 1) {
-                fragmentStack.lastElement().onPause();  // Останавливаем верхний фрагмент
-                ft.remove(fragmentStack.pop());         // Удаляем его с экрана и из стека
-            }
-        // Иначе, просто ставим верхний фрагмент на паузу
-        } else {
-            fragmentStack.lastElement().onPause(); // Останавливаем предыдущий фрагмент
-            ft.hide(fragmentStack.lastElement());  // Скрываем предыдущий фрагмент с экрана
-        }
-
-        fragmentStack.push(fragment);          // Добавляем новый фрагмент в стек
-
-        ft.commit();
-
-        updateBackItem();
     }
 
     /**
@@ -174,9 +179,59 @@ public class MainActivity extends ActionBarActivity
             PlaceholderFragment currentFragment = fragmentStack.lastElement();
             onSectionAttached(currentFragment.getNumber());
             restoreActionBar();
+            restoreMenu();
             updateBackItem();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    /**
+     * Добавляет фрагмент в стек таким образом,
+     * что можно вернуться к главному фрагменту, нажав кнопку назад.
+     *
+     * @param fragment
+     */
+    public void addSubFragment(PlaceholderFragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+
+        ft.add(R.id.content, fragment); // Добавляем фрагмент на экран
+
+        // Если фрагмент является элементом меню, то очищаем стек,
+        // перед там как показать его
+        if(fragment.isMain()) {
+            while(fragmentStack.size() > 1) {
+                fragmentStack.lastElement().onPause();  // Останавливаем верхний фрагмент
+                ft.remove(fragmentStack.pop());         // Удаляем его с экрана и из стека
+            }
+            // Иначе, просто ставим верхний фрагмент на паузу
+        } else {
+            fragmentStack.lastElement().onPause(); // Останавливаем предыдущий фрагмент
+            ft.hide(fragmentStack.lastElement());  // Скрываем предыдущий фрагмент с экрана
+        }
+
+        fragmentStack.push(fragment);          // Добавляем новый фрагмент в стек
+
+        ft.commit();
+
+        updateBackItem();
+    }
+
+    public void showMenuItem(int itemId) {
+        setMenuItemVisibility(itemId, true);
+    }
+
+    public void hideMenuItem(int itemId) {
+        setMenuItemVisibility(itemId, false);
+    }
+
+    public void setMenuItemVisibility(int itemId, boolean isVisible) {
+        if(menu != null) {
+            MenuItem item = menu.findItem(itemId);
+            if(item != null) {
+                item.setVisible(isVisible);
+            }
         }
     }
 }

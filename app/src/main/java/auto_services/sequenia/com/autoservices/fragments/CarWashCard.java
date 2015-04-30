@@ -1,7 +1,9 @@
 package auto_services.sequenia.com.autoservices.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import auto_services.sequenia.com.autoservices.R;
+import auto_services.sequenia.com.autoservices.activities.MainActivity;
 import auto_services.sequenia.com.autoservices.drawer_fragment.PlaceholderFragment;
 import auto_services.sequenia.com.autoservices.widgets.ModernhBoldButton;
 import auto_services.sequenia.com.autoservices.widgets.ProportionalImageView;
@@ -43,5 +46,10 @@ public class CarWashCard extends PlaceholderFragment {
         ((TextView)rootView.findViewById(R.id.review)).setText("45 отзывов");
         ((TextView)rootView.findViewById(R.id.count_stars)).setText("4");
         return rootView;
+    }
+
+    @Override
+    public void restoreMenu(Menu menu) {
+        ((MainActivity) getActivity()).restorePreviousFragmentMenu(this);
     }
 }

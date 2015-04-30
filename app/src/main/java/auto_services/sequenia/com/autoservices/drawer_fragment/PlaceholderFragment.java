@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -42,6 +43,7 @@ public class PlaceholderFragment extends Fragment {
         switch (sectionNumber) {
             case MAP_SECTION:
                 fragment = new MainMapFragment();
+                fragment.setHasOptionsMenu(true);
                 args.putBoolean(ARG_IS_MAIN, true);
                 break;
 
@@ -63,6 +65,17 @@ public class PlaceholderFragment extends Fragment {
 
     public PlaceholderFragment() {
 
+    }
+
+    /**
+     * Настройка иконок тулбара в зависимости от открытого фрагмента
+     */
+    public void restoreMenu(Menu menu) {
+        MainActivity activity = (MainActivity) getActivity();
+
+        activity.hideMenuItem(R.id.show_list);
+        activity.hideMenuItem(R.id.show_map);
+        activity.hideMenuItem(R.id.show_filter);
     }
 
     @Override

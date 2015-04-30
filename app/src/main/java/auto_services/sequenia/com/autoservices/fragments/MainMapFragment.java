@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,11 @@ import auto_services.sequenia.com.autoservices.responses.JsonResponse;
 public class MainMapFragment extends PlaceholderFragment
         implements OnMapReadyCallback {
 
+    // Отвечают за то, какой вид моек сейчас открыт (Лист или карта)
+    private static final int CAR_WASH_MAP = 0;
+    private static final int CAR_WASH_LIST = 1;
+    private int current = CAR_WASH_MAP;
+
     private LinearLayout carWashList;
     private LinearLayout carWashMap;
 
@@ -48,6 +54,8 @@ public class MainMapFragment extends PlaceholderFragment
 
         carWashList = (LinearLayout) view.findViewById(R.id.car_wash_list);
         carWashMap = (LinearLayout) view.findViewById(R.id.car_wash_map);
+
+        showMap();
 
         return view;
     }
@@ -115,7 +123,7 @@ public class MainMapFragment extends PlaceholderFragment
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                ((MainActivity)getActivity()).addSubFragment(PlaceholderFragment.newInstance(-2));
+                ((MainActivity)getActivity()).addSubFragment(PlaceholderFragment.newInstance(DIALOG_SECTION));
                 return true;
             }
         });
@@ -136,17 +144,61 @@ public class MainMapFragment extends PlaceholderFragment
         int id = item.getItemId();
 
         if(id == R.id.show_list) {
-            carWashList.setVisibility(View.VISIBLE);
-            carWashMap.setVisibility(View.GONE);
+            showList();
+            showListItems();
             return true;
         }
 
         if(id == R.id.show_map) {
-            carWashList.setVisibility(View.GONE);
-            carWashMap.setVisibility(View.VISIBLE);
+            showMap();
+            showMapItems();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showMap() {
+        carWashList.setVisibility(View.GONE);
+        carWashMap.setVisibility(View.VISIBLE);
+
+        current = CAR_WASH_MAP;
+    }
+
+    private void showList() {
+        carWashList.setVisibility(View.VISIBLE);
+        carWashMap.setVisibility(View.GONE);
+
+        current = CAR_WASH_LIST;
+    }
+
+    private void showListItems() {
+        MainActivity activity = (MainActivity) getActivity();
+        activity.hideMenuItem(R.id.show_list);
+        activity.showMenuItem(R.id.show_map);
+    }
+
+    private void showMapItems() {
+        MainActivity activity = (MainActivity) getActivity();
+        activity.hideMenuItem(R.id.show_map);
+        activity.showMenuItem(R.id.show_list);
+    }
+
+    @Override
+    public void restoreMenu(Menu menu) {
+        super.restoreMenu(menu);
+
+        MainActivity activity = (MainActivity) getActivity();
+        activity.showMenuItem(R.id.show_filter);
+
+        switch (current) {
+            case CAR_WASH_MAP:
+                showMapItems();
+                break;
+
+            case CAR_WASH_LIST:
+                showMapItems();
+                break;
+        }
     }
 }
