@@ -130,6 +130,15 @@ public abstract class DetailFragment extends PlaceholderFragment {
     }
 
     /**
+     * Этот метод нужно вызвать после получения реадктируемой записи.
+     * 
+     * @param item
+     */
+    public void setItem(Object item) {
+        this.item = item;
+    }
+
+    /**
      * В этом методе нужно создать весь контент
      *
      * @param inflater
@@ -163,8 +172,4 @@ public abstract class DetailFragment extends PlaceholderFragment {
      * @return
      */
     public abstract Object getItem(int itemId);
-
-    public void setItem(Object item) {
-        this.item = item;
-    }
 }
