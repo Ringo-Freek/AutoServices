@@ -14,16 +14,36 @@ import auto_services.sequenia.com.autoservices.activities.MainActivity;
  * Фрагмент является формой редактирования/создания элементов.
  *
  * Если задан item_id, то действует как редактирование записи.
- * Если item_id не задан, то действует как создание записи.
+ * Если item_id не задан (Равен NO_ITEM), то действует как создание записи.
  *
  * Created by chybakut2004 on 30.04.15.
  */
 public abstract class DetailFragment extends PlaceholderFragment {
 
+    public static final int NO_ITEM = -1; // itemId при отсутсвии записи (Ее создании)
+
     private static final String ARG_ITEM_ID = "ItemId";
     private int itemId;
     private Object item;
 
+    /**
+     * Тут создается контент и привязываются обработчики для кнопок
+     * ПОДТВЕРДИТЬ и УДАЛИТЬ.
+     * Так же здесь происходит загрузка редактируемых данных с сервера или из БД,
+     * если itemId задан.
+     *
+     * Обработчики вызывают методы updateItem и deleteItem при редактировании записи и
+     * createItem и cancel при создании записи.
+     * Эти методы должны быть реализованы в дочерних классах.
+     *
+     * Создание записи имеет место, когда itemId = NO_ITEM.
+     * Редактирование записи имеет место, когда itemId >= 0.
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
@@ -68,6 +88,11 @@ public abstract class DetailFragment extends PlaceholderFragment {
         return view;
     }
 
+    /**
+     * Задает id редактируемой записи.
+     *
+     * @param itemId
+     */
     public void setId(int itemId) {
         Bundle args = getArguments();
         args.putInt(ARG_ITEM_ID, itemId);

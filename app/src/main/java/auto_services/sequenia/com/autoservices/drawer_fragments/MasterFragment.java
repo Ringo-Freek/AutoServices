@@ -31,6 +31,19 @@ public abstract class MasterFragment extends PlaceholderFragment {
         objects = new ArrayList<Object>();
     }
 
+    /**
+     * Создание контента.
+     * Так же здесь происходит создание адаптера для рисования элементов.
+     *
+     * Адаптер имеет 2 абстрактных метода (createViewHolder и bindViewHolder),
+     * которые должны быть перегружены в дочерних классах
+     * для создания и заполнения элементов списка соответственно.
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_master, container, false);
@@ -72,7 +85,9 @@ public abstract class MasterFragment extends PlaceholderFragment {
     }
 
     /**
-     * Открывает форму редактирования
+     * Открывает форму редактирования.
+     *
+     * Для открытия формы создания подайте DetailFragment.NO_ITEM в itemId.
      *
      * @param itemId
      * @param sectionId
