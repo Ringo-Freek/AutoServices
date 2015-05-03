@@ -26,6 +26,7 @@ import auto_services.sequenia.com.autoservices.objects.Car;
 public class MyCarFragment extends MasterFragment {
 
     private ArrayList<Object> cars;
+    private Car currentCar;
 
     public MyCarFragment(){
         cars = new ArrayList<Object>();
@@ -36,13 +37,17 @@ public class MyCarFragment extends MasterFragment {
         car.setCar_mark_id(0);
         car.setCar_mark_name("Toyota");
         car.setRegistration_number("A 913 BC");
+        car.setCurrent(true);
         cars.add(car);
+
+        currentCar = car;
 
         car = new Car();
         car.setBody_type(Car.SEDAN);
         car.setCar_mark_id(1);
         car.setCar_mark_name("Mazda");
         car.setRegistration_number("D 123 EG");
+        car.setCurrent(false);
         cars.add(car);
 
         addObjects(cars);
@@ -61,9 +66,9 @@ public class MyCarFragment extends MasterFragment {
     }
 
     @Override
-    public void bindViewHolder(RecyclerView.ViewHolder holder, int position, RecyclerView.Adapter adapter) {
-        MyCarViewHolder carViewHolder = (MyCarViewHolder) holder;
-        Car car = (Car) cars.get(position);
+    public void bindViewHolder(RecyclerView.ViewHolder holder, int position, final RecyclerView.Adapter adapter) {
+        final MyCarViewHolder carViewHolder = (MyCarViewHolder) holder;
+        final Car car = (Car) cars.get(position);
 
         carViewHolder.mark.setText(car.getCar_mark_name());
         carViewHolder.registrationNumber.setText(car.getRegistration_number());
@@ -93,7 +98,13 @@ public class MyCarFragment extends MasterFragment {
         carViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(currentCar != null) {
+                    currentCar.setCurrent(false);
+                }
 
+                car.setCurrent(true);
+                currentCar = car;
+                adapter.notifyDataSetChanged();
             }
         });
     }
