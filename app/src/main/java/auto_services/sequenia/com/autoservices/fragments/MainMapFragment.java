@@ -103,10 +103,10 @@ public class MainMapFragment extends PlaceholderFragment
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 if(s != null){
-                    carWash = new Gson().fromJson(s, new TypeToken<JsonResponse<CarWash>>(){}.getType());
-                    if(carWash.getSuccess()){
-                        showCarWashesOnMap(carWash.getData(), map);
-                    }
+                    //carWash = new Gson().fromJson(s, new TypeToken<JsonResponse<CarWash>>(){}.getType());
+                    //if(carWash.getSuccess()){
+                    //    showCarWashesOnMap(carWash.getData(), map);
+                    //}
                 }
             }
         }.execute();

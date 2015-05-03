@@ -29,4 +29,8 @@
 
     <!--Карточка просмотра-->
     <dimen name="card_header">48dp</dimen>
+
+    <!-- Мои авто -->
+    <dimen name="my_car_height">93dp</dimen>
+    <dimen name="my_car_checkbox_width">58dp</dimen>
 </resources>

@@ -48,7 +48,7 @@ public abstract class MasterFragment extends PlaceholderFragment {
 
             @Override
             public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-                self.bindViewHolder(holder, position);
+                self.bindViewHolder(holder, position, this);
             }
         };
 
@@ -68,5 +68,5 @@ public abstract class MasterFragment extends PlaceholderFragment {
     }
 
     public abstract RecyclerView.ViewHolder createViewHolder(LayoutInflater inflater, ViewGroup container);
-    public abstract void bindViewHolder(RecyclerView.ViewHolder holder, int position);
+    public abstract void bindViewHolder(RecyclerView.ViewHolder holder, int position, RecyclerView.Adapter adapter);
 }
