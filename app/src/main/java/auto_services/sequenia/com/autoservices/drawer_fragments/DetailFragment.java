@@ -131,7 +131,7 @@ public abstract class DetailFragment extends PlaceholderFragment {
 
     /**
      * Этот метод нужно вызвать после получения реадктируемой записи.
-     * 
+     *
      * @param item
      */
     public void setItem(Object item) {
