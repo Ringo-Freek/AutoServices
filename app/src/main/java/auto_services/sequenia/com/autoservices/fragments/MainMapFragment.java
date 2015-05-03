@@ -33,6 +33,9 @@ import auto_services.sequenia.com.autoservices.responses.JsonResponse;
 
 /**
  * Created by chybakut2004 on 29.04.15.
+ * Работа с картой (инициализация,
+ * определение координат,
+ * выставление на карте ближайших объектов)
  */
 public class MainMapFragment extends PlaceholderFragment
         implements OnMapReadyCallback {
@@ -45,7 +48,9 @@ public class MainMapFragment extends PlaceholderFragment
     private LinearLayout carWashList;
     private LinearLayout carWashMap;
 
-    JsonResponse<CarWash> carWash;
+    JsonResponse<ArrayList<CarWash>> carWash;
+
+    Location personLocation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -97,13 +102,14 @@ public class MainMapFragment extends PlaceholderFragment
      * @param map - карта
      */
     private void onLocationChange(Location location, final GoogleMap map) {
+        personLocation = location;
         new NearCarWashesTask((float) location.getLatitude(), (float) location.getLongitude(),
                 Global.radius) {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 if(s != null){
-                    carWash = new Gson().fromJson(s, new TypeToken<JsonResponse<CarWash>>(){}.getType());
+                    carWash = new Gson().fromJson(s, new TypeToken<JsonResponse<ArrayList<CarWash>>>(){}.getType());
                     if(carWash.getSuccess()){
                         showCarWashesOnMap(carWash.getData(), map);
                     }
@@ -118,16 +124,18 @@ public class MainMapFragment extends PlaceholderFragment
      * @param carWashes - мойки, которые нужно отобразить на карте
      * @param map - карта, на которой отображать мойки
      */
-    private void showCarWashesOnMap(ArrayList<CarWash> carWashes, GoogleMap map) {
+    private void showCarWashesOnMap(ArrayList<CarWash> carWashes, final GoogleMap map) {
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 CarWashCard fragment = (CarWashCard) PlaceholderFragment.newInstance(DIALOG_SECTION);
-                fragment.setInfo(6);
+                fragment.setInfo(marker.getTitle(), getDistanceBetweenLocationAndCarWash(marker.getPosition().latitude, marker.getPosition().longitude));
                 ((MainActivity)getActivity()).addSubFragment(fragment);
                 return true;
             }
         });
+
+        map.getUiSettings().setZoomControlsEnabled(true);
 
         for(int i = 0; i < carWashes.size(); i++){
             CarWash carWashI = carWashes.get(i);
@@ -137,6 +145,13 @@ public class MainMapFragment extends PlaceholderFragment
                     .anchor(0.0f, 1.0f)
                     .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
         }
+    }
+
+    public float getDistanceBetweenLocationAndCarWash(double carWashLatitude, double carWashLongitude){
+        float[] results = new float[1];
+        Location.distanceBetween(carWashLatitude, carWashLongitude,
+                personLocation.getLatitude(), personLocation.getLongitude(), results);
+        return results[0];
     }
 
     @Override

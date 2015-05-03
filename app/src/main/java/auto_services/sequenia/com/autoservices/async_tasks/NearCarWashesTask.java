@@ -4,6 +4,7 @@ import auto_services.sequenia.com.autoservices.Global;
 
 /**
  * Created by chybakut2004 on 29.04.15.
+ * Запрос на сервер - возвращает все мойки вблизи
  */
 public abstract class NearCarWashesTask extends AsyncTaskGet {
 
@@ -13,7 +14,9 @@ public abstract class NearCarWashesTask extends AsyncTaskGet {
                 + "&longitude="
                 + longitude
                 + "&radius="
-                + radius);
+                + radius
+                + "&auth_token="
+                + Global.testToken);
     }
 
     @Override

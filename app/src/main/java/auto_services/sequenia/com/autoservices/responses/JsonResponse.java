@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class JsonResponse<T> {
     private Boolean success;
     private String info;
-    private ArrayList<T> data;
+    private T data;
 
     public Boolean getSuccess() {
         return success;
@@ -19,7 +19,7 @@ public class JsonResponse<T> {
         return info;
     }
 
-    public ArrayList<T> getData() {
+    public T getData() {
         return data;
     }
 }
