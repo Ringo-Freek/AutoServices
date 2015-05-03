@@ -6,6 +6,7 @@
     android:background="@color/color_white">
 
     <LinearLayout
+        android:id="@+id/edit_car_button"
         android:layout_width="@dimen/my_car_height"
         android:layout_height="@dimen/my_car_height"
         android:gravity="center">

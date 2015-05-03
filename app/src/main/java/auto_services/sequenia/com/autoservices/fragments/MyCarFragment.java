@@ -61,8 +61,9 @@ public class MyCarFragment extends MasterFragment {
         TextView registrationNumber = (TextView) view.findViewById(R.id.car_registration_number);
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox);
         ImageView carType = (ImageView) view.findViewById(R.id.car_type);
+        View carEditButton = view.findViewById(R.id.edit_car_button);
 
-        return new MyCarViewHolder(view, mark, registrationNumber, checkBox, carType);
+        return new MyCarViewHolder(view, mark, registrationNumber, checkBox, carType, carEditButton);
     }
 
     @Override
@@ -72,6 +73,13 @@ public class MyCarFragment extends MasterFragment {
 
         carViewHolder.mark.setText(car.getCar_mark_name());
         carViewHolder.registrationNumber.setText(car.getRegistration_number());
+        carViewHolder.carEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editCar(car.getId());
+            }
+        });
+
         int bodyTypeResId = R.drawable.ic_access_time_grey600_24dp;
 
         switch (car.getBody_type()) {
@@ -109,19 +117,25 @@ public class MyCarFragment extends MasterFragment {
         });
     }
 
+    private void editCar(int carId) {
+        showDetailFragment(carId, PlaceholderFragment.MY_CAR_EDIT_SECTION);
+    }
+
     public class MyCarViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mark;
         public TextView registrationNumber;
         public CheckBox checkBox;
         public ImageView carType;
+        public View carEditButton;
 
-        public MyCarViewHolder(View itemView, TextView mark, TextView registrationNumber, CheckBox checkBox, ImageView carType) {
+        public MyCarViewHolder(View itemView, TextView mark, TextView registrationNumber, CheckBox checkBox, ImageView carType, View carEditButton) {
             super(itemView);
             this.mark = mark;
             this.registrationNumber = registrationNumber;
             this.checkBox = checkBox;
             this.carType = carType;
+            this.carEditButton = carEditButton;
         }
     }
 }

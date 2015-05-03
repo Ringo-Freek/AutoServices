@@ -16,6 +16,7 @@ import auto_services.sequenia.com.autoservices.fragments.ContactsFragment;
 import auto_services.sequenia.com.autoservices.fragments.FiltersFragment;
 import auto_services.sequenia.com.autoservices.fragments.HistoryFragment;
 import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
+import auto_services.sequenia.com.autoservices.fragments.MyCarEditFragment;
 import auto_services.sequenia.com.autoservices.fragments.MyCarFragment;
 import auto_services.sequenia.com.autoservices.fragments.ReservationFragment;
 import auto_services.sequenia.com.autoservices.fragments.ReviewsFragment;
@@ -39,6 +40,7 @@ public class PlaceholderFragment extends Fragment {
     public static final int FILTERS_SECTION = MENU_ITEMS_COUNT + 0;
     public static final int RESERVATION_SECTION = MENU_ITEMS_COUNT + 1;
     public static final int REVIEWS_SECTION = MENU_ITEMS_COUNT + 2;
+    public static final int MY_CAR_EDIT_SECTION = MENU_ITEMS_COUNT + 3;
 
     private int number;                    // Номер секции меню.
     private boolean isMain = true;         // Главный ли фрагмент. Если главный, то все фрагменты в стеке удалятся.
@@ -100,6 +102,10 @@ public class PlaceholderFragment extends Fragment {
 
             case REVIEWS_SECTION:
                 fragment = new ReviewsFragment();
+                break;
+
+            case MY_CAR_EDIT_SECTION:
+                fragment = new MyCarEditFragment();
                 break;
 
             default:

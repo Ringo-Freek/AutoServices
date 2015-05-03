@@ -9,11 +9,20 @@ public class Car {
     public static final int SUV = 2;
     public static final int MINIBUS = 3;
 
+    private int id;
     private int body_type;
     private String registration_number;
     private int car_mark_id;
     private String car_mark_name;
     private boolean isCurrent;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public boolean isCurrent() {
         return isCurrent;

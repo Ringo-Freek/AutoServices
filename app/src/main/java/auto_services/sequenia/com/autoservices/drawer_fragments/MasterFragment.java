@@ -10,13 +10,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import auto_services.sequenia.com.autoservices.R;
+import auto_services.sequenia.com.autoservices.activities.MainActivity;
 import auto_services.sequenia.com.autoservices.adapters.MasterAdapter;
 
 /**
  * Используется для отображения списка элементов с возможностью открыть форму создания
  * или редактирования.
- *
- * T - тип вьюхолдера, используемого в адаптере
  *
  * Created by chybakut2004 on 30.04.15.
  */
@@ -60,6 +59,11 @@ public abstract class MasterFragment extends PlaceholderFragment {
         return rootView;
     }
 
+    /**
+     * Добавляет объекты в список, после чего они отображаются на экране
+     *
+     * @param newObjects
+     */
     public void addObjects(ArrayList<Object> newObjects) {
         this.objects.addAll(newObjects);
         if(adapter != null) {
@@ -67,6 +71,33 @@ public abstract class MasterFragment extends PlaceholderFragment {
         }
     }
 
+    /**
+     * Открывает форму редактирования
+     *
+     * @param itemId
+     * @param sectionId
+     */
+    public  void showDetailFragment(int itemId, int sectionId) {
+        DetailFragment fragment = (DetailFragment) PlaceholderFragment.newInstance(sectionId);
+        fragment.setId(itemId);
+        ((MainActivity) getActivity()).addSubFragment(fragment);
+    }
+
+    /**
+     * В этом методе создается вид одного элемента списка
+     *
+     * @param inflater
+     * @param container
+     * @return
+     */
     public abstract RecyclerView.ViewHolder createViewHolder(LayoutInflater inflater, ViewGroup container);
+
+    /**
+     * В этом методе заполняются данные в элементе списка
+     *
+     * @param holder
+     * @param position
+     * @param adapter
+     */
     public abstract void bindViewHolder(RecyclerView.ViewHolder holder, int position, RecyclerView.Adapter adapter);
 }

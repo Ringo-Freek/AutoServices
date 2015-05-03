@@ -17,10 +17,20 @@
     <string name="filters">Фильтры</string>
     <string name="reservation">Запись на мойку</string>
     <string name="reviews">Отзывы</string>
+    <string name="my_car_edit"></string>
 
     <!--Названия кнопок-->
     <string name="reserve">ЗАПИСАТЬСЯ НА МОЙКУ</string>
+    <string name="confirm">ПОДТВЕРДИТЬ</string>
+    <string name="delete">УДАЛИТЬ</string>
 
     <!--Заголовки-->
     <string name="services">Услуги</string>
+
+    <!-- Placeholders -->
+    <string name="your_name">Ваше имя</string>
+    <string name="phone">Номер телефона</string>
+    <string name="car_mark">Марка автомобиля</string>
+    <string name="registration_number">Госномер</string>
+    <string name="body_type">Тип кузова</string>
 </resources>
