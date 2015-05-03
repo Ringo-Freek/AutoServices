@@ -76,7 +76,7 @@ public class MyCarFragment extends MasterFragment {
         carViewHolder.carEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editCar(car.getId());
+                showDetailFragment(car.getId());
             }
         });
 
@@ -117,8 +117,9 @@ public class MyCarFragment extends MasterFragment {
         });
     }
 
-    private void editCar(int carId) {
-        showDetailFragment(carId, PlaceholderFragment.MY_CAR_EDIT_SECTION);
+    @Override
+    public int getDetailFragmentId() {
+        return PlaceholderFragment.MY_CAR_EDIT_SECTION;
     }
 
     public class MyCarViewHolder extends RecyclerView.ViewHolder {

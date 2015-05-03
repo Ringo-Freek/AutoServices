@@ -32,8 +32,8 @@ public abstract class MasterFragment extends PlaceholderFragment {
     }
 
     /**
-     * Создание контента.
-     * Так же здесь происходит создание адаптера для рисования элементов.
+     * Создание контента и адаптера для рисования элементов.
+     * Так же здесь происходит обработка кнопки СОЗДАТЬ.
      *
      * Адаптер имеет 2 абстрактных метода (createViewHolder и bindViewHolder),
      * которые должны быть перегружены в дочерних классах
@@ -69,6 +69,13 @@ public abstract class MasterFragment extends PlaceholderFragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
+        rootView.findViewById(R.id.create_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDetailFragment(DetailFragment.NO_ITEM);
+            }
+        });
+
         return rootView;
     }
 
@@ -90,10 +97,9 @@ public abstract class MasterFragment extends PlaceholderFragment {
      * Для открытия формы создания подайте DetailFragment.NO_ITEM в itemId.
      *
      * @param itemId
-     * @param sectionId
      */
-    public  void showDetailFragment(int itemId, int sectionId) {
-        DetailFragment fragment = (DetailFragment) PlaceholderFragment.newInstance(sectionId);
+    public void showDetailFragment(int itemId) {
+        DetailFragment fragment = (DetailFragment) PlaceholderFragment.newInstance(getDetailFragmentId());
         fragment.setId(itemId);
         ((MainActivity) getActivity()).addSubFragment(fragment);
     }
@@ -115,4 +121,10 @@ public abstract class MasterFragment extends PlaceholderFragment {
      * @param adapter
      */
     public abstract void bindViewHolder(RecyclerView.ViewHolder holder, int position, RecyclerView.Adapter adapter);
+
+    /**
+     * Возвратить в этом методе id фрагмента для создания/редактирования.
+     * @return
+     */
+    public abstract int getDetailFragmentId();
 }
