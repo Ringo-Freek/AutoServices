@@ -60,7 +60,7 @@ public abstract class MasterFragment extends PlaceholderFragment {
         return rootView;
     }
 
-    public void addObjects(ArrayList<Object> newObjects) {
+    public void addObjects(ArrayList newObjects) {
         this.objects.addAll(newObjects);
         if(adapter != null) {
             adapter.notifyDataSetChanged();

@@ -52,13 +52,13 @@
                     />
 
                 <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
-                    style="@style/TextViewGrey"
+                    style="@style/TextViewGreyWithBottomPadding"
                     android:id="@+id/car_wash_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
-                    style="@style/TextViewGrey"
+                    style="@style/TextViewGreyWithBottomPadding"
                     android:id="@+id/car_wash_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -92,7 +92,7 @@
 
                         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
                             android:gravity="center_vertical"
-                            style="@style/TextViewBlackCenter"
+                            style="@style/TextViewBlack"
                             android:layout_marginLeft="@dimen/material_padding"
                             android:id="@+id/schedule"
                             android:layout_width="wrap_content"
@@ -113,15 +113,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                        <LinearLayout
-                            android:orientation="horizontal"
+                        <auto_services.sequenia.com.autoservices.widgets.Rating
                             android:id="@+id/stars"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        </LinearLayout>
+                            android:layout_height="wrap_content"/>
 
                         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
-                            style="@style/TextViewBlackCenter"
+                            style="@style/TextViewBlack"
                             android:layout_marginLeft="@dimen/material_padding"
                             android:id="@+id/count_stars"
                             android:layout_width="wrap_content"
@@ -144,7 +142,7 @@
                             android:layout_height="@dimen/drawer_menu_icon_size" />
 
                         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
-                            style="@style/TextViewBlackCenter"
+                            style="@style/TextViewBlack"
                             android:layout_marginLeft="@dimen/material_padding"
                             android:id="@+id/review"
                             android:layout_width="wrap_content"

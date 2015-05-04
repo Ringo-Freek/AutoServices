@@ -36,4 +36,6 @@
     <!-- Мои авто -->
     <dimen name="my_car_height">93dp</dimen>
     <dimen name="my_car_checkbox_width">58dp</dimen>
+
+    <dimen name="avatar_size_in_review">38dp</dimen>
 </resources>
