@@ -28,6 +28,10 @@
             <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
                 style="@style/TextViewBlack"
                 android:id="@+id/review_text"
+                android:paddingRight="@dimen/material_padding"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:singleLine="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -38,12 +42,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_marginBottom="@dimen/material_padding_between_row_hafl"
                 android:id="@+id/avatar"
                 android:layout_width="@dimen/avatar_size_in_review"
                 android:layout_height="@dimen/avatar_size_in_review" />
 
             <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+                android:layout_marginBottom="@dimen/material_padding_between_row_hafl"
                 style="@style/TextViewBlack.Small.AlignRight"
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"

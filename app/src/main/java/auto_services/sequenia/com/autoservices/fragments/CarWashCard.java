@@ -190,10 +190,10 @@ public class CarWashCard extends PlaceholderDialogFragment {
             ImageView icon = (ImageView)view.findViewById(R.id.feature);
             switch (features[i]) {
                 case "has_cafe" :
-                    icon.setImageResource(R.drawable.ic_network_wifi_grey600_24dp);
+                    icon.setImageResource(R.drawable.ic_local_restaurant_grey600_24dp);
                     break;
                 case "has_tea" :
-                    icon.setImageResource(R.drawable.ic_network_wifi_grey600_24dp);
+                    icon.setImageResource(R.drawable.ic_local_cafe_grey600_24dp);
                     break;
                 case "has_wifi" :
                     icon.setImageResource(R.drawable.ic_network_wifi_grey600_24dp);
@@ -202,7 +202,7 @@ public class CarWashCard extends PlaceholderDialogFragment {
                     icon.setImageResource(R.drawable.ic_network_wifi_grey600_24dp);
                     break;
                 case "has_actions" :
-                    icon.setImageResource(R.drawable.ic_network_wifi_grey600_24dp);
+                    icon.setImageResource(R.drawable.ic_local_attraction_grey600_24dp);
                     break;
                 case "only_online_reservation" :
                     icon.setImageResource(R.drawable.ic_network_wifi_grey600_24dp);

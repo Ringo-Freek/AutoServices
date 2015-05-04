@@ -38,4 +38,6 @@
     <dimen name="my_car_checkbox_width">58dp</dimen>
 
     <dimen name="avatar_size_in_review">38dp</dimen>
+
+    <dimen name="btn_circle_size">58dp</dimen>
 </resources>
