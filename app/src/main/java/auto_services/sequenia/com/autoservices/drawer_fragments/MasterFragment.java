@@ -124,7 +124,7 @@ public abstract class MasterFragment extends PlaceholderFragment {
 
     /**
      * Возвратить в этом методе id фрагмента для создания/редактирования.
-     * 
+     *
      * @return
      */
     public abstract int getDetailFragmentId();
