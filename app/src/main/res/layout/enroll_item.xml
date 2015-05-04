@@ -7,14 +7,14 @@
               android:layout_height="wrap_content">
 
               <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
-					  style="@style/TextViewBlackCenter"
+					  style="@style/TextViewBlack"
                       android:layout_weight="1"
                       android:id="@+id/enroll_item_name"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"/>
 
                 <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
-						style="@style/TextViewBlackCenter"
+						style="@style/TextViewBlack"
                         android:id="@+id/enroll_item_coast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>

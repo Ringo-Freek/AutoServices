@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/material_padding_between_row"
+        android:paddingLeft="@dimen/material_padding"
+        android:paddingRight="@dimen/material_padding"
+        android:paddingBottom="@dimen/material_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <auto_services.sequenia.com.autoservices.widgets.Rating
+                android:id="@+id/mark"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar_size_in_review"/>
+
+            <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+                style="@style/TextViewBlack"
+                android:id="@+id/review_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="right"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/avatar_size_in_review"
+                android:layout_height="@dimen/avatar_size_in_review" />
+
+            <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+                style="@style/TextViewBlack.Small.AlignRight"
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+                style="@style/TextViewGrey.Small.AlignRight"
+                android:id="@+id/review_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:background="@color/selector"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+</LinearLayout>

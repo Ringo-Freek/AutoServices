@@ -84,7 +84,7 @@ public abstract class MasterFragment extends PlaceholderFragment {
      *
      * @param newObjects
      */
-    public void addObjects(ArrayList<Object> newObjects) {
+    public void addObjects(ArrayList newObjects) {
         this.objects.addAll(newObjects);
         if(adapter != null) {
             adapter.notifyDataSetChanged();

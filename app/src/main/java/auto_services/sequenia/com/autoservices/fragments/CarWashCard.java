@@ -29,6 +29,7 @@ import auto_services.sequenia.com.autoservices.objects.Services;
 import auto_services.sequenia.com.autoservices.responses.JsonResponse;
 import auto_services.sequenia.com.autoservices.widgets.ModernhBoldButton;
 import auto_services.sequenia.com.autoservices.widgets.ProportionalImageView;
+import auto_services.sequenia.com.autoservices.widgets.Rating;
 
 /**
  * Created by Ringo on 29.04.2015.
@@ -62,7 +63,6 @@ public class CarWashCard extends PlaceholderDialogFragment {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                System.out.println(s);
                 if(s != null){
                     JsonResponse<CarWash> details = new Gson().fromJson(s, new TypeToken<JsonResponse<CarWash>>(){}.getType());
                     if(details.getSuccess()){
@@ -117,7 +117,9 @@ public class CarWashCard extends PlaceholderDialogFragment {
     }
 
     private void showReviewsForm() {
-        ((MainActivity) getActivity()).addSubFragment(PlaceholderFragment.newInstance(PlaceholderDialogFragment.REVIEWS_SECTION));
+        ReviewsFragment fragment = (ReviewsFragment) PlaceholderFragment.newInstance(PlaceholderDialogFragment.REVIEWS_SECTION);
+        fragment.setInfo(carWashId);
+        ((MainActivity) getActivity()).addSubFragment(fragment);
     }
 
     public void setInfo(String carWashId, float distance) {
@@ -137,27 +139,13 @@ public class CarWashCard extends PlaceholderDialogFragment {
      * Добавление в блок рейтинга звез в соотвествии с рейтингом
      */
     public void rating(Integer rating){
-        int countStarsInRating = 5;
 
         final LinearLayout ratingLayout = ((LinearLayout)rootView.findViewById(R.id.rating));
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-
-        LinearLayout statsLayout = (LinearLayout)ratingLayout.findViewById(R.id.stars);
-
-        for(int i = 0; i < countStarsInRating; i++ ){
-            View view = inflater.inflate(R.layout.rating_star, null);
-            ImageView star = (ImageView)view.findViewById(R.id.star);
-
-            if(i < rating){
-                star.setImageResource(R.drawable.ic_star_black_24dp);
-            }else{
-                star.setImageResource(R.drawable.ic_star_outline_grey600_24dp);
-            }
-
-            statsLayout.addView(view);
-        }
 
         ((TextView)ratingLayout.findViewById(R.id.count_stars)).setText(String.valueOf(rating));
+
+        Rating ratingView = (Rating)rootView.findViewById(R.id.stars);
+        ratingView.initRating(getActivity(), rating);
     }
 
     /**
