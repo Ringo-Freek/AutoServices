@@ -48,8 +48,6 @@ public class MainMapFragment extends PlaceholderFragment
     private LinearLayout carWashList;
     private LinearLayout carWashMap;
 
-    JsonResponse<ArrayList<CarWash>> carWash;
-
     Location personLocation;
 
     @Override
@@ -105,15 +103,10 @@ public class MainMapFragment extends PlaceholderFragment
         personLocation = location;
         new NearCarWashesTask((float) location.getLatitude(), (float) location.getLongitude(),
                 Global.radius) {
+
             @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                if(s != null){
-                    carWash = new Gson().fromJson(s, new TypeToken<JsonResponse<ArrayList<CarWash>>>(){}.getType());
-                    if(carWash.getSuccess()){
-                        showCarWashesOnMap(carWash.getData(), map);
-                    }
-                }
+            public void onSuccess(ArrayList<CarWash> carWashes) {
+                showCarWashesOnMap(carWashes, map);
             }
         }.execute();
     }

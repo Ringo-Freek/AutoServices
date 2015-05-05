@@ -82,7 +82,7 @@ public abstract class DetailFragment extends PlaceholderFragment {
         });
 
         if(recordExists()) {
-            getItem(itemId);
+            showInfo();
         }
 
         return view;
@@ -102,6 +102,9 @@ public abstract class DetailFragment extends PlaceholderFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         itemId = getArguments().getInt(ARG_ITEM_ID, -1);
+        if(recordExists()) {
+            getInfoFromMasterFragment(getArguments());
+        }
     }
 
     /**
@@ -168,8 +171,14 @@ public abstract class DetailFragment extends PlaceholderFragment {
     public abstract void cancel();
 
     /**
-     * Вызывается для получения записи (От сервера или из базы)
-     * @return
+     * Через этот метод можно достать данные, переданные из Master Fragment
+     *
+     * @param args
      */
-    public abstract Object getItem(int itemId);
+    public abstract void getInfoFromMasterFragment(Bundle args);
+
+    /**
+     * В этом методе нужно заполнить данные в форме
+     */
+    public abstract void showInfo();
 }

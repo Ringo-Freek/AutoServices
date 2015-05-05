@@ -30,6 +30,8 @@ public class Rating extends LinearLayout{
     public void initRating(Context context, Integer ratingCount){
         LayoutInflater inflater = LayoutInflater.from(context);
 
+        removeAllViews(); // Чтобы при повторном ините не было в 2 раза больше звезд
+
         for(int i = 0; i < countStars; i++ ){
             View view = inflater.inflate(R.layout.rating_star, null);
             ImageView star = (ImageView)view.findViewById(R.id.star);

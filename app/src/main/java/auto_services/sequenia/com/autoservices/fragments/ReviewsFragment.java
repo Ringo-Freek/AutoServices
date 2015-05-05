@@ -29,12 +29,34 @@ import auto_services.sequenia.com.autoservices.widgets.Rating;
 public class ReviewsFragment extends MasterFragment {
 
     private static final String ARG_CAR_WASH_ID = "CarWashId";
+    private static final int LOADING_COUNT = 15;
+    private static final int SCROLLED_TO_LOADING = 10;
 
     private String carWashId;
-    private ArrayList<Review> reviews;
 
     public ReviewsFragment() {
         setIsMain(false);
+    }
+
+    @Override
+    public void loadObjects(int page) {
+        new ReviewsTask(
+                "reviews.json?auth_token="
+                        + Global.testToken
+                        + "&item_id="
+                        + carWashId
+                        + "&page=" + (page + 1) + "&count=" + LOADING_COUNT){
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if(s != null){
+                    JsonResponse<ArrayList<Review>> reviewsResponse = new Gson().fromJson(s, new TypeToken<JsonResponse<ArrayList<Review>>>(){}.getType());
+                    if(reviewsResponse.getSuccess()){
+                        addObjects(reviewsResponse.getData());
+                    }
+                }
+            }
+        }.execute();
     }
 
     @Override
@@ -52,10 +74,10 @@ public class ReviewsFragment extends MasterFragment {
     }
 
     @Override
-    public void bindViewHolder(RecyclerView.ViewHolder holder, int position, RecyclerView.Adapter adapter) {
+    public void bindViewHolder(RecyclerView.ViewHolder holder, int position, RecyclerView.Adapter adapter, Object object) {
 
         ReviewItem reviewItem = (ReviewItem)holder;
-        Review review = reviews.get(position);
+        Review review = (Review) object;
 
         reviewItem.userName.setText(review.getUser_name());
         reviewItem.reviewText.setText(review.getText());
@@ -73,6 +95,21 @@ public class ReviewsFragment extends MasterFragment {
     @Override
     public int getDetailFragmentId() {
         return 0;
+    }
+
+    @Override
+    public boolean hasEndlessScroll() {
+        return true;
+    }
+
+    @Override
+    public int scrolledToLoading() {
+        return SCROLLED_TO_LOADING;
+    }
+
+    @Override
+    public void setInfoToDetailFragment(Bundle args, Object object) {
+
     }
 
     public class ReviewItem extends RecyclerView.ViewHolder{
@@ -102,24 +139,5 @@ public class ReviewsFragment extends MasterFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         carWashId = getArguments().getString(ARG_CAR_WASH_ID);
-
-        new ReviewsTask(
-                "reviews.json?auth_token="
-                        + Global.testToken
-                        + "&item_id="
-                        + carWashId
-                        + "page=0&count=10"){
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                if(s != null){
-                    JsonResponse<ArrayList<Review>> reviewsResponse = new Gson().fromJson(s, new TypeToken<JsonResponse<ArrayList<Review>>>(){}.getType());
-                    if(reviewsResponse.getSuccess()){
-                        reviews = reviewsResponse.getData();
-                        addObjects(reviews);
-                    }
-                }
-            }
-        }.execute();
     }
 }

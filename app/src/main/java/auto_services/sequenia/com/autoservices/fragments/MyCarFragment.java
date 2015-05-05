@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import auto_services.sequenia.com.autoservices.R;
+import auto_services.sequenia.com.autoservices.async_tasks.MyCarsTask;
 import auto_services.sequenia.com.autoservices.drawer_fragments.MasterFragment;
 import auto_services.sequenia.com.autoservices.drawer_fragments.PlaceholderFragment;
 import auto_services.sequenia.com.autoservices.objects.Car;
@@ -25,32 +26,22 @@ import auto_services.sequenia.com.autoservices.objects.Car;
  */
 public class MyCarFragment extends MasterFragment {
 
-    private ArrayList<Object> cars;
+    public static final String ARG_CAR_MARK_ID = "CarMarkId";
+    public static final String ARG_CAR_MARK_NAME = "CarMarkName";
+    public static final String ARG_REGISTRATION_NUMBER = "RegistrationNumber";
+    public static final String ARG_BODY_TYPE = "BodyType";
+
     private Car currentCar;
 
-    public MyCarFragment(){
-        cars = new ArrayList<Object>();
-        Car car;
+    @Override
+    public void loadObjects(int page) {
+        new MyCarsTask() {
 
-        car = new Car();
-        car.setBody_type(Car.MINI);
-        car.setCar_mark_id(0);
-        car.setCar_mark_name("Toyota");
-        car.setRegistration_number("A 913 BC");
-        car.setCurrent(true);
-        cars.add(car);
-
-        currentCar = car;
-
-        car = new Car();
-        car.setBody_type(Car.SEDAN);
-        car.setCar_mark_id(1);
-        car.setCar_mark_name("Mazda");
-        car.setRegistration_number("D 123 EG");
-        car.setCurrent(false);
-        cars.add(car);
-
-        addObjects(cars);
+            @Override
+            public void onSuccess(ArrayList<Car> cars) {
+                addObjects(cars);
+            }
+        }.execute();
     }
 
     @Override
@@ -67,16 +58,16 @@ public class MyCarFragment extends MasterFragment {
     }
 
     @Override
-    public void bindViewHolder(RecyclerView.ViewHolder holder, int position, final RecyclerView.Adapter adapter) {
+    public void bindViewHolder(RecyclerView.ViewHolder holder, final int position, final RecyclerView.Adapter adapter, Object object) {
         final MyCarViewHolder carViewHolder = (MyCarViewHolder) holder;
-        final Car car = (Car) cars.get(position);
+        final Car car = (Car) object;
 
         carViewHolder.mark.setText(car.getCar_mark_name());
         carViewHolder.registrationNumber.setText(car.getRegistration_number());
         carViewHolder.carEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDetailFragment(car.getId());
+                showDetailFragment(car.getId(), position);
             }
         });
 
@@ -121,6 +112,26 @@ public class MyCarFragment extends MasterFragment {
     public int getDetailFragmentId() {
         return PlaceholderFragment.MY_CAR_EDIT_SECTION;
     }
+
+    @Override
+    public boolean hasEndlessScroll() {
+        return false;
+    }
+
+    @Override
+    public int scrolledToLoading() {
+        return 0;
+    }
+
+    @Override
+    public void setInfoToDetailFragment(Bundle args, Object object) {
+        Car car = (Car) object;
+        args.putString(ARG_REGISTRATION_NUMBER, car.getRegistration_number());
+        args.putInt(ARG_CAR_MARK_ID, car.getCar_mark_id());
+        args.putString(ARG_CAR_MARK_NAME, car.getCar_mark_name());
+        args.putString(ARG_BODY_TYPE, car.getBody_type());
+    }
+
 
     public class MyCarViewHolder extends RecyclerView.ViewHolder {
 

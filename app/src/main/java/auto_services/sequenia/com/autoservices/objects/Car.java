@@ -4,13 +4,13 @@ package auto_services.sequenia.com.autoservices.objects;
  * Created by chybakut2004 on 03.05.15.
  */
 public class Car {
-    public static final int MINI = 0;
-    public static final int SEDAN = 1;
-    public static final int SUV = 2;
-    public static final int MINIBUS = 3;
+    public static final String MINI = "mini";
+    public static final String SEDAN = "sedan";
+    public static final String SUV = "suv";
+    public static final String MINIBUS = "minibus";
 
     private int id;
-    private int body_type;
+    private String body_type;
     private String registration_number;
     private int car_mark_id;
     private String car_mark_name;
@@ -40,11 +40,11 @@ public class Car {
         this.car_mark_name = car_mark_name;
     }
 
-    public int getBody_type() {
+    public String getBody_type() {
         return body_type;
     }
 
-    public void setBody_type(int body_type) {
+    public void setBody_type(String body_type) {
         this.body_type = body_type;
     }
 

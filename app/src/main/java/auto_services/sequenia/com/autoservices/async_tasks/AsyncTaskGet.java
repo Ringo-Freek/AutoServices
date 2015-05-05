@@ -23,13 +23,10 @@ import auto_services.sequenia.com.autoservices.Global;
  * Created by Ringo on 28.04.2015.
  * Гетовский запрос с отслеживанием ошибок
  */
-public abstract class AsyncTaskGet extends AsyncTask<Void, Void, String>{
-
-    String url = Global.host;
-    int typeError;
+public abstract class AsyncTaskGet extends AsyncTaskRequest{
 
     public AsyncTaskGet(String url){
-        this.url += url;
+        super(url);
     }
 
     public String doRequest() throws IOException {
@@ -50,81 +47,4 @@ public abstract class AsyncTaskGet extends AsyncTask<Void, Void, String>{
 
         return buffer.toString();
     }
-
-    public String initRequest(){
-        String str = null;
-        try{
-            str = doRequest();
-        } catch (SocketTimeoutException e) {
-            e.printStackTrace();
-            typeError = 2;
-            publishProgress();
-            return null;
-        }catch (ConnectTimeoutException e){
-            e.printStackTrace();
-            typeError = 2;
-            publishProgress();
-            return null;
-        } catch (JsonSyntaxException e) {
-            e.printStackTrace();
-            typeError = 1;
-            publishProgress();
-            return null;
-            // Нет подключения к интернету
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            typeError = 0;
-            publishProgress();
-            return null;
-            // Не может считать поток
-        } catch (IOException e) {
-            e.printStackTrace();
-            typeError = 1;
-            publishProgress();
-            return null;
-            // Время ожидания от сервера истекло
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            typeError = 2;
-            publishProgress();
-            return null;
-            // Остальные ошибки
-        } catch (Exception e) {
-            e.printStackTrace();
-            typeError = 1;
-            publishProgress();
-            return null;
-        } finally {
-            if(typeError > -1){
-                return str;
-            }
-        }
-
-        return str;
-    }
-
-    @Override
-    protected String doInBackground(Void... params) {
-        return initRequest();
-    }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
-        switch (typeError){
-            case 0:
-                initNotConnection();
-                break;
-            case 2:
-                initRuntimeError();
-                break;
-            case 1:
-                initErrorLoadData();
-                break;
-        }
-    }
-
-    public abstract void initNotConnection();
-    public abstract void initRuntimeError();
-    public abstract void initErrorLoadData();
 }
