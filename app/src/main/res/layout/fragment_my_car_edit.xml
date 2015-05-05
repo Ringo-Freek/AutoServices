@@ -65,13 +65,12 @@
             android:text="@string/car_mark"
             style="@style/BigEditTextLabel"/>
 
-        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumEditText
+        <auto_services.sequenia.com.autoservices.widgets.SpinnerWithLabel
             android:id="@+id/car_mark"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/material_edit_text_height"
             android:gravity="center"
-            style="@style/BigEditText"
-            android:hint="@string/car_mark"/>
+            android:background="@drawable/edit_text_bg"/>
 
     </LinearLayout>
 

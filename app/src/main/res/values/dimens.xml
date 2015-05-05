@@ -25,6 +25,8 @@
     <dimen name="material_padding_between_row_hafl">4dp</dimen>
     <dimen name="material_edit_text_line_margin">8dp</dimen>
     <dimen name="material_edit_text_height">48dp</dimen>
+    <dimen name="material_list_item_height">48dp</dimen>
+    <dimen name="material_double_list_item_height">72dp</dimen>
 
     <!--Размеры для кнопок-->
     <dimen name="btn_height">48dp</dimen>

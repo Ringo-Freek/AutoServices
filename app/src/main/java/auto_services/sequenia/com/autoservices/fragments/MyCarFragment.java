@@ -27,7 +27,6 @@ import auto_services.sequenia.com.autoservices.objects.Car;
 public class MyCarFragment extends MasterFragment {
 
     public static final String ARG_CAR_MARK_ID = "CarMarkId";
-    public static final String ARG_CAR_MARK_NAME = "CarMarkName";
     public static final String ARG_REGISTRATION_NUMBER = "RegistrationNumber";
     public static final String ARG_BODY_TYPE = "BodyType";
 
@@ -129,7 +128,6 @@ public class MyCarFragment extends MasterFragment {
         Car car = (Car) object;
         args.putString(ARG_REGISTRATION_NUMBER, car.getRegistration_number());
         args.putInt(ARG_CAR_MARK_ID, car.getCar_mark_id());
-        args.putString(ARG_CAR_MARK_NAME, car.getCar_mark_name());
         args.putString(ARG_BODY_TYPE, car.getBody_type());
     }
 

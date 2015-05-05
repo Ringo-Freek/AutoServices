@@ -82,7 +82,6 @@
 
     <style name="EditText">
         <item name="android:background">@drawable/edit_text_bg</item>
-        <item name="android:height">@dimen/material_edit_text_height</item>
     </style>
 
     <style name="BigEditText" parent="EditText">
