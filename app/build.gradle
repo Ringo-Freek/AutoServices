@@ -28,4 +28,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.+'
     compile 'com.squareup.picasso:picasso:2.5.0'
     compile 'io.realm:realm-android:0.80.1'
+    compile 'com.makeramen:roundedimageview:2.0.0'
 }

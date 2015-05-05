@@ -10,9 +10,14 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import auto_services.sequenia.com.autoservices.Global;
 import auto_services.sequenia.com.autoservices.R;
@@ -81,12 +86,24 @@ public class ReviewsFragment extends MasterFragment {
 
         reviewItem.userName.setText(review.getUser_name());
         reviewItem.reviewText.setText(review.getText());
-        reviewItem.reviewDate.setText(review.getCreated_at());
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+
+        try {
+            reviewItem.reviewDate.setText(format.format(formatter.parse(review.getCreated_at())));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         reviewItem.rating.initRating(getActivity(), review.getMark());
 
+        Transformation transformation = new RoundedTransformationBuilder()
+                .cornerRadiusDp(4)
+                .build();
         Picasso
                 .with(getActivity())
                 .load("http://developer.android.com/design/media/notifications_pattern_phone_ticker.png")
+                .transform(transformation)
                 .fit()
                 .centerCrop()
                 .into(reviewItem.avatar);

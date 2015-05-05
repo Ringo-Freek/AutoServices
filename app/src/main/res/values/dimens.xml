@@ -53,4 +53,6 @@
     <dimen name="my_car_edit_line_height">72dp</dimen>
 
     <dimen name="avatar_size_in_review">38dp</dimen>
+
+    <dimen name="btn_circle_size">58dp</dimen>
 </resources>
