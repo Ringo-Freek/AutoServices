@@ -3,6 +3,7 @@ package auto_services.sequenia.com.autoservices;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 
 import java.util.ArrayList;
 
@@ -64,5 +65,29 @@ public class Global {
 
     public static SharedPreferences getSharedPreferences(Context context) {
         return context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+    }
+
+    public static ArrayList<String> getBodyTypes(Context context) {
+        Resources resources = context.getResources();
+        ArrayList<String> bodyTypes = new ArrayList<String>();
+
+        bodyTypes.add(resources.getString(R.string.mini));
+        bodyTypes.add(resources.getString(R.string.sedan));
+        bodyTypes.add(resources.getString(R.string.suv));
+        bodyTypes.add(resources.getString(R.string.minibus));
+
+        return bodyTypes;
+    }
+
+    public static ArrayList<Integer> getBodyTypeIcons(Context context) {
+        Resources resources = context.getResources();
+        ArrayList<Integer> bodyTypes = new ArrayList<Integer>();
+
+        bodyTypes.add(R.drawable.ic_mini);
+        bodyTypes.add(R.drawable.ic_sedan);
+        bodyTypes.add(R.drawable.ic_vnedorojnik);
+        bodyTypes.add(R.drawable.ic_microavtobus);
+
+        return bodyTypes;
     }
 }

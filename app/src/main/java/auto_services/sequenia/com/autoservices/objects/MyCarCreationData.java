@@ -5,11 +5,11 @@ package auto_services.sequenia.com.autoservices.objects;
  */
 public class MyCarCreationData {
     private String auth_token;
-    private int car_mark_id;
+    private Integer car_mark_id;
     private String registration_number;
     private String body_type;
 
-    public MyCarCreationData(String auth_token, int car_mark_id, String registration_number, String body_type) {
+    public MyCarCreationData(String auth_token, Integer car_mark_id, String registration_number, String body_type) {
         this.auth_token = auth_token;
         this.car_mark_id = car_mark_id;
         this.registration_number = registration_number;

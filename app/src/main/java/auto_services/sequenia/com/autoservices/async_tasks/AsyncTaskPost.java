@@ -33,6 +33,7 @@ public abstract class AsyncTaskPost extends AsyncTaskRequest {
     public AsyncTaskPost(String url, String jsonData){
         super(url);
         this.jsonData = jsonData;
+        System.out.println(jsonData);
     }
 
     public String doRequest() throws IOException {

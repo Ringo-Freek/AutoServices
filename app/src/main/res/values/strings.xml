@@ -33,4 +33,10 @@
     <string name="car_mark">Марка автомобиля</string>
     <string name="registration_number">Госномер</string>
     <string name="body_type">Тип кузова</string>
+
+    <!-- Типы кузовов -->
+    <string name="mini">Мини</string>
+    <string name="sedan">Седан</string>
+    <string name="suv">Внедорожник</string>
+    <string name="minibus">Микроавтобус</string>
 </resources>

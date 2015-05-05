@@ -18,4 +18,25 @@
         <item>О нас</item>
         <item>Контакты</item>
     </array>
+
+    <array name="body_types">
+        <item>mini</item>
+        <item>sedan</item>
+        <item>suv</item>
+        <item>minibus</item>
+    </array>
+
+    <array name="body_type_icons">
+        <item>@drawable/ic_mini</item>
+        <item>@drawable/ic_sedan</item>
+        <item>@drawable/ic_vnedorojnik</item>
+        <item>@drawable/ic_microavtobus</item>
+    </array>
+
+    <array name="body_type_labels">
+        <item>@string/mini</item>
+        <item>@string/sedan</item>
+        <item>@string/suv</item>
+        <item>@string/minibus</item>
+    </array>
 </resources>

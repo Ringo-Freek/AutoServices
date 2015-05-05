@@ -19,6 +19,7 @@ public abstract class AsyncTaskPut extends AsyncTaskRequest {
     public AsyncTaskPut(String url, String jsonData){
         super(url);
         this.jsonData = jsonData;
+        System.out.println(jsonData);
     }
 
     public String doRequest() throws IOException {

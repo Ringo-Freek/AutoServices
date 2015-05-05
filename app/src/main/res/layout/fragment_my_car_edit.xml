@@ -97,24 +97,28 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/my_car_edit_line_height">
+        android:layout_height="wrap_content">
 
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
             android:id="@+id/body_type_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/body_type"
-            style="@style/BigEditTextLabel"/>
+            android:textColor="@color/black87"
+            android:textSize="@dimen/sp20"
+            android:layout_gravity="bottom"
+            android:paddingBottom="@dimen/material_edit_text_line_margin"
+            android:layout_weight="1"/>
 
-        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumEditText
+        <Spinner
             android:id="@+id/body_type"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/material_edit_text_height"
             android:gravity="center"
-            style="@style/BigEditText"
-            android:hint="@string/body_type"/>
+            android:background="@drawable/edit_text_bg"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

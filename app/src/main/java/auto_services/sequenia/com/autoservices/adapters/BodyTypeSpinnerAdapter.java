@@ -7,7 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import auto_services.sequenia.com.autoservices.R;
 import auto_services.sequenia.com.autoservices.objects.CarMark;
@@ -16,22 +22,21 @@ import io.realm.RealmResults;
 /**
  * Created by chybakut2004 on 05.05.15.
  */
-public class CarMarksSpinnerAdapter extends ArrayAdapter<CarMark> {
+public class BodyTypeSpinnerAdapter extends ArrayAdapter<Integer> {
 
     private LayoutInflater inflater;
-    private String placeholder;
-    private int black87;
-    private int black26;
+    private String[] bodyTypes;
+    private int[] bodyTypeIcons;
+    private String[] bodyTypeLabels;
 
-    public CarMarksSpinnerAdapter(Context context, RealmResults<CarMark> carMarks) {
-        super(context, R.layout.big_spinner_item, carMarks);
+    public BodyTypeSpinnerAdapter(Context context, String[] bodyTypes, String[] bodyTypeLabels, int[] bodyTypeIcons) {
+        super(context, R.layout.big_spinner_item, new ArrayList(Arrays.asList(bodyTypes)));
 
         inflater = ((Activity) context).getLayoutInflater();
 
-        Resources resources = context.getResources();
-        placeholder = resources.getString(R.string.car_mark);
-        black26 = resources.getColor(R.color.black26);
-        black87 = resources.getColor(R.color.black87);
+        this.bodyTypes = bodyTypes;
+        this.bodyTypeIcons = bodyTypeIcons;
+        this.bodyTypeLabels = bodyTypeLabels;
     }
 
     @Override
@@ -39,19 +44,16 @@ public class CarMarksSpinnerAdapter extends ArrayAdapter<CarMark> {
         View row;
 
         if(convertView == null) {
-            row = inflater.inflate(R.layout.car_mark_dropdown_item, parent, false);
+            row = inflater.inflate(R.layout.body_type_dropdown_item, parent, false);
         } else {
             row = convertView;
         }
 
         TextView label = (TextView) row.findViewById(R.id.text);
+        ImageView imageView = (ImageView) row.findViewById(R.id.image);
 
-        if(position == 0){
-            label.setText(placeholder);
-        } else {
-            CarMark carMark = getItem(position - 1);
-            label.setText(carMark.getName());
-        }
+        label.setText(bodyTypeLabels[position]);
+        imageView.setImageResource(bodyTypeIcons[position]);
 
         return row;
     }
@@ -68,15 +70,12 @@ public class CarMarksSpinnerAdapter extends ArrayAdapter<CarMark> {
 
         TextView label = (TextView) row.findViewById(R.id.text);
 
-        if(position == 0){
-            label.setText(placeholder);
-            label.setTextColor(black26);
-        } else {
-            CarMark carMark = getItem(position - 1);
-            label.setText(carMark.getName());
-            label.setTextColor(black87);
-        }
+        label.setText(bodyTypeLabels[(position)]);
 
         return row;
+    }
+
+    public String[] getBodyTypes() {
+        return bodyTypes;
     }
 }

@@ -90,7 +90,7 @@
     </style>
 
     <style name="BigEditTextLabel">
-        <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:textSize">@dimen/sp16</item>
         <item name="android:textColor">@color/black54</item>
         <item name="android:gravity">center_horizontal|bottom</item>
     </style>
