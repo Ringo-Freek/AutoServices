@@ -69,11 +69,10 @@
                     android:layout_height="wrap_content">
 
                     <auto_services.sequenia.com.autoservices.widgets.ModernhBoldButton
-                        style="@style/Btn"
+                        style="@style/Btn.OrangeBgr"
                         android:drawableLeft="@drawable/ic_phone_white_24dp"
                         android:id="@+id/car_wash_phone"
                         android:layout_weight="1"
-                        android:background="#ff9f00"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/btn_height" />
 

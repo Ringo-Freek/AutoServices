@@ -37,7 +37,7 @@ public class Rating extends LinearLayout{
             ImageView star = (ImageView)view.findViewById(R.id.star);
 
             if(i < ratingCount){
-                star.setImageResource(R.drawable.ic_star_black_24dp);
+                star.setImageResource(R.drawable.ic_star_amber700_24dp);
             }else{
                 star.setImageResource(R.drawable.ic_star_outline_grey600_24dp);
             }

@@ -88,7 +88,7 @@ public class CarWashCard extends PlaceholderDialogFragment {
 
         ((TextView)rootView.findViewById(R.id.car_wash_name)).setText(carWash.getName());
         ((TextView)rootView.findViewById(R.id.car_wash_address)).setText(carWash.getAddress());
-        ((TextView)rootView.findViewById(R.id.car_wash_distance)).setText("~" + carWashDistance + " м");
+        ((TextView)rootView.findViewById(R.id.car_wash_distance)).setText("~" + Math.round(carWashDistance) + " м");
         ((TextView)rootView.findViewById(R.id.schedule)).setText(carWash.getTime_from() + " - " + carWash.getTime_to());
         ((TextView)rootView.findViewById(R.id.review)).setText(carWash.getReviews_count() + " отзывов");
 
@@ -199,13 +199,13 @@ public class CarWashCard extends PlaceholderDialogFragment {
                     icon.setImageResource(R.drawable.ic_network_wifi_grey600_24dp);
                     break;
                 case "has_bank_transfer" :
-                    icon.setImageResource(R.drawable.ic_network_wifi_grey600_24dp);
+                    icon.setImageResource(R.drawable.ic_credit_card_grey600_24dp);
                     break;
                 case "has_actions" :
                     icon.setImageResource(R.drawable.ic_local_attraction_grey600_24dp);
                     break;
                 case "only_online_reservation" :
-                    icon.setImageResource(R.drawable.ic_network_wifi_grey600_24dp);
+                    icon.setImageResource(R.drawable.ic_dog_grey600_24dp);
                     break;
             }
             carWashHeader.addView(view);

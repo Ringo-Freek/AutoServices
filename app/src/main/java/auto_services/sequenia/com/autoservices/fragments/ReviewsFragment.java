@@ -2,6 +2,7 @@ package auto_services.sequenia.com.autoservices.fragments;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,9 @@ import com.squareup.picasso.Transformation;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import auto_services.sequenia.com.autoservices.Global;
 import auto_services.sequenia.com.autoservices.R;
@@ -87,14 +90,8 @@ public class ReviewsFragment extends MasterFragment {
         reviewItem.userName.setText(review.getUser_name());
         reviewItem.reviewText.setText(review.getText());
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+        reviewItem.reviewDate.setText(reviewDate(review.getCreated_at()));
 
-        try {
-            reviewItem.reviewDate.setText(format.format(formatter.parse(review.getCreated_at())));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         reviewItem.rating.initRating(getActivity(), review.getMark());
 
         Transformation transformation = new RoundedTransformationBuilder()
@@ -156,5 +153,54 @@ public class ReviewsFragment extends MasterFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         carWashId = getArguments().getString(ARG_CAR_WASH_ID);
+    }
+
+    /**
+     * Определяется формат даты для отзыва (сегодня, вчера или вообще)
+     * @param reviewDateStr
+     * @return
+     */
+    public String reviewDate(String reviewDateStr){
+        String reviewDate = "";
+        try {
+            System.out.println(reviewDateStr);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/yy");
+            SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
+
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+            Calendar dateNow = Calendar.getInstance();
+            Calendar dateReview = Calendar.getInstance();
+            Date date = formatter.parse(reviewDateStr);
+
+            reviewDate = formatDay.format(date);
+
+            dateReview.setTimeInMillis(date.getTime());
+
+            if(dates(dateNow, dateReview)){
+                reviewDate = "сегодня " + formatTime.format(date);
+            }
+
+            dateNow.add(Calendar.DATE, -1);
+
+            if(dates(dateNow, dateReview)){
+                reviewDate = "вчера " + formatTime.format(date);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return  reviewDate;
+    }
+
+    public Boolean dates(Calendar dateNow, Calendar dateReview){
+        if(
+                dateNow.get(Calendar.MONTH) == dateReview.get(Calendar.MONTH)
+                        && dateNow.get(Calendar.DAY_OF_MONTH) == dateReview.get(Calendar.DAY_OF_MONTH)
+                        && dateNow.get(Calendar.YEAR) == dateReview.get(Calendar.YEAR)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

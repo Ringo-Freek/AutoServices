@@ -5,14 +5,17 @@
     <item
         app:showAsAction="always"
         android:title="@string/action_show_filter"
+        android:icon="@drawable/ic_filter_white_24dp"
         android:id="@+id/show_filter"/>
 
     <item
         app:showAsAction="always"
+        android:icon="@drawable/ic_card_white_24dp"
         android:title="@string/action_show_list"
         android:id="@+id/show_list"/>
 
     <item
+        android:icon="@drawable/ic_pin_drop_white_24dp"
         app:showAsAction="always"
         android:title="@string/action_show_map"
         android:id="@+id/show_map"/>
