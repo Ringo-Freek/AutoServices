@@ -54,6 +54,10 @@ public abstract class MasterFragment extends PlaceholderFragment {
         Activity activity = getActivity();
 
         layoutManager = new LinearLayoutManager(activity);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.items_list);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+
         adapter = new MasterAdapter(objects) {
 
             @Override
@@ -66,10 +70,6 @@ public abstract class MasterFragment extends PlaceholderFragment {
                 self.bindViewHolder(holder, position, this, objects.get(position));
             }
         };
-
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.items_list);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
         rootView.findViewById(R.id.create_button).setOnClickListener(new View.OnClickListener() {
@@ -80,17 +80,23 @@ public abstract class MasterFragment extends PlaceholderFragment {
         });
 
         if(hasEndlessScroll()) {
-            recyclerView.setOnScrollListener(new EndlessScrollListener(activity, layoutManager, scrolledToLoading()) {
-                @Override
-                public void onLoadMore(int page, int totalItemsCount) {
-                    loadObjects(page);
-                }
-            });
+            resetScrollListener(activity);
         }
 
         loadObjects(0);
 
         return rootView;
+    }
+
+    private void resetScrollListener(Activity activity) {
+        recyclerView.setOnScrollListener(null);
+        objects.clear();
+        recyclerView.setOnScrollListener(new EndlessScrollListener(activity, layoutManager, scrolledToLoading()) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                loadObjects(page);
+            }
+        });
     }
 
     /**
@@ -175,4 +181,11 @@ public abstract class MasterFragment extends PlaceholderFragment {
      * @param object
      */
     public abstract void setInfoToDetailFragment(Bundle args, Object object);
+
+    @Override
+    public void resumeFragment() {
+        super.resumeFragment();
+        resetScrollListener(getActivity());
+        loadObjects(0);
+    }
 }

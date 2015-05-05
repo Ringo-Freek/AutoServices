@@ -179,4 +179,8 @@ public class PlaceholderFragment extends Fragment {
     public void setIsMain(boolean isMain) {
         this.isMain = isMain;
     }
+
+    public void resumeFragment() {
+
+    }
 }

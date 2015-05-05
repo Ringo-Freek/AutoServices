@@ -207,6 +207,7 @@ public class MainActivity extends ActionBarActivity
 
             // Настройка тулбара для предыдущего фрагмента
             PlaceholderFragment currentFragment = fragmentStack.lastElement();
+            currentFragment.resumeFragment();
             onSectionAttached(currentFragment.getNumber());
             restoreActionBar();
             restoreMenu();
