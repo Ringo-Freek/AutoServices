@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import auto_services.sequenia.com.autoservices.Global;
 import auto_services.sequenia.com.autoservices.R;
 import auto_services.sequenia.com.autoservices.async_tasks.MyCarCreationTask;
+import auto_services.sequenia.com.autoservices.async_tasks.MyCarDeleteTask;
+import auto_services.sequenia.com.autoservices.async_tasks.MyCarUpdateTask;
 import auto_services.sequenia.com.autoservices.drawer_fragments.DetailFragment;
 import auto_services.sequenia.com.autoservices.objects.Car;
 import auto_services.sequenia.com.autoservices.objects.MyCarCreationData;
@@ -56,7 +58,6 @@ public class MyCarEditFragment extends DetailFragment {
         String bodyType = "mini";
 
         new MyCarCreationTask(new Gson().toJson(new MyCarCreationData(Global.testToken, carMarkId, registrationNumber, bodyType))) {
-
             @Override
             public void onSuccess(Car car) {
                 close();
@@ -66,12 +67,26 @@ public class MyCarEditFragment extends DetailFragment {
 
     @Override
     public void updateItem(int itemId) {
+        int carMarkId = 2;
+        String registrationNumber = registrationNumberInput.getText().toString();
+        String bodyType = "sedan";
 
+        new MyCarUpdateTask(itemId, new Gson().toJson(new MyCarCreationData(Global.testToken, carMarkId, registrationNumber, bodyType))) {
+            @Override
+            public void onSuccess(Car car) {
+                close();
+            }
+        }.execute();
     }
 
     @Override
     public void deleteItem(int itemId) {
-
+        new MyCarDeleteTask(itemId, Global.testToken) {
+            @Override
+            public void onSuccess(Car car) {
+                close();
+            }
+        }.execute();
     }
 
     @Override

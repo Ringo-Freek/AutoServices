@@ -29,7 +29,6 @@ import auto_services.sequenia.com.autoservices.Global;
 public abstract class AsyncTaskPost extends AsyncTaskRequest {
 
     String jsonData;
-    int typeError;
 
     public AsyncTaskPost(String url, String jsonData){
         super(url);

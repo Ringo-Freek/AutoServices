@@ -24,7 +24,6 @@ public abstract class DetailFragment extends PlaceholderFragment {
 
     private static final String ARG_ITEM_ID = "ItemId";
     private int itemId;
-    private Object item;
 
     /**
      * Тут создается контент и привязываются обработчики для кнопок
@@ -59,9 +58,7 @@ public abstract class DetailFragment extends PlaceholderFragment {
             @Override
             public void onClick(View v) {
                 if(recordExists()) {
-                    if(item != null) {
-                        updateItem(itemId);
-                    }
+                    updateItem(itemId);
                 } else {
                     createItem();
                 }
@@ -72,9 +69,7 @@ public abstract class DetailFragment extends PlaceholderFragment {
             @Override
             public void onClick(View v) {
                 if(recordExists()) {
-                    if(item != null) {
-                        deleteItem(itemId);
-                    }
+                    deleteItem(itemId);
                 } else {
                     cancel();
                 }
@@ -130,15 +125,6 @@ public abstract class DetailFragment extends PlaceholderFragment {
      */
     public void close() {
         ((MainActivity) getActivity()).onBackPressed();
-    }
-
-    /**
-     * Этот метод нужно вызвать после получения реадктируемой записи.
-     *
-     * @param item
-     */
-    public void setItem(Object item) {
-        this.item = item;
     }
 
     /**
