@@ -69,13 +69,9 @@ public class MyCarEditFragment extends DetailFragment {
         registrationNumberInput.setLabel(view.findViewById(R.id.car_registration_number_label));
 
         Activity activity = getActivity();
-        Resources resources = activity.getResources();
         carMarks = RealmHelper.getCarMarks(activity);
         carMarkInput.setAdapter(new CarMarksSpinnerAdapter(activity, carMarks));
-        bodyTypeInput.setAdapter(new BodyTypeSpinnerAdapter(activity,
-                resources.getStringArray(R.array.body_types),
-                resources.getStringArray(R.array.body_type_labels),
-                resources.getIntArray(R.array.body_type_icons)));
+        bodyTypeInput.setAdapter(new BodyTypeSpinnerAdapter(activity));
         bodyTypeInput.setSelection(0);
 
         return view;

@@ -12,6 +12,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:gravity="bottom"
         android:layout_height="@dimen/my_car_edit_line_height">
 
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
@@ -34,6 +35,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:gravity="bottom"
         android:layout_height="@dimen/my_car_edit_line_height">
 
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
@@ -56,6 +58,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:gravity="bottom"
         android:layout_height="@dimen/my_car_edit_line_height">
 
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
@@ -77,6 +80,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:gravity="bottom"
         android:layout_height="@dimen/my_car_edit_line_height">
 
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
