@@ -23,6 +23,8 @@
     <dimen name="icon_padding">12dp</dimen>
     <dimen name="material_padding_between_row">8dp</dimen>
     <dimen name="material_padding_between_row_hafl">4dp</dimen>
+    <dimen name="material_edit_text_line_margin">8dp</dimen>
+    <dimen name="material_edit_text_height">48dp</dimen>
 
     <!--Размеры для кнопок-->
     <dimen name="btn_height">48dp</dimen>
@@ -33,9 +35,20 @@
     <dimen name="card_header">48dp</dimen>
     <dimen name="radius">4dp</dimen>
 
+    <!-- Размеры шрифтов -->
+    <dimen name="sp20">20sp</dimen>
+    <dimen name="sp18">18sp</dimen>
+    <dimen name="sp16">16sp</dimen>
+    <dimen name="sp14">14sp</dimen>
+
     <!-- Мои авто -->
-    <dimen name="my_car_height">93dp</dimen>
+    <dimen name="my_car_height">90dp</dimen>
     <dimen name="my_car_checkbox_width">58dp</dimen>
+    <dimen name="my_car_logo_width">70dp</dimen>
+    <dimen name="my_car_logo_height">30dp</dimen>
+    <dimen name="my_car_header_margin">4dp</dimen>
+    <dimen name="my_car_content_margin">50dp</dimen>
+    <dimen name="my_car_edit_line_height">72dp</dimen>
 
     <dimen name="avatar_size_in_review">38dp</dimen>
 </resources>

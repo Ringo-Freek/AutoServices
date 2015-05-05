@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="@dimen/my_car_height"
@@ -7,14 +7,17 @@
 
     <LinearLayout
         android:id="@+id/edit_car_button"
-        android:layout_width="@dimen/my_car_height"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/my_car_height"
+        android:paddingLeft="@dimen/material_padding"
+        android:paddingRight="@dimen/material_padding"
         android:gravity="center">
 
         <ImageView
             android:id="@+id/car_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:scaleType="centerCrop"
+            android:layout_width="@dimen/my_car_logo_width"
+            android:layout_height="@dimen/my_car_logo_height" />
 
     </LinearLayout>
 
@@ -25,9 +28,11 @@
         android:layout_height="match_parent"
         android:gravity="center">
 
-        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
             android:id="@+id/mark"
             android:textColor="@color/teal_800"
+            android:textSize="@dimen/sp18"
+            android:layout_marginBottom="@dimen/my_car_header_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -35,12 +40,14 @@
             android:id="@+id/car_registration_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"/>
+            android:textSize="@dimen/sp16"
+            android:textColor="@color/black87"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:gravity="center"
+        android:layout_alignParentRight="true"
         android:layout_width="@dimen/my_car_checkbox_width"
         android:layout_height="match_parent">
 
@@ -51,4 +58,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

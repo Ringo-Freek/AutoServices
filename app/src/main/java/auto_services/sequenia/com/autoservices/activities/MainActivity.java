@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
+import auto_services.sequenia.com.autoservices.Global;
 import auto_services.sequenia.com.autoservices.drawer_fragments.PlaceholderFragment;
 import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
 import auto_services.sequenia.com.autoservices.drawer_fragments.NavigationDrawerFragment;
@@ -74,6 +75,8 @@ public class MainActivity extends ActionBarActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         dialogShadow = findViewById(R.id.dialog_shadow);
+
+        Global.loadCarMarksIfNeeds(this);
     }
 
     @Override

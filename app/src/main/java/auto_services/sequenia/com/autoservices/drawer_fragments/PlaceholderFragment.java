@@ -1,8 +1,10 @@
 package auto_services.sequenia.com.autoservices.drawer_fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -182,5 +184,10 @@ public class PlaceholderFragment extends Fragment {
 
     public void resumeFragment() {
 
+    }
+
+    public LayoutInflater getInflaterForTheme(Context context, int theme) {
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, theme);
+        return ((Activity) context).getLayoutInflater().cloneInContext(contextThemeWrapper);
     }
 }

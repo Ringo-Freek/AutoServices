@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -16,18 +17,18 @@ import auto_services.sequenia.com.autoservices.async_tasks.MyCarUpdateTask;
 import auto_services.sequenia.com.autoservices.drawer_fragments.DetailFragment;
 import auto_services.sequenia.com.autoservices.objects.Car;
 import auto_services.sequenia.com.autoservices.objects.MyCarCreationData;
+import auto_services.sequenia.com.autoservices.widgets.EditTextWithLabel;
 
 /**
  * Created by chybakut2004 on 03.05.15.
  */
 public class MyCarEditFragment extends DetailFragment {
 
-    private EditText nameInput;
-    private EditText phoneNumberInput;
-    private EditText carMarkInput;
-    private EditText registrationNumberInput;
-    private EditText bodyTypeInput;
-
+    private EditTextWithLabel nameInput;
+    private EditTextWithLabel phoneNumberInput;
+    private EditTextWithLabel carMarkInput;
+    private EditTextWithLabel registrationNumberInput;
+    private EditTextWithLabel bodyTypeInput;
 
     private int carMarkId;
     private String carMarkName;
@@ -42,11 +43,17 @@ public class MyCarEditFragment extends DetailFragment {
     public View createContent(LayoutInflater inflater, LinearLayout layout) {
         View view = inflater.inflate(R.layout.fragment_my_car_edit, layout, false);
 
-        nameInput = (EditText) view.findViewById(R.id.name);
-        phoneNumberInput = (EditText) view.findViewById(R.id.phone);
-        carMarkInput = (EditText) view.findViewById(R.id.car_mark);
-        registrationNumberInput = (EditText) view.findViewById(R.id.car_registration_number);
-        bodyTypeInput = (EditText) view.findViewById(R.id.body_type);
+        nameInput = (EditTextWithLabel) view.findViewById(R.id.name);
+        phoneNumberInput = (EditTextWithLabel) view.findViewById(R.id.phone);
+        carMarkInput = (EditTextWithLabel) view.findViewById(R.id.car_mark);
+        registrationNumberInput = (EditTextWithLabel) view.findViewById(R.id.car_registration_number);
+        bodyTypeInput = (EditTextWithLabel) view.findViewById(R.id.body_type);
+
+        nameInput.setLabel(view.findViewById(R.id.name_label));
+        phoneNumberInput.setLabel(view.findViewById(R.id.phone_label));
+        carMarkInput.setLabel(view.findViewById(R.id.car_mark_label));
+        registrationNumberInput.setLabel(view.findViewById(R.id.car_registration_number_label));
+        bodyTypeInput.setLabel(view.findViewById(R.id.body_type_label));
 
         return view;
     }

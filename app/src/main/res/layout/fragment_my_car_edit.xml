@@ -3,41 +3,120 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_white">
+    android:background="@color/color_white"
+    android:paddingTop="@dimen/my_car_content_margin"
+    android:paddingLeft="@dimen/material_padding"
+    android:paddingRight="@dimen/material_padding"
+    android:paddingBottom="@dimen/material_padding">
 
-    <EditText
-        android:id="@+id/name"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black54"
-        android:hint="@string/your_name"/>
+        android:layout_height="@dimen/my_car_edit_line_height">
 
-    <EditText
-        android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black54"
-        android:hint="@string/phone"/>
+        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+            android:id="@+id/name_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/your_name"
+            style="@style/BigEditTextLabel"/>
 
-    <EditText
-        android:id="@+id/car_mark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black54"
-        android:hint="@string/car_mark"/>
+        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumEditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/BigEditText"
+            android:hint="@string/your_name"/>
 
-    <EditText
-        android:id="@+id/car_registration_number"
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black54"
-        android:hint="@string/registration_number"/>
-    
-    <EditText
-        android:id="@+id/body_type"
+        android:layout_height="@dimen/my_car_edit_line_height">
+
+        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+            android:id="@+id/phone_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/phone"
+            style="@style/BigEditTextLabel"/>
+
+        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumEditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/BigEditText"
+            android:hint="@string/phone"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black54"
-        android:hint="@string/body_type"/>
+        android:layout_height="@dimen/my_car_edit_line_height">
+
+        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+            android:id="@+id/car_mark_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/car_mark"
+            style="@style/BigEditTextLabel"/>
+
+        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumEditText
+            android:id="@+id/car_mark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/BigEditText"
+            android:hint="@string/car_mark"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/my_car_edit_line_height">
+
+        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+            android:id="@+id/car_registration_number_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/registration_number"
+            style="@style/BigEditTextLabel"/>
+
+        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumEditText
+            android:id="@+id/car_registration_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/BigEditText"
+            android:hint="@string/registration_number"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/my_car_edit_line_height">
+
+        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+            android:id="@+id/body_type_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/body_type"
+            style="@style/BigEditTextLabel"/>
+
+        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumEditText
+            android:id="@+id/body_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/BigEditText"
+            android:hint="@string/body_type"/>
+
+    </LinearLayout>
 
 </LinearLayout>

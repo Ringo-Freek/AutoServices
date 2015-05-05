@@ -2,7 +2,13 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorControlNormal">@color/color_white</item>
+        <item name="android:textColorHint">@color/black26</item>
+    </style>
 
+    <style name="Inputs" parent="AppTheme">
+        <item name="colorControlActivated">@color/amber_700</item>
+        <item name="colorControlNormal">@color/black54</item>
     </style>
 
     <style name="DrawerRow">
@@ -72,5 +78,21 @@
     <style name="MarginTB">
         <item name="android:layout_marginBottom">@dimen/material_padding_between_row</item>
         <item name="android:layout_marginTop">@dimen/material_padding_between_row</item>
+    </style>
+
+    <style name="EditText">
+        <item name="android:background">@drawable/edit_text_bg</item>
+        <item name="android:height">@dimen/material_edit_text_height</item>
+    </style>
+
+    <style name="BigEditText" parent="EditText">
+        <item name="android:textSize">@dimen/sp20</item>
+        <item name="android:textColor">@color/black87</item>
+    </style>
+
+    <style name="BigEditTextLabel">
+        <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:textColor">@color/black54</item>
+        <item name="android:gravity">center_horizontal|bottom</item>
     </style>
 </resources>

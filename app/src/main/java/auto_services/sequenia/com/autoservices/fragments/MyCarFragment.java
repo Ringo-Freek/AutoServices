@@ -46,7 +46,8 @@ public class MyCarFragment extends MasterFragment {
 
     @Override
     public RecyclerView.ViewHolder createViewHolder(LayoutInflater inflater, ViewGroup container) {
-        View view = inflater.inflate(R.layout.my_car_item, container, false);
+        LayoutInflater localInflater = getInflaterForTheme(getActivity(), R.style.Inputs);
+        View view = localInflater.inflate(R.layout.my_car_item, container, false);
 
         TextView mark = (TextView) view.findViewById(R.id.mark);
         TextView registrationNumber = (TextView) view.findViewById(R.id.car_registration_number);
@@ -75,19 +76,19 @@ public class MyCarFragment extends MasterFragment {
 
         switch (car.getBody_type()) {
             case Car.MINI:
-                bodyTypeResId = R.drawable.ic_access_time_grey600_24dp;
+                bodyTypeResId = R.drawable.ic_mini;
                 break;
 
             case Car.SEDAN:
-                bodyTypeResId = R.drawable.ic_access_time_grey600_24dp;
+                bodyTypeResId = R.drawable.ic_sedan;
                 break;
 
             case Car.SUV:
-                bodyTypeResId = R.drawable.ic_access_time_grey600_24dp;
+                bodyTypeResId = R.drawable.ic_vnedorojnik;
                 break;
 
             case Car.MINIBUS:
-                bodyTypeResId = R.drawable.ic_access_time_grey600_24dp;
+                bodyTypeResId = R.drawable.ic_microavtobus;
                 break;
         }
 

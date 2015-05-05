@@ -134,7 +134,7 @@ public class MainMapFragment extends PlaceholderFragment
             CarWash carWashI = carWashes.get(i);
             map.addMarker(new MarkerOptions()
                     .title(carWashI.getId().toString())
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_wash_free))
                     .anchor(0.0f, 1.0f)
                     .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
         }
