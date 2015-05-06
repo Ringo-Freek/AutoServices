@@ -28,7 +28,6 @@ public abstract class MasterFragment extends PlaceholderFragment {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ProgressBar progressBar;
-    private ProgressBar scrollProgressBar;
 
     private ArrayList<Object> objects;
 
@@ -72,7 +71,6 @@ public abstract class MasterFragment extends PlaceholderFragment {
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new MasterAdapter(objects) {
-
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 return self.createViewHolder(inflater, container);
@@ -101,7 +99,6 @@ public abstract class MasterFragment extends PlaceholderFragment {
 
     private void initProgress(View rootView) {
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress);
-        scrollProgressBar = (ProgressBar) rootView.findViewById(R.id.scroll_progress);
     }
 
     private void resetScrollListener(Activity activity) {
@@ -110,7 +107,7 @@ public abstract class MasterFragment extends PlaceholderFragment {
         recyclerView.setOnScrollListener(new EndlessScrollListener(activity, layoutManager, scrolledToLoading()) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                loadObjects(page);
+                updateProgressAndLoadObjects(page);
             }
         });
     }
@@ -122,37 +119,17 @@ public abstract class MasterFragment extends PlaceholderFragment {
         updateProgressAndLoadObjects(0);
     }
 
-    public void showProgress() {
+    private void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    public void showScrollProgress() {
-        scrollProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    public void showList() {
-        recyclerView.setVisibility(View.VISIBLE);
-    }
-
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-    }
-
-    public void hideScrollProgress() {
-        scrollProgressBar.setVisibility(View.GONE);
-    }
-
-    public void hideList() {
+    private void hideProgress() {
         progressBar.setVisibility(View.GONE);
     }
 
     private void updateProgressAndLoadObjects(int page) {
         if(page == 0) {
             showProgress();
-            hideScrollProgress();
-        } else {
-            showScrollProgress();
-            hideProgress();
         }
 
         loadObjects(page);
@@ -165,7 +142,6 @@ public abstract class MasterFragment extends PlaceholderFragment {
      */
     public void addObjects(ArrayList newObjects) {
         hideProgress();
-        hideScrollProgress();
         this.objects.addAll(newObjects);
         if(adapter != null) {
             adapter.notifyDataSetChanged();
@@ -242,4 +218,11 @@ public abstract class MasterFragment extends PlaceholderFragment {
      * @param object
      */
     public abstract void setInfoToDetailFragment(Bundle args, Object object);
+
+    private static class ProgressViewHolder extends RecyclerView.ViewHolder {
+
+        public ProgressViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
 }

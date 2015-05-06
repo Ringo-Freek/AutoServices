@@ -40,10 +40,20 @@ public class ReviewsFragment extends MasterFragment {
     private static final int LOADING_COUNT = 15;
     private static final int SCROLLED_TO_LOADING = 10;
 
+    SimpleDateFormat formatter;
+    SimpleDateFormat formatDay;
+    SimpleDateFormat formatTime;
+
     private String carWashId;
 
     public ReviewsFragment() {
         setIsMain(false);
+
+        formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        formatDay = new SimpleDateFormat("dd/MM/yy");
+        formatTime = new SimpleDateFormat("HH:mm");
+
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
     @Override
@@ -161,43 +171,35 @@ public class ReviewsFragment extends MasterFragment {
      * @return
      */
     public String reviewDate(String reviewDateStr){
-        String reviewDate = "";
+        String reviewDateFormatted = "";
         try {
-            System.out.println(reviewDateStr);
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-            SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/yy");
-            SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
-
-            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-
             Calendar dateNow = Calendar.getInstance();
-            Calendar dateReview = Calendar.getInstance();
+            Calendar reviewDate = Calendar.getInstance();
             Date date = formatter.parse(reviewDateStr);
 
-            reviewDate = formatDay.format(date);
+            reviewDate.setTimeInMillis(date.getTime());
 
-            dateReview.setTimeInMillis(date.getTime());
+            if(dates(dateNow, reviewDate)){
+                reviewDateFormatted = "сегодня " + formatTime.format(date);
+            } else {
+                dateNow.add(Calendar.DATE, -1);
 
-            if(dates(dateNow, dateReview)){
-                reviewDate = "сегодня " + formatTime.format(date);
-            }
-
-            dateNow.add(Calendar.DATE, -1);
-
-            if(dates(dateNow, dateReview)){
-                reviewDate = "вчера " + formatTime.format(date);
+                if (dates(dateNow, reviewDate)) {
+                    reviewDateFormatted = "вчера " + formatTime.format(date);
+                } else {
+                    reviewDateFormatted = formatDay.format(date);
+                }
             }
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return  reviewDate;
+        return  reviewDateFormatted;
     }
 
     public Boolean dates(Calendar dateNow, Calendar dateReview){
-        if(
-                dateNow.get(Calendar.MONTH) == dateReview.get(Calendar.MONTH)
-                        && dateNow.get(Calendar.DAY_OF_MONTH) == dateReview.get(Calendar.DAY_OF_MONTH)
-                        && dateNow.get(Calendar.YEAR) == dateReview.get(Calendar.YEAR)){
+        if(dateNow.get(Calendar.MONTH) == dateReview.get(Calendar.MONTH)
+                && dateNow.get(Calendar.DAY_OF_MONTH) == dateReview.get(Calendar.DAY_OF_MONTH)
+                && dateNow.get(Calendar.YEAR) == dateReview.get(Calendar.YEAR)){
             return true;
         }else{
             return false;
