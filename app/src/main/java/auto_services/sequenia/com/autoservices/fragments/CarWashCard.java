@@ -43,6 +43,7 @@ public class CarWashCard extends PlaceholderDialogFragment {
     private String carWashId;
     private Float carWashDistance;
     private View rootView;
+    private CarWash carWash = null;
 
     public CarWashCard() {
         setIsMain(false);
@@ -79,6 +80,8 @@ public class CarWashCard extends PlaceholderDialogFragment {
      * забивка в карточку результата, полученного с сервера
      */
     public void initDataCarWash(CarWash carWash){
+        this.carWash = carWash;
+
         Picasso
                 .with(getActivity())
                 .load(carWash.getImage())
@@ -113,7 +116,11 @@ public class CarWashCard extends PlaceholderDialogFragment {
     }
 
     private void showReservationForm() {
-        ((MainActivity) getActivity()).addSubFragment(PlaceholderFragment.newInstance(PlaceholderDialogFragment.RESERVATION_SECTION));
+        if(carWash != null) {
+            ReservationFragment fragment = (ReservationFragment) PlaceholderFragment.newInstance(PlaceholderDialogFragment.RESERVATION_SECTION);
+            fragment.setInfo(Integer.valueOf(carWashId), carWash.getName(), carWash.getAddress());
+            ((MainActivity) getActivity()).addSubFragment(fragment);
+        }
     }
 
     private void showReviewsForm() {

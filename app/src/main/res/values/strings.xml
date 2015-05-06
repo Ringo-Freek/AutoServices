@@ -30,7 +30,8 @@
 
     <!-- Placeholders -->
     <string name="your_name">Ваше имя</string>
-    <string name="phone">Номер телефона</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="phone">Телефон</string>
     <string name="car_mark">Марка автомобиля</string>
     <string name="registration_number">Госномер</string>
     <string name="body_type">Тип кузова</string>
@@ -40,4 +41,7 @@
     <string name="sedan">Седан</string>
     <string name="suv">Внедорожник</string>
     <string name="minibus">Микроавтобус</string>
+
+    <string name="reserve_data">Данные заказчика</string>
+    <string name="schedule">Расписание</string>
 </resources>

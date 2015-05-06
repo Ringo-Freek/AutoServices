@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            style="@style/BigEditText"
+            style="@style/EditText.Big"
             android:hint="@string/your_name"/>
 
     </LinearLayout>
@@ -42,7 +42,7 @@
             android:id="@+id/phone_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone"
+            android:text="@string/phone_number"
             style="@style/BigEditTextLabel"/>
 
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumEditText
@@ -50,8 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            style="@style/BigEditText"
-            android:hint="@string/phone"/>
+            style="@style/EditText.Big"
+            android:hint="@string/phone_number"/>
 
     </LinearLayout>
 
@@ -95,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            style="@style/BigEditText"
+            style="@style/EditText.Big"
             android:hint="@string/registration_number"/>
 
     </LinearLayout>
