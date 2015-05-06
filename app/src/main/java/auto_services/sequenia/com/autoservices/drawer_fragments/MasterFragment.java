@@ -26,10 +26,12 @@ import auto_services.sequenia.com.autoservices.listeners.EndlessScrollListener;
 public abstract class MasterFragment extends PlaceholderFragment {
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private MasterAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ProgressBar progressBar;
     private Button reloadButton;
+    private boolean scrollReloadingShown = false;
+    private RecyclerView.OnScrollListener onScrollListener;
 
     private ArrayList<Object> objects;
 
@@ -76,12 +78,25 @@ public abstract class MasterFragment extends PlaceholderFragment {
         adapter = new MasterAdapter(objects) {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return self.createViewHolder(inflater, container);
+                if(viewType == ITEM) {
+                    return self.createViewHolder(inflater, parent);
+                } else {
+                    return createScrollReloadingButton(inflater, parent);
+                }
             }
 
             @Override
             public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-                self.bindViewHolder(holder, position, this, objects.get(position));
+                if(getItemViewType(position) == ITEM) {
+                    self.bindViewHolder(holder, position, this, objects.get(position));
+                } else {
+                    bindScrollReloadingButton(holder);
+                }
+            }
+
+            @Override
+            public boolean reloadingShown() {
+                return scrollReloadingShown;
             }
         };
         recyclerView.setAdapter(adapter);
@@ -116,15 +131,38 @@ public abstract class MasterFragment extends PlaceholderFragment {
         hideReloadButton();
     }
 
+    private RecyclerView.ViewHolder createScrollReloadingButton(LayoutInflater inflater, ViewGroup parent) {
+        View view = inflater.inflate(R.layout.reloading_button, parent, false);
+        Button button = (Button) view.findViewById(R.id.list_reloading_button);
+        return new ReloadingViewHolder(view, button);
+    }
+
+    private void bindScrollReloadingButton(RecyclerView.ViewHolder holder) {
+        ((ReloadingViewHolder) holder).button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollReloadingShown = false;
+                adapter.notifyDataSetChanged();
+                ((EndlessScrollListener) onScrollListener).loadMore();
+            }
+        });
+    }
+
     private void resetScrollListener(Activity activity) {
         recyclerView.setOnScrollListener(null);
         objects.clear();
-        recyclerView.setOnScrollListener(new EndlessScrollListener(activity, layoutManager, scrolledToLoading()) {
+        onScrollListener = new EndlessScrollListener(activity, layoutManager, scrolledToLoading()) {
             @Override
-            public void onLoadMore(int page, int totalItemsCount) {
+            public void onLoadMore(int page) {
                 updateProgressAndLoadObjects(page);
             }
-        });
+
+            @Override
+            public boolean hasExtraLine() {
+                return scrollReloadingShown;
+            }
+        };
+        recyclerView.setOnScrollListener(onScrollListener);
     }
 
     @Override
@@ -163,9 +201,15 @@ public abstract class MasterFragment extends PlaceholderFragment {
     }
 
     public void showReloading(int page) {
-        hideProgress();
-        hideList();
-        showReloadButton();
+        if(page == 0) {
+            hideProgress();
+            hideList();
+            showReloadButton();
+        } else {
+            hideProgress();
+            scrollReloadingShown = true;
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void hideReloading() {
@@ -265,4 +309,14 @@ public abstract class MasterFragment extends PlaceholderFragment {
      * @param object
      */
     public abstract void setInfoToDetailFragment(Bundle args, Object object);
+
+    private static class ReloadingViewHolder extends RecyclerView.ViewHolder {
+
+        public Button button;
+
+        public ReloadingViewHolder(View itemView, Button button) {
+            super(itemView);
+            this.button = button;
+        }
+    }
 }

@@ -39,7 +39,7 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         int visibleItemCount = layoutManager.getChildCount();
-        int totalItemCount = layoutManager.getItemCount();
+        int totalItemCount = getItemCount(layoutManager.getItemCount());
         int firstVisibleItem = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
 
         // If the total item count is zero and the previous isn't, assume the
@@ -62,9 +62,13 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
         // the visibleThreshold and need to reload more data.
         // If we do need to reload some more data, we execute onLoadMore to fetch the data.
         if (!loading && (totalItemCount - visibleItemCount)<=(firstVisibleItem + visibleThreshold)) {
-            onLoadMore(currentPage, totalItemCount);
-            loading = true;
+            loadMore();
         }
+    }
+
+    public void loadMore() {
+        onLoadMore(currentPage);
+        loading = true;
     }
 
     @Override
@@ -77,5 +81,17 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
         }
     }
 
-    public abstract void onLoadMore(int page, int totalItemsCount);
+    private int getItemCount(int count) {
+        if(hasExtraLine()) {
+            return count - 1;
+        } else {
+            return count;
+        }
+    }
+
+    public boolean hasExtraLine() {
+        return false;
+    }
+
+    public abstract void onLoadMore(int page);
 }
