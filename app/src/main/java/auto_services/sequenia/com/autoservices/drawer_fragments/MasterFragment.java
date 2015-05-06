@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,8 @@ public abstract class MasterFragment extends PlaceholderFragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ProgressBar progressBar;
+    private ProgressBar scrollProgressBar;
 
     private ArrayList<Object> objects;
 
@@ -50,6 +53,16 @@ public abstract class MasterFragment extends PlaceholderFragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_master, container, false);
 
+        initList(rootView, inflater, container);
+        initButtons(rootView);
+        initProgress(rootView);
+
+        updateProgressAndLoadObjects(0);
+
+        return rootView;
+    }
+
+    private void initList(View rootView, final LayoutInflater inflater, final ViewGroup container) {
         final MasterFragment self = this;
         Activity activity = getActivity();
 
@@ -72,20 +85,23 @@ public abstract class MasterFragment extends PlaceholderFragment {
         };
         recyclerView.setAdapter(adapter);
 
+        if(hasEndlessScroll()) {
+            resetScrollListener(activity);
+        }
+    }
+
+    private void initButtons(View rootView) {
         rootView.findViewById(R.id.create_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDetailFragment(DetailFragment.NO_ITEM, DetailFragment.NO_ITEM);
             }
         });
+    }
 
-        if(hasEndlessScroll()) {
-            resetScrollListener(activity);
-        }
-
-        loadObjects(0);
-
-        return rootView;
+    private void initProgress(View rootView) {
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progress);
+        scrollProgressBar = (ProgressBar) rootView.findViewById(R.id.scroll_progress);
     }
 
     private void resetScrollListener(Activity activity) {
@@ -99,12 +115,57 @@ public abstract class MasterFragment extends PlaceholderFragment {
         });
     }
 
+    @Override
+    public void resumeFragment() {
+        super.resumeFragment();
+        resetScrollListener(getActivity());
+        updateProgressAndLoadObjects(0);
+    }
+
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void showScrollProgress() {
+        scrollProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void showList() {
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    public void hideScrollProgress() {
+        scrollProgressBar.setVisibility(View.GONE);
+    }
+
+    public void hideList() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    private void updateProgressAndLoadObjects(int page) {
+        if(page == 0) {
+            showProgress();
+            hideScrollProgress();
+        } else {
+            showScrollProgress();
+            hideProgress();
+        }
+
+        loadObjects(page);
+    }
+
     /**
      * Добавляет объекты в список, после чего они отображаются на экране
      *
      * @param newObjects
      */
     public void addObjects(ArrayList newObjects) {
+        hideProgress();
+        hideScrollProgress();
         this.objects.addAll(newObjects);
         if(adapter != null) {
             adapter.notifyDataSetChanged();
@@ -181,11 +242,4 @@ public abstract class MasterFragment extends PlaceholderFragment {
      * @param object
      */
     public abstract void setInfoToDetailFragment(Bundle args, Object object);
-
-    @Override
-    public void resumeFragment() {
-        super.resumeFragment();
-        resetScrollListener(getActivity());
-        loadObjects(0);
-    }
 }
