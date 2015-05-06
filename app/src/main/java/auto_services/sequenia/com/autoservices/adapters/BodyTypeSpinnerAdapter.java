@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +67,9 @@ public class BodyTypeSpinnerAdapter extends ArrayAdapter<Integer> {
         }
 
         TextView label = (TextView) row.findViewById(R.id.text);
+        label.setTextSize(TypedValue.COMPLEX_UNIT_SP, getTextSize());
+        label.setGravity(getGravity());
+
 
         label.setText(bodyTypeLabels[position]);
 
@@ -73,5 +78,13 @@ public class BodyTypeSpinnerAdapter extends ArrayAdapter<Integer> {
 
     public String[] getBodyTypes() {
         return bodyTypes;
+    }
+
+    public int getTextSize() {
+        return 16;
+    }
+
+    public int getGravity() {
+        return Gravity.CENTER;
     }
 }

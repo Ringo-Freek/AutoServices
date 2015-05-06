@@ -1,6 +1,7 @@
 package auto_services.sequenia.com.autoservices.fragments;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import org.w3c.dom.Text;
 
 import auto_services.sequenia.com.autoservices.R;
 import auto_services.sequenia.com.autoservices.drawer_fragments.PlaceholderFragment;
+import auto_services.sequenia.com.autoservices.widgets.BodyTypeSpinner;
+import auto_services.sequenia.com.autoservices.widgets.CarMarkSpinner;
 
 /**
  * Created by chybakut2004 on 30.04.15.
@@ -24,8 +27,8 @@ public class ReservationFragment extends PlaceholderFragment {
     private TextView nameTextView;
     private TextView phoneTextView;
     private TextView registrationNumberTextView;
-    private Spinner bodyTypeSpinner;
-    private Spinner carMarkSpinner;
+    private BodyTypeSpinner bodyTypeSpinner;
+    private CarMarkSpinner carMarkSpinner;
 
     private int carWashId;
     private String carWashName;
@@ -44,6 +47,14 @@ public class ReservationFragment extends PlaceholderFragment {
 
         carWashNameTextView.setText(carWashName);
         carWashAddressTextView.setText(carWashAddress);
+
+        carMarkSpinner = (CarMarkSpinner) rootView.findViewById(R.id.car_mark);
+        carMarkSpinner.setTextSize(16);
+        carMarkSpinner.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+
+        bodyTypeSpinner = (BodyTypeSpinner) rootView.findViewById(R.id.body_type);
+        bodyTypeSpinner.setTextSize(16);
+        bodyTypeSpinner.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 
         return rootView;
     }
