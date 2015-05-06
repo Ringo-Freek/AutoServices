@@ -30,6 +30,11 @@
     <style name="Btn">
         <item name="android:textSize">@dimen/btn_text_size</item>
         <item name="android:padding">@dimen/btn_padding</item>
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="Btn.OrangeBgr" parent="@style/Btn">
+        <item name="android:background">@drawable/orange_btn</item>
     </style>
 
     <style name="TextViewCustom">
@@ -94,5 +99,10 @@
         <item name="android:textColor">@color/black54</item>
         <item name="android:gravity">center_horizontal|bottom</item>
         <item name="android:layout_height">48dp</item>
+    </style>
+
+    <style name="TextViewWhite">
+        <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:textColor">@color/color_white</item>
     </style>
 </resources>

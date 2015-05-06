@@ -8,11 +8,11 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/items_list"
         android:paddingTop="@dimen/material_padding_between_row"
-        android:paddingBottom="@dimen/material_padding_between_row"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <Button
+        android:layout_margin="@dimen/material_padding"
         android:background="@drawable/create_btn"
         android:id="@+id/create_button"
         android:layout_width="@dimen/btn_circle_size"

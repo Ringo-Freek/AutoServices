@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape android:shape="ring">
+        <shape android:shape="oval">
             <solid android:color="@color/amber_700"></solid>
         </shape>
     </item>
-    <item
-        android:drawable="@drawable/ic_add_white_24dp"
-        android:left="@dimen/material_padding"
-        android:bottom="@dimen/material_padding"
-        android:right="@dimen/material_padding"
-        android:top="@dimen/material_padding"></item>
+
+    <item>
+        <bitmap android:src="@drawable/ic_add_white_24dp"
+            android:gravity="center" />
+    </item>
 </layer-list>
