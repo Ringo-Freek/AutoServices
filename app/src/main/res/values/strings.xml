@@ -23,6 +23,7 @@
     <string name="reserve">ЗАПИСАТЬСЯ НА МОЙКУ</string>
     <string name="confirm">ПОДТВЕРДИТЬ</string>
     <string name="delete">УДАЛИТЬ</string>
+    <string name="reload">ПЕРЕЗАГРУЗИТЬ</string>
 
     <!--Заголовки-->
     <string name="services">Услуги</string>

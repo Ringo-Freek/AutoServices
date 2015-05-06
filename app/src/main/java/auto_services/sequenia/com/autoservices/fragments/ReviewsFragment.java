@@ -57,7 +57,7 @@ public class ReviewsFragment extends MasterFragment {
     }
 
     @Override
-    public void loadObjects(int page) {
+    public void loadObjects(final int page) {
         new ReviewsTask(
                 "reviews.json?auth_token="
                         + Global.testToken
@@ -72,6 +72,8 @@ public class ReviewsFragment extends MasterFragment {
                     if(reviewsResponse.getSuccess()){
                         addObjects(reviewsResponse.getData());
                     }
+                } else {
+                    showReloading(page);
                 }
             }
         }.execute();

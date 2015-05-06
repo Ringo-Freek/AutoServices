@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public abstract class MasterFragment extends PlaceholderFragment {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ProgressBar progressBar;
+    private Button reloadButton;
 
     private ArrayList<Object> objects;
 
@@ -55,6 +57,7 @@ public abstract class MasterFragment extends PlaceholderFragment {
         initList(rootView, inflater, container);
         initButtons(rootView);
         initProgress(rootView);
+        initReloadButton(rootView);
 
         updateProgressAndLoadObjects(0);
 
@@ -101,6 +104,18 @@ public abstract class MasterFragment extends PlaceholderFragment {
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress);
     }
 
+    private void initReloadButton(View rootView) {
+        reloadButton = (Button) rootView.findViewById(R.id.reload_button);
+        reloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideReloading();
+                reset();
+            }
+        });
+        hideReloadButton();
+    }
+
     private void resetScrollListener(Activity activity) {
         recyclerView.setOnScrollListener(null);
         objects.clear();
@@ -115,6 +130,10 @@ public abstract class MasterFragment extends PlaceholderFragment {
     @Override
     public void resumeFragment() {
         super.resumeFragment();
+        reset();
+    }
+
+    private void reset() {
         resetScrollListener(getActivity());
         updateProgressAndLoadObjects(0);
     }
@@ -125,6 +144,34 @@ public abstract class MasterFragment extends PlaceholderFragment {
 
     private void hideProgress() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    private void hideList() {
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    private void showList() {
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void showReloadButton() {
+        reloadButton.setVisibility(View.VISIBLE);
+    }
+
+    private void hideReloadButton() {
+        reloadButton.setVisibility(View.GONE);
+    }
+
+    public void showReloading(int page) {
+        hideProgress();
+        hideList();
+        showReloadButton();
+    }
+
+    public void hideReloading() {
+        hideProgress();
+        hideReloadButton();
+        showList();
     }
 
     private void updateProgressAndLoadObjects(int page) {
@@ -218,11 +265,4 @@ public abstract class MasterFragment extends PlaceholderFragment {
      * @param object
      */
     public abstract void setInfoToDetailFragment(Bundle args, Object object);
-
-    private static class ProgressViewHolder extends RecyclerView.ViewHolder {
-
-        public ProgressViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
 }
