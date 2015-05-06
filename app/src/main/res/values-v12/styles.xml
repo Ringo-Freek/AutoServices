@@ -3,7 +3,7 @@
 
     <style name="EditText">
         <item name="android:background">@drawable/edit_text_bg</item>
-        <item name="android:height">@dimen/material_edit_text_height</item>
+        <!--<item name="android:height">@dimen/material_edit_text_height</item>-->
         <item name="android:textCursorDrawable">@drawable/edit_text_cursor</item>
     </style>
 </resources>

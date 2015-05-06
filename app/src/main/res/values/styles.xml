@@ -68,6 +68,14 @@
         <item name="android:textColor">#000000</item>
     </style>
 
+    <style name="TextViewBlack.Big" parent="@style/TextViewBlack">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="TextViewBlack.Medium" parent="@style/TextViewBlack">
+        <item name="android:textSize">16dp</item>
+    </style>
+
     <style name="TextViewBlack.Small" parent="@style/TextViewBlack">
         <item name="android:textSize">12dp</item>
     </style>
@@ -94,14 +102,32 @@
         <item name="android:textColor">@color/black87</item>
     </style>
 
+    <style name="EditText.Medium" parent="EditText">
+        <item name="android:textSize">@dimen/sp16</item>
+        <item name="android:textColor">@color/black87</item>
+    </style>
+
+    <style name="EditText.Medium.Multiline" parent="EditText.Medium">
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
     <style name="BigEditTextLabel">
         <item name="android:textSize">@dimen/sp16</item>
         <item name="android:textColor">@color/black54</item>
         <item name="android:gravity">center_horizontal|bottom</item>
     </style>
 
+    <style name="EditTextLabel.Small" parent="BigEditTextLabel">
+        <item name="android:textSize">@dimen/sp12</item>
+    </style>
+
     <style name="TextViewWhite">
         <item name="android:textSize">@dimen/sp14</item>
         <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="EditTextLabel.Small.GravityLeft" parent="EditTextLabel.Small">
+        <item name="android:gravity">left|bottom</item>
     </style>
 </resources>

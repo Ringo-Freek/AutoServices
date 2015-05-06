@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_with_radius">
+
+    <LinearLayout
+        android:paddingTop="@dimen/material_big_padding"
+        android:paddingBottom="1dp"
+        android:paddingRight="@dimen/material_big_padding"
+        android:paddingLeft="@dimen/material_big_padding"
+        android:orientation="vertical"
+        android:id="@+id/car_wash_card_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+            style="@style/TextViewBlack.Big"
+            android:id="@+id/dialog_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+    <ScrollView
+        android:paddingTop="43dp"
+        android:paddingBottom="@dimen/material_padding_between_row"
+        android:paddingRight="@dimen/material_big_padding"
+        android:paddingLeft="@dimen/material_big_padding"
+        android:id="@+id/dialog_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+                style="@style/EditTextLabel.Small.GravityLeft"
+                android:id="@+id/text_view_your_name"
+                android:text="@string/your_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <auto_services.sequenia.com.autoservices.widgets.EditTextWithLabel
+                style="@style/EditText.Medium"
+                android:id="@+id/edit_text_your_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/material_edit_text_height"
+                android:hint="@string/your_name"/>
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/material_edit_text_height">
+
+                <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+                    style="@style/TextViewBlack.Medium"
+                    android:layout_weight="1"
+                    android:text="@string/set_mark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <auto_services.sequenia.com.autoservices.widgets.Rating
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:id="@+id/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+                style="@style/EditTextLabel.Small.GravityLeft"
+                android:id="@+id/text_view_your_review"
+                android:text="@string/review_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <auto_services.sequenia.com.autoservices.widgets.EditTextWithLabel
+                style="@style/EditText.Medium.Multiline"
+                android:inputType="textMultiLine"
+                android:id="@+id/edit_text_your_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/review_text"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldButton
+            style="@style/Btn"
+            android:id="@+id/dialog_btn"
+            android:text="@string/publish"
+            android:background="@drawable/car_wash_card_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height" />
+    </LinearLayout>
+</LinearLayout>

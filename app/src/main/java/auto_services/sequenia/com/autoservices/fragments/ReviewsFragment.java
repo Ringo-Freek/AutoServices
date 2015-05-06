@@ -2,7 +2,6 @@ package auto_services.sequenia.com.autoservices.fragments;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +24,8 @@ import java.util.TimeZone;
 import auto_services.sequenia.com.autoservices.Global;
 import auto_services.sequenia.com.autoservices.R;
 import auto_services.sequenia.com.autoservices.async_tasks.ReviewsTask;
+import auto_services.sequenia.com.autoservices.dialogs.CreateReviewDialog;
+import auto_services.sequenia.com.autoservices.dialogs.DialogWindow;
 import auto_services.sequenia.com.autoservices.drawer_fragments.MasterFragment;
 import auto_services.sequenia.com.autoservices.objects.Review;
 import auto_services.sequenia.com.autoservices.responses.JsonResponse;
@@ -202,5 +203,10 @@ public class ReviewsFragment extends MasterFragment {
         }else{
             return false;
         }
+    }
+
+    public void showDetailFragment(int itemId, int position) {
+        CreateReviewDialog createReviewDialog = (CreateReviewDialog) DialogWindow.customInstance(getResources().getString(R.string.create_review), R.layout.create_review_dialog, new CreateReviewDialog());
+        createReviewDialog.show(getFragmentManager(), "dialog");
     }
 }

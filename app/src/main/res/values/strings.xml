@@ -23,6 +23,7 @@
     <string name="reserve">ЗАПИСАТЬСЯ НА МОЙКУ</string>
     <string name="confirm">ПОДТВЕРДИТЬ</string>
     <string name="delete">УДАЛИТЬ</string>
+    <string name="publish">ОПУБЛИКОВАТЬ</string>
 
     <!--Заголовки-->
     <string name="services">Услуги</string>
@@ -32,11 +33,18 @@
     <string name="phone">Номер телефона</string>
     <string name="car_mark">Марка автомобиля</string>
     <string name="registration_number">Госномер</string>
-    <string name="body_type">Тип кузова</string>
+    <string name="review_text">Текст отзыва</string>
 
     <!-- Типы кузовов -->
     <string name="mini">Мини</string>
     <string name="sedan">Седан</string>
     <string name="suv">Внедорожник</string>
     <string name="minibus">Микроавтобус</string>
+
+    <!--Заголовки диалоговых окошек-->
+    <string name="create_review">Оставьте отзыв</string>
+
+    <!--Текст label-->
+    <string name="body_type">Тип кузова</string>
+    <string name="set_mark">Оценить</string>
 </resources>
