@@ -9,6 +9,9 @@ import java.util.ArrayList;
  */
 public abstract class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    public static final int ITEM = 0;
+    public static final int RELOADING = 1;
+
     private ArrayList<Object> objects;
 
     public MasterAdapter(ArrayList<Object> objects) {
@@ -17,6 +20,23 @@ public abstract class MasterAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemCount() {
-        return objects.size();
+        if(reloadingShown()) {
+            return objects.size() + 1;
+        } else {
+            return objects.size();
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position < objects.size()) {
+            return ITEM;
+        } else {
+            return RELOADING;
+        }
+    }
+
+    public boolean reloadingShown() {
+        return false;
     }
 }

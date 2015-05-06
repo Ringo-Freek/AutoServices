@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -24,8 +26,12 @@ import auto_services.sequenia.com.autoservices.listeners.EndlessScrollListener;
 public abstract class MasterFragment extends PlaceholderFragment {
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private MasterAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ProgressBar progressBar;
+    private Button reloadButton;
+    private boolean scrollReloadingShown = false;
+    private RecyclerView.OnScrollListener onScrollListener;
 
     private ArrayList<Object> objects;
 
@@ -50,6 +56,17 @@ public abstract class MasterFragment extends PlaceholderFragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_master, container, false);
 
+        initList(rootView, inflater, container);
+        initButtons(rootView);
+        initProgress(rootView);
+        initReloadButton(rootView);
+
+        updateProgressAndLoadObjects(0);
+
+        return rootView;
+    }
+
+    private void initList(View rootView, final LayoutInflater inflater, final ViewGroup container) {
         final MasterFragment self = this;
         Activity activity = getActivity();
 
@@ -59,44 +76,154 @@ public abstract class MasterFragment extends PlaceholderFragment {
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new MasterAdapter(objects) {
-
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                return self.createViewHolder(inflater, container);
+                if(viewType == ITEM) {
+                    return self.createViewHolder(inflater, parent);
+                } else {
+                    return createScrollReloadingButton(inflater, parent);
+                }
             }
 
             @Override
             public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-                self.bindViewHolder(holder, position, this, objects.get(position));
+                if(getItemViewType(position) == ITEM) {
+                    self.bindViewHolder(holder, position, this, objects.get(position));
+                } else {
+                    bindScrollReloadingButton(holder);
+                }
+            }
+
+            @Override
+            public boolean reloadingShown() {
+                return scrollReloadingShown;
             }
         };
         recyclerView.setAdapter(adapter);
 
+        if(hasEndlessScroll()) {
+            resetScrollListener(activity);
+        }
+    }
+
+    private void initButtons(View rootView) {
         rootView.findViewById(R.id.create_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDetailFragment(DetailFragment.NO_ITEM, DetailFragment.NO_ITEM);
             }
         });
+    }
 
-        if(hasEndlessScroll()) {
-            resetScrollListener(activity);
-        }
+    private void initProgress(View rootView) {
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progress);
+    }
 
-        loadObjects(0);
+    private void initReloadButton(View rootView) {
+        reloadButton = (Button) rootView.findViewById(R.id.reload_button);
+        reloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideReloading();
+                reset();
+            }
+        });
+        hideReloadButton();
+    }
 
-        return rootView;
+    private RecyclerView.ViewHolder createScrollReloadingButton(LayoutInflater inflater, ViewGroup parent) {
+        View view = inflater.inflate(R.layout.reloading_button, parent, false);
+        Button button = (Button) view.findViewById(R.id.list_reloading_button);
+        return new ReloadingViewHolder(view, button);
+    }
+
+    private void bindScrollReloadingButton(RecyclerView.ViewHolder holder) {
+        ((ReloadingViewHolder) holder).button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollReloadingShown = false;
+                adapter.notifyDataSetChanged();
+                ((EndlessScrollListener) onScrollListener).loadMore();
+            }
+        });
     }
 
     private void resetScrollListener(Activity activity) {
         recyclerView.setOnScrollListener(null);
         objects.clear();
-        recyclerView.setOnScrollListener(new EndlessScrollListener(activity, layoutManager, scrolledToLoading()) {
+        onScrollListener = new EndlessScrollListener(activity, layoutManager, scrolledToLoading()) {
             @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                loadObjects(page);
+            public void onLoadMore(int page) {
+                updateProgressAndLoadObjects(page);
             }
-        });
+
+            @Override
+            public boolean hasExtraLine() {
+                return scrollReloadingShown;
+            }
+        };
+        recyclerView.setOnScrollListener(onScrollListener);
+    }
+
+    @Override
+    public void resumeFragment() {
+        super.resumeFragment();
+        reset();
+    }
+
+    private void reset() {
+        resetScrollListener(getActivity());
+        updateProgressAndLoadObjects(0);
+    }
+
+    private void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    private void hideList() {
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    private void showList() {
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void showReloadButton() {
+        reloadButton.setVisibility(View.VISIBLE);
+    }
+
+    private void hideReloadButton() {
+        reloadButton.setVisibility(View.GONE);
+    }
+
+    public void showReloading(int page) {
+        if(page == 0) {
+            hideProgress();
+            hideList();
+            showReloadButton();
+        } else {
+            hideProgress();
+            scrollReloadingShown = true;
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    public void hideReloading() {
+        hideProgress();
+        hideReloadButton();
+        showList();
+    }
+
+    private void updateProgressAndLoadObjects(int page) {
+        if(page == 0) {
+            showProgress();
+        }
+
+        loadObjects(page);
     }
 
     /**
@@ -105,6 +232,7 @@ public abstract class MasterFragment extends PlaceholderFragment {
      * @param newObjects
      */
     public void addObjects(ArrayList newObjects) {
+        hideProgress();
         this.objects.addAll(newObjects);
         if(adapter != null) {
             adapter.notifyDataSetChanged();
@@ -182,10 +310,13 @@ public abstract class MasterFragment extends PlaceholderFragment {
      */
     public abstract void setInfoToDetailFragment(Bundle args, Object object);
 
-    @Override
-    public void resumeFragment() {
-        super.resumeFragment();
-        resetScrollListener(getActivity());
-        loadObjects(0);
+    private static class ReloadingViewHolder extends RecyclerView.ViewHolder {
+
+        public Button button;
+
+        public ReloadingViewHolder(View itemView, Button button) {
+            super(itemView);
+            this.button = button;
+        }
     }
 }

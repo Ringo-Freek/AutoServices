@@ -28,6 +28,8 @@ import auto_services.sequenia.com.autoservices.objects.Car;
 import auto_services.sequenia.com.autoservices.objects.CarMark;
 import auto_services.sequenia.com.autoservices.objects.MyCarCreationData;
 import auto_services.sequenia.com.autoservices.static_classes.RealmHelper;
+import auto_services.sequenia.com.autoservices.widgets.BodyTypeSpinner;
+import auto_services.sequenia.com.autoservices.widgets.CarMarkSpinner;
 import auto_services.sequenia.com.autoservices.widgets.EditTextWithLabel;
 import auto_services.sequenia.com.autoservices.widgets.SpinnerWithLabel;
 import io.realm.RealmResults;
@@ -39,15 +41,13 @@ public class MyCarEditFragment extends DetailFragment {
 
     private EditTextWithLabel nameInput;
     private EditTextWithLabel phoneNumberInput;
-    private SpinnerWithLabel carMarkInput;
+    private CarMarkSpinner carMarkInput;
     private EditTextWithLabel registrationNumberInput;
-    private Spinner bodyTypeInput;
+    private BodyTypeSpinner bodyTypeInput;
 
     private int carMarkId = 0;
     private String registrationNumber;
     private String bodyType;
-
-    RealmResults<CarMark> carMarks;
 
     public MyCarEditFragment() {
         setIsMain(false);
@@ -59,24 +59,14 @@ public class MyCarEditFragment extends DetailFragment {
 
         nameInput = (EditTextWithLabel) view.findViewById(R.id.name);
         phoneNumberInput = (EditTextWithLabel) view.findViewById(R.id.phone);
-        carMarkInput = (SpinnerWithLabel) view.findViewById(R.id.car_mark);
+        carMarkInput = (CarMarkSpinner) view.findViewById(R.id.car_mark);
         registrationNumberInput = (EditTextWithLabel) view.findViewById(R.id.car_registration_number);
-        bodyTypeInput = (Spinner) view.findViewById(R.id.body_type);
+        bodyTypeInput = (BodyTypeSpinner) view.findViewById(R.id.body_type);
 
         nameInput.setLabel(view.findViewById(R.id.name_label));
         phoneNumberInput.setLabel(view.findViewById(R.id.phone_label));
         carMarkInput.setLabel(view.findViewById(R.id.car_mark_label));
         registrationNumberInput.setLabel(view.findViewById(R.id.car_registration_number_label));
-
-        Activity activity = getActivity();
-        Resources resources = activity.getResources();
-        carMarks = RealmHelper.getCarMarks(activity);
-        carMarkInput.setAdapter(new CarMarksSpinnerAdapter(activity, carMarks));
-        bodyTypeInput.setAdapter(new BodyTypeSpinnerAdapter(activity,
-                resources.getStringArray(R.array.body_types),
-                resources.getStringArray(R.array.body_type_labels),
-                resources.getIntArray(R.array.body_type_icons)));
-        bodyTypeInput.setSelection(0);
 
         return view;
     }
@@ -125,37 +115,15 @@ public class MyCarEditFragment extends DetailFragment {
 
     @Override
     public void showInfo() {
-        int carMarkIndex = 0;
-        for(int i = 0; i < carMarks.size(); i++) {
-            if(carMarkId == carMarks.get(i).getId()) {
-                carMarkIndex = i + 1;
-                break;
-            }
-        }
-
-        carMarkInput.setSelection(carMarkIndex);
+        carMarkInput.selectCarMark(carMarkId);
         registrationNumberInput.setText(registrationNumber);
-
-        BodyTypeSpinnerAdapter adapter = (BodyTypeSpinnerAdapter) bodyTypeInput.getAdapter();
-        String[] bodyTypes = adapter.getBodyTypes();
-        for(int i = 0; i < bodyTypes.length; i++) {
-            if(bodyType.equals(bodyTypes[i])) {
-                bodyTypeInput.setSelection(i);
-                break;
-            }
-        }
+        bodyTypeInput.selectBodyType(bodyType);
     }
 
     private MyCarCreationData getData() {
-        Integer carMarkId = null;
-        int carMarkIndex = carMarkInput.getSelectedItemPosition() - 1;
-        if(carMarkIndex >= 0) {
-            carMarkId = carMarks.get(carMarkIndex).getId();
-        }
+        Integer carMarkId = carMarkInput.getSelectedCarMarkId();
         String registrationNumber = registrationNumberInput.getText().toString();
-
-        BodyTypeSpinnerAdapter adapter = (BodyTypeSpinnerAdapter) bodyTypeInput.getAdapter();
-        String bodyType = adapter.getBodyTypes()[bodyTypeInput.getSelectedItemPosition()];
+        String bodyType = bodyTypeInput.getSelectedBodyType();
 
         return new MyCarCreationData(Global.testToken, carMarkId, registrationNumber, bodyType);
     }

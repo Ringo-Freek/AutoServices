@@ -12,6 +12,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:gravity="bottom"
         android:layout_height="@dimen/my_car_edit_line_height">
 
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
@@ -24,9 +25,9 @@
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumEditText
             android:id="@+id/name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/material_edit_text_height"
             android:gravity="center"
-            style="@style/BigEditText"
+            style="@style/EditText.Big"
             android:hint="@string/your_name"/>
 
     </LinearLayout>
@@ -34,28 +35,30 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:gravity="bottom"
         android:layout_height="@dimen/my_car_edit_line_height">
 
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
             android:id="@+id/phone_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phone"
+            android:text="@string/phone_number"
             style="@style/BigEditTextLabel"/>
 
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumEditText
             android:id="@+id/phone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/material_edit_text_height"
             android:gravity="center"
-            style="@style/BigEditText"
-            android:hint="@string/phone"/>
+            style="@style/EditText.Big"
+            android:hint="@string/phone_number"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:gravity="bottom"
         android:layout_height="@dimen/my_car_edit_line_height">
 
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
@@ -65,7 +68,7 @@
             android:text="@string/car_mark"
             style="@style/BigEditTextLabel"/>
 
-        <auto_services.sequenia.com.autoservices.widgets.SpinnerWithLabel
+        <auto_services.sequenia.com.autoservices.widgets.CarMarkSpinner
             android:id="@+id/car_mark"
             android:layout_width="match_parent"
             android:layout_height="@dimen/material_edit_text_height"
@@ -77,6 +80,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:gravity="bottom"
         android:layout_height="@dimen/my_car_edit_line_height">
 
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
@@ -89,9 +93,9 @@
         <auto_services.sequenia.com.autoservices.widgets.ModernhMediumEditText
             android:id="@+id/car_registration_number"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/material_edit_text_height"
             android:gravity="center"
-            style="@style/BigEditText"
+            style="@style/EditText.Big"
             android:hint="@string/registration_number"/>
 
     </LinearLayout>
@@ -112,7 +116,7 @@
             android:paddingBottom="@dimen/material_edit_text_line_margin"
             android:layout_weight="1"/>
 
-        <Spinner
+        <auto_services.sequenia.com.autoservices.widgets.BodyTypeSpinner
             android:id="@+id/body_type"
             android:layout_width="match_parent"
             android:layout_height="@dimen/material_edit_text_height"

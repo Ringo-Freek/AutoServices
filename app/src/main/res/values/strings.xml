@@ -24,13 +24,15 @@
     <string name="confirm">ПОДТВЕРДИТЬ</string>
     <string name="delete">УДАЛИТЬ</string>
     <string name="publish">ОПУБЛИКОВАТЬ</string>
+    <string name="reload">ПЕРЕЗАГРУЗИТЬ</string>
 
     <!--Заголовки-->
     <string name="services">Услуги</string>
 
     <!-- Placeholders -->
     <string name="your_name">Ваше имя</string>
-    <string name="phone">Номер телефона</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="phone">Телефон</string>
     <string name="car_mark">Марка автомобиля</string>
     <string name="registration_number">Госномер</string>
     <string name="review_text">Текст отзыва</string>
@@ -47,4 +49,6 @@
     <!--Текст label-->
     <string name="body_type">Тип кузова</string>
     <string name="set_mark">Оценить</string>
+    <string name="reserve_data">Данные заказчика</string>
+    <string name="schedule">Расписание</string>
 </resources>

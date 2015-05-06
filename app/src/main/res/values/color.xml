@@ -5,6 +5,7 @@
     <color name="drawer_header">#46607d8b</color>
     <color name="drawer">#32000000</color>
     <color name="border">#32cccccc</color>
+    <color name="grey">#eeeeee</color>
 
     <color name="selector">#cccccc</color>
     <color name="color_white">#ffffff</color>

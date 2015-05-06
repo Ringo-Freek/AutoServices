@@ -26,6 +26,9 @@
     <dimen name="material_edit_text_line_margin">8dp</dimen>
     <dimen name="material_edit_text_height">48dp</dimen>
     <dimen name="material_list_item_height">48dp</dimen>
+    <dimen name="material_icon_container_size">48dp</dimen>
+    <dimen name="material_menu_item_height">56dp</dimen>
+    <dimen name="material_icon_size">24dp</dimen>
     <dimen name="material_double_list_item_height">72dp</dimen>
     <dimen name="material_big_padding">24dp</dimen>
 

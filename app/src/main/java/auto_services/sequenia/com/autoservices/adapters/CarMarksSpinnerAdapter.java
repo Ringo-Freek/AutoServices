@@ -3,6 +3,8 @@ package auto_services.sequenia.com.autoservices.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +69,8 @@ public class CarMarksSpinnerAdapter extends ArrayAdapter<CarMark> {
         }
 
         TextView label = (TextView) row.findViewById(R.id.text);
+        label.setTextSize(TypedValue.COMPLEX_UNIT_SP, getTextSize());
+        label.setGravity(getGravity());
 
         if(position == 0){
             label.setText(placeholder);
@@ -78,5 +82,13 @@ public class CarMarksSpinnerAdapter extends ArrayAdapter<CarMark> {
         }
 
         return row;
+    }
+
+    public int getTextSize() {
+        return 16;
+    }
+
+    public int getGravity() {
+        return Gravity.CENTER;
     }
 }
