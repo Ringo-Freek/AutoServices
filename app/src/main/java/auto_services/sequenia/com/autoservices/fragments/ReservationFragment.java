@@ -43,6 +43,8 @@ public class ReservationFragment extends PlaceholderFragment {
     private final static String ARG_CAR_WASH_NAME = "CarWashName";
     private final static String ARG_CAR_WASH_ADDRESS = "CarWashAddress";
 
+    private View rootView;
+
     private TextView nameTextView;
     private TextView phoneTextView;
     private TextView registrationNumberTextView;
@@ -68,7 +70,7 @@ public class ReservationFragment extends PlaceholderFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_reservation, container, false);
+        rootView = inflater.inflate(R.layout.fragment_reservation, container, false);
 
         localInflater = Global.getInflaterForTheme(getActivity(), R.style.Inputs);
 
@@ -120,6 +122,7 @@ public class ReservationFragment extends PlaceholderFragment {
 
     private void onReserveError() {
         System.out.println("Ошибка бронирования");
+        initSchedule(rootView);
     }
 
     private void initFields(View rootView) {
@@ -140,6 +143,9 @@ public class ReservationFragment extends PlaceholderFragment {
 
     private void initSchedule(View rootView) {
         scheduleList = (LinearLayout) rootView.findViewById(R.id.schedule_list);
+        scheduleList.removeAllViews();
+        currentChecked = null;
+        progressBar.setVisibility(View.VISIBLE);
 
         new ScheduleTask(carWashId, new Date().getTime()) {
             @Override
