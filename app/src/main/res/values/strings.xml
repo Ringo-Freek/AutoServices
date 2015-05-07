@@ -52,4 +52,7 @@
     <string name="set_mark">Оценить</string>
     <string name="reserve_data">Данные заказчика</string>
     <string name="schedule">Расписание</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>
