@@ -101,4 +101,8 @@ public class RealmHelper {
     public static int getCarsCount(Context context) {
         return initRealm(context).where(Car.class).findAll().size();
     }
+
+    public static Car getCurrentCar(Context context) {
+        return initRealm(context).where(Car.class).equalTo("isCurrent", true).findFirst();
+    }
 }

@@ -1,5 +1,6 @@
 package auto_services.sequenia.com.autoservices.fragments;
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -28,9 +29,11 @@ import auto_services.sequenia.com.autoservices.activities.MainActivity;
 import auto_services.sequenia.com.autoservices.async_tasks.ReserveTask;
 import auto_services.sequenia.com.autoservices.async_tasks.ScheduleTask;
 import auto_services.sequenia.com.autoservices.drawer_fragments.PlaceholderFragment;
+import auto_services.sequenia.com.autoservices.objects.Car;
 import auto_services.sequenia.com.autoservices.objects.Reservation;
 import auto_services.sequenia.com.autoservices.objects.ReserveData;
 import auto_services.sequenia.com.autoservices.objects.ScheduleItem;
+import auto_services.sequenia.com.autoservices.static_classes.RealmHelper;
 import auto_services.sequenia.com.autoservices.widgets.BodyTypeSpinner;
 import auto_services.sequenia.com.autoservices.widgets.CarMarkSpinner;
 
@@ -147,6 +150,8 @@ public class ReservationFragment extends PlaceholderFragment {
         bodyTypeSpinner = (BodyTypeSpinner) rootView.findViewById(R.id.body_type);
         bodyTypeSpinner.setTextSize(16);
         bodyTypeSpinner.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+
+        showUserData();
     }
 
     private void initSchedule(View rootView) {
@@ -194,6 +199,19 @@ public class ReservationFragment extends PlaceholderFragment {
         carWashId = args.getInt(ARG_CAR_WASH_ID);
         carWashName = args.getString(ARG_CAR_WASH_NAME);
         carWashAddress = args.getString(ARG_CAR_WASH_ADDRESS);
+    }
+
+    private void showUserData() {
+        Activity activity = getActivity();
+        nameTextView.setText(Global.getName(activity));
+        phoneTextView.setText(Global.getPhone(activity));
+
+        Car car = RealmHelper.getCurrentCar(activity);
+        if(car != null) {
+            carMarkSpinner.selectCarMark(car.getCar_mark_id());
+            bodyTypeSpinner.selectBodyType(car.getBody_type());
+            registrationNumberTextView.setText(car.getRegistration_number());
+        }
     }
 
     private class ScheduleItemViewHolder extends RecyclerView.ViewHolder {
