@@ -15,6 +15,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import auto_services.sequenia.com.autoservices.Global;
 import auto_services.sequenia.com.autoservices.R;
 import auto_services.sequenia.com.autoservices.async_tasks.MyCarsTask;
 import auto_services.sequenia.com.autoservices.drawer_fragments.MasterFragment;
@@ -45,7 +46,7 @@ public class MyCarFragment extends MasterFragment {
 
     @Override
     public RecyclerView.ViewHolder createViewHolder(LayoutInflater inflater, ViewGroup container) {
-        LayoutInflater localInflater = getInflaterForTheme(getActivity(), R.style.Inputs);
+        LayoutInflater localInflater = Global.getInflaterForTheme(getActivity(), R.style.Inputs);
         View view = localInflater.inflate(R.layout.my_car_item, container, false);
 
         TextView mark = (TextView) view.findViewById(R.id.mark);

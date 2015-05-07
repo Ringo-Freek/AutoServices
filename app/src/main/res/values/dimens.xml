@@ -36,6 +36,7 @@
     <dimen name="btn_height">48dp</dimen>
     <dimen name="btn_padding">12dp</dimen>
     <dimen name="btn_text_size">16sp</dimen>
+    <dimen name="long_button_width">224dp</dimen>
 
     <!--Карточка просмотра-->
     <dimen name="card_header">48dp</dimen>

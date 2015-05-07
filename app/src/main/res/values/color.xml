@@ -6,8 +6,9 @@
     <color name="drawer">#32000000</color>
     <color name="border">#32cccccc</color>
     <color name="grey">#eeeeee</color>
+    <color name="dark_grey">#cccccc</color>
 
-    <color name="selector">#cccccc</color>
+    <color name="selector">@color/dark_grey</color>
     <color name="color_white">#ffffff</color>
 
     <color name="blue_grey_700">#455a64</color>

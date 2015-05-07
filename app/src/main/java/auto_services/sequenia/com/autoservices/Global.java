@@ -1,9 +1,12 @@
 package auto_services.sequenia.com.autoservices;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 
 import java.util.ArrayList;
 
@@ -89,5 +92,10 @@ public class Global {
         bodyTypes.add(R.drawable.ic_microavtobus);
 
         return bodyTypes;
+    }
+
+    public static LayoutInflater getInflaterForTheme(Context context, int theme) {
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, theme);
+        return ((Activity) context).getLayoutInflater().cloneInContext(contextThemeWrapper);
     }
 }

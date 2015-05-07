@@ -185,9 +185,4 @@ public class PlaceholderFragment extends Fragment {
     public void resumeFragment() {
 
     }
-
-    public LayoutInflater getInflaterForTheme(Context context, int theme) {
-        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, theme);
-        return ((Activity) context).getLayoutInflater().cloneInContext(contextThemeWrapper);
-    }
 }

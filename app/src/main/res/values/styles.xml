@@ -34,7 +34,8 @@
     </style>
 
     <style name="Btn.OrangeBgr" parent="@style/Btn">
-        <item name="android:background">@drawable/orange_btn</item>
+        <item name="android:background">@drawable/orange_btn_background</item>
+        <item name="android:layout_width">@dimen/long_button_width</item>
     </style>
 
     <style name="TextViewCustom">

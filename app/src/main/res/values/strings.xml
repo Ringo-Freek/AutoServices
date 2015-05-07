@@ -25,6 +25,7 @@
     <string name="delete">УДАЛИТЬ</string>
     <string name="publish">ОПУБЛИКОВАТЬ</string>
     <string name="reload">ПЕРЕЗАГРУЗИТЬ</string>
+    <string name="reserve_now">ЗАБРОНИРОВАТЬ!</string>
 
     <!--Заголовки-->
     <string name="services">Услуги</string>
