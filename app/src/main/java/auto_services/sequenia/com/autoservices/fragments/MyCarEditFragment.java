@@ -1,5 +1,6 @@
 package auto_services.sequenia.com.autoservices.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,8 @@ public class MyCarEditFragment extends DetailFragment {
     private int carMarkId = 0;
     private String registrationNumber;
     private String bodyType;
+    private String name;
+    private String phone;
 
     public MyCarEditFragment() {
         setIsMain(false);
@@ -61,12 +64,14 @@ public class MyCarEditFragment extends DetailFragment {
     @Override
     public void createItem() {
         RealmHelper.updateOrCreateCar(getActivity(), getData(RealmHelper.getNextCarIndex(getActivity())));
+        updateUserData();
         close();
     }
 
     @Override
     public void updateItem(int itemId) {
         RealmHelper.updateOrCreateCar(getActivity(), getData(itemId));
+        updateUserData();
         close();
     }
 
@@ -86,6 +91,10 @@ public class MyCarEditFragment extends DetailFragment {
         carMarkId = args.getInt(MyCarsFragment.ARG_CAR_MARK_ID, 0);
         registrationNumber = args.getString(MyCarsFragment.ARG_REGISTRATION_NUMBER);
         bodyType = args.getString(MyCarsFragment.ARG_BODY_TYPE);
+
+        Activity activity = getActivity();
+        name = Global.getName(activity);
+        phone = Global.getPhone(activity);
     }
 
     @Override
@@ -93,6 +102,14 @@ public class MyCarEditFragment extends DetailFragment {
         carMarkInput.selectCarMark(carMarkId);
         registrationNumberInput.setText(registrationNumber);
         bodyTypeInput.selectBodyType(bodyType);
+        nameInput.setText(name);
+        phoneNumberInput.setText(phone);
+    }
+
+    private void updateUserData() {
+        Activity activity = getActivity();
+        Global.setName(activity, nameInput.getText().toString());
+        Global.setPhone(activity, phoneNumberInput.getText().toString());
     }
 
     private Car getData(int id) {

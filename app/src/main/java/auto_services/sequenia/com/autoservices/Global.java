@@ -30,6 +30,8 @@ public class Global {
 
     private static final String SHARED_PREF_NAME = "Preferences";
     private static final String PREF_CAR_MARKS_LOADED = "CarMarksLoaded";
+    private static final String PREF_NAME = "Name";
+    private static final String PREF_PHONE = "Phone";
 
     public static void loadCarMarksIfNeeds(final Context context) {
         if(!carMarksLoaded(context)) {
@@ -64,6 +66,30 @@ public class Global {
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean(PREF_CAR_MARKS_LOADED, loaded);
         editor.commit();
+    }
+
+    public static void setName(Context context, String name) {
+        SharedPreferences sp = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(PREF_NAME, name);
+        editor.commit();
+    }
+
+    public static void setPhone(Context context, String phone) {
+        SharedPreferences sp = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(PREF_PHONE, phone);
+        editor.commit();
+    }
+
+    public static String getName(Context context) {
+        SharedPreferences sp = getSharedPreferences(context);
+        return sp.getString(PREF_NAME, "");
+    }
+
+    public static String getPhone(Context context) {
+        SharedPreferences sp = getSharedPreferences(context);
+        return sp.getString(PREF_PHONE, "");
     }
 
     public static SharedPreferences getSharedPreferences(Context context) {
