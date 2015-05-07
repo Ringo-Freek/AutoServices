@@ -86,7 +86,6 @@ public class ReservationFragment extends PlaceholderFragment {
 
     private void initButton(View rootView) {
         reserveButton = (Button) rootView.findViewById(R.id.reserve_button);
-        reserveButton.setEnabled(false);
         reserveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +100,11 @@ public class ReservationFragment extends PlaceholderFragment {
             data.setAuth_token(Global.testToken);
             data.setDate(String.valueOf(new Date().getTime()));
             data.setReservation_time_id(currentChecked.scheduleItem.getId());
+            data.setBody_type(bodyTypeSpinner.getSelectedBodyType());
+            data.setCar_mark_id(carMarkSpinner.getSelectedCarMarkId());
+            data.setName(nameTextView.getText().toString());
+            data.setRegistration_number(registrationNumberTextView.getText().toString());
+            data.setPhone(phoneTextView.getText().toString());
             new ReserveTask(data) {
                 @Override
                 public void onSuccess(Reservation reservation) {
@@ -132,6 +136,10 @@ public class ReservationFragment extends PlaceholderFragment {
         carWashNameTextView.setText(carWashName);
         carWashAddressTextView.setText(carWashAddress);
 
+        nameTextView = (TextView) rootView.findViewById(R.id.name);
+        registrationNumberTextView = (TextView) rootView.findViewById(R.id.car_registration_number);
+        phoneTextView = (TextView) rootView.findViewById(R.id.phone);
+
         carMarkSpinner = (CarMarkSpinner) rootView.findViewById(R.id.car_mark);
         carMarkSpinner.setTextSize(16);
         carMarkSpinner.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
@@ -158,6 +166,7 @@ public class ReservationFragment extends PlaceholderFragment {
 
     private void showSchedule(ArrayList<ScheduleItem> schedule, LayoutInflater inflater) {
         scheduleList.removeAllViews();
+        reserveButton.setEnabled(false);
         for(ScheduleItem scheduleItem : schedule) {
             RelativeLayout scheduleItemView = (RelativeLayout) inflater.inflate(R.layout.schedule_item, scheduleList, false);
 
@@ -232,15 +241,15 @@ public class ReservationFragment extends PlaceholderFragment {
                 checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(currentChecked != null) {
+                            currentChecked.reset();
+                        }
+
                         reserveButton.setEnabled(true);
                         checkBox.setOnCheckedChangeListener(null);
                         checkBox.setChecked(true);
                         initCheckBox();
                         initText();
-
-                        if(currentChecked != null) {
-                            currentChecked.reset();
-                        }
 
                         currentChecked = self;
                     }
