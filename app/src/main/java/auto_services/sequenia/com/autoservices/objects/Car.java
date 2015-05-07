@@ -1,19 +1,22 @@
 package auto_services.sequenia.com.autoservices.objects;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by chybakut2004 on 03.05.15.
  */
-public class Car {
+public class Car extends RealmObject {
     public static final String MINI = "mini";
     public static final String SEDAN = "sedan";
     public static final String SUV = "suv";
     public static final String MINIBUS = "minibus";
 
+    @PrimaryKey
     private int id;
     private String body_type;
     private String registration_number;
     private int car_mark_id;
-    private String car_mark_name;
     private boolean isCurrent;
 
     public int getId() {
@@ -30,14 +33,6 @@ public class Car {
 
     public void setCurrent(boolean isCurrent) {
         this.isCurrent = isCurrent;
-    }
-
-    public String getCar_mark_name() {
-        return car_mark_name;
-    }
-
-    public void setCar_mark_name(String car_mark_name) {
-        this.car_mark_name = car_mark_name;
     }
 
     public String getBody_type() {

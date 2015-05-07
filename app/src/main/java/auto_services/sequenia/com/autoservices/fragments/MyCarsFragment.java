@@ -1,5 +1,6 @@
 package auto_services.sequenia.com.autoservices.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,11 +22,15 @@ import auto_services.sequenia.com.autoservices.async_tasks.MyCarsTask;
 import auto_services.sequenia.com.autoservices.drawer_fragments.MasterFragment;
 import auto_services.sequenia.com.autoservices.drawer_fragments.PlaceholderFragment;
 import auto_services.sequenia.com.autoservices.objects.Car;
+import auto_services.sequenia.com.autoservices.objects.CarMark;
+import auto_services.sequenia.com.autoservices.static_classes.RealmHelper;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by chybakut2004 on 30.04.15.
  */
-public class MyCarFragment extends MasterFragment {
+public class MyCarsFragment extends MasterFragment {
 
     public static final String ARG_CAR_MARK_ID = "CarMarkId";
     public static final String ARG_REGISTRATION_NUMBER = "RegistrationNumber";
@@ -35,13 +40,15 @@ public class MyCarFragment extends MasterFragment {
 
     @Override
     public void loadObjects(int page) {
-        new MyCarsTask() {
-
-            @Override
-            public void onSuccess(ArrayList<Car> cars) {
-                addObjects(cars);
+        RealmResults<Car> cars = RealmHelper.getCars(getActivity());
+        ArrayList<Car> carsList = new ArrayList<Car>();
+        for(Car car : cars) {
+            carsList.add(car);
+            if(car.isCurrent()) {
+                currentCar = car;
             }
-        }.execute();
+        }
+        addObjects(carsList);
     }
 
     @Override
@@ -63,7 +70,12 @@ public class MyCarFragment extends MasterFragment {
         final MyCarViewHolder carViewHolder = (MyCarViewHolder) holder;
         final Car car = (Car) object;
 
-        carViewHolder.mark.setText(car.getCar_mark_name());
+        final Activity activity = getActivity();
+
+        CarMark carMark = RealmHelper.getCarMarkById(activity, car.getCar_mark_id());
+        if(carMark != null) {
+            carViewHolder.mark.setText(carMark.getName());
+        }
         carViewHolder.registrationNumber.setText(car.getRegistration_number());
         carViewHolder.carEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,11 +110,16 @@ public class MyCarFragment extends MasterFragment {
         carViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Realm realm = RealmHelper.initRealm(activity);
+                realm.beginTransaction();
+
                 if(currentCar != null) {
                     currentCar.setCurrent(false);
                 }
-
                 car.setCurrent(true);
+
+                realm.commitTransaction();
+
                 currentCar = car;
                 adapter.notifyDataSetChanged();
             }

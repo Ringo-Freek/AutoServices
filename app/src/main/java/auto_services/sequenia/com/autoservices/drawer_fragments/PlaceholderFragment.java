@@ -1,10 +1,8 @@
 package auto_services.sequenia.com.autoservices.drawer_fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -19,7 +17,7 @@ import auto_services.sequenia.com.autoservices.fragments.FiltersFragment;
 import auto_services.sequenia.com.autoservices.fragments.HistoryFragment;
 import auto_services.sequenia.com.autoservices.fragments.MainMapFragment;
 import auto_services.sequenia.com.autoservices.fragments.MyCarEditFragment;
-import auto_services.sequenia.com.autoservices.fragments.MyCarFragment;
+import auto_services.sequenia.com.autoservices.fragments.MyCarsFragment;
 import auto_services.sequenia.com.autoservices.fragments.ReservationFragment;
 import auto_services.sequenia.com.autoservices.fragments.ReviewsFragment;
 import auto_services.sequenia.com.autoservices.fragments.ShareFragment;
@@ -79,7 +77,7 @@ public class PlaceholderFragment extends Fragment {
                 break;
 
             case MY_CAR_SECTION:
-                fragment = new MyCarFragment();
+                fragment = new MyCarsFragment();
                 break;
 
             case HISTORY_SECTION:

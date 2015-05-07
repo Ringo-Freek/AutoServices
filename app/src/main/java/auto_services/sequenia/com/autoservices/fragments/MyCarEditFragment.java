@@ -1,38 +1,25 @@
 package auto_services.sequenia.com.autoservices.fragments;
 
-import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import auto_services.sequenia.com.autoservices.Global;
 import auto_services.sequenia.com.autoservices.R;
-import auto_services.sequenia.com.autoservices.adapters.BodyTypeSpinnerAdapter;
-import auto_services.sequenia.com.autoservices.adapters.CarMarksSpinnerAdapter;
 import auto_services.sequenia.com.autoservices.async_tasks.MyCarCreationTask;
 import auto_services.sequenia.com.autoservices.async_tasks.MyCarDeleteTask;
 import auto_services.sequenia.com.autoservices.async_tasks.MyCarUpdateTask;
 import auto_services.sequenia.com.autoservices.drawer_fragments.DetailFragment;
 import auto_services.sequenia.com.autoservices.objects.Car;
-import auto_services.sequenia.com.autoservices.objects.CarMark;
 import auto_services.sequenia.com.autoservices.objects.MyCarCreationData;
 import auto_services.sequenia.com.autoservices.static_classes.RealmHelper;
 import auto_services.sequenia.com.autoservices.widgets.BodyTypeSpinner;
 import auto_services.sequenia.com.autoservices.widgets.CarMarkSpinner;
 import auto_services.sequenia.com.autoservices.widgets.EditTextWithLabel;
-import auto_services.sequenia.com.autoservices.widgets.SpinnerWithLabel;
-import io.realm.RealmResults;
+import io.realm.Realm;
 
 /**
  * Created by chybakut2004 on 03.05.15.
@@ -73,32 +60,20 @@ public class MyCarEditFragment extends DetailFragment {
 
     @Override
     public void createItem() {
-        new MyCarCreationTask(new GsonBuilder().serializeNulls().create().toJson(getData())) {
-            @Override
-            public void onSuccess(Car car) {
-                close();
-            }
-        }.execute();
+        RealmHelper.updateOrCreateCar(getActivity(), getData(RealmHelper.getNextCarIndex(getActivity())));
+        close();
     }
 
     @Override
     public void updateItem(int itemId) {
-        new MyCarUpdateTask(itemId, new GsonBuilder().serializeNulls().create().toJson(getData())) {
-            @Override
-            public void onSuccess(Car car) {
-                close();
-            }
-        }.execute();
+        RealmHelper.updateOrCreateCar(getActivity(), getData(itemId));
+        close();
     }
 
     @Override
     public void deleteItem(int itemId) {
-        new MyCarDeleteTask(itemId, Global.testToken) {
-            @Override
-            public void onSuccess(Car car) {
-                close();
-            }
-        }.execute();
+        RealmHelper.deleteCar(getActivity(), itemId);
+        close();
     }
 
     @Override
@@ -108,9 +83,9 @@ public class MyCarEditFragment extends DetailFragment {
 
     @Override
     public void getInfoFromMasterFragment(Bundle args) {
-        carMarkId = args.getInt(MyCarFragment.ARG_CAR_MARK_ID, 0);
-        registrationNumber = args.getString(MyCarFragment.ARG_REGISTRATION_NUMBER);
-        bodyType = args.getString(MyCarFragment.ARG_BODY_TYPE);
+        carMarkId = args.getInt(MyCarsFragment.ARG_CAR_MARK_ID, 0);
+        registrationNumber = args.getString(MyCarsFragment.ARG_REGISTRATION_NUMBER);
+        bodyType = args.getString(MyCarsFragment.ARG_BODY_TYPE);
     }
 
     @Override
@@ -120,11 +95,22 @@ public class MyCarEditFragment extends DetailFragment {
         bodyTypeInput.selectBodyType(bodyType);
     }
 
-    private MyCarCreationData getData() {
+    private Car getData(int id) {
         Integer carMarkId = carMarkInput.getSelectedCarMarkId();
         String registrationNumber = registrationNumberInput.getText().toString();
         String bodyType = bodyTypeInput.getSelectedBodyType();
 
-        return new MyCarCreationData(Global.testToken, carMarkId, registrationNumber, bodyType);
+        Car car = new Car();
+        car.setId(id);
+        if(carMarkId != null) {
+            car.setCar_mark_id(carMarkId);
+        }
+        if(RealmHelper.getCarsCount(getActivity()) == 0) {
+            car.setCurrent(true);
+        }
+        car.setBody_type(bodyType);
+        car.setRegistration_number(registrationNumber);
+
+        return car;
     }
 }

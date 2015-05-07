@@ -7,6 +7,7 @@ import com.google.gson.FieldAttributes;
 
 import java.util.ArrayList;
 
+import auto_services.sequenia.com.autoservices.objects.Car;
 import auto_services.sequenia.com.autoservices.objects.CarMark;
 import io.realm.Realm;
 import io.realm.RealmObject;
@@ -49,5 +50,55 @@ public class RealmHelper {
 
     public static RealmResults<CarMark> getCarMarks(Context context) {
         return initRealm(context).where(CarMark.class).findAllSorted("name", true);
+    }
+
+    public static RealmResults<Car> getCars(Context context) {
+        Realm realm = initRealm(context);
+        return realm.where(Car.class).findAllSorted("id", true);
+    }
+
+    public static CarMark getCarMarkById(Context context, int id) {
+        return initRealm(context).where(CarMark.class).equalTo("id", id).findFirst();
+    }
+
+    public static Car getCarById(Context context, int carId) {
+        return initRealm(context).where(Car.class).equalTo("id", carId).findFirst();
+    }
+
+    public static void updateOrCreateCar(Context context, Car car) {
+        Realm realm = initRealm(context);
+
+        realm.beginTransaction();
+
+        realm.copyToRealmOrUpdate(car);
+
+        realm.commitTransaction();
+    }
+
+    public static int getNextCarIndex(Context context) {
+        RealmResults<Car> cars = getCars(context);
+
+        if(cars.size() == 0) {
+            return 1;
+        } else {
+            return cars.get(cars.size() - 1).getId() + 1;
+        }
+    }
+
+    public static void deleteCar(Context context, int carId) {
+        Realm realm = initRealm(context);
+
+        realm.beginTransaction();
+
+        Car car = realm.where(Car.class).equalTo("id", carId).findFirst();
+        if(car != null) {
+            car.removeFromRealm();
+        }
+
+        realm.commitTransaction();
+    }
+
+    public static int getCarsCount(Context context) {
+        return initRealm(context).where(Car.class).findAll().size();
     }
 }
