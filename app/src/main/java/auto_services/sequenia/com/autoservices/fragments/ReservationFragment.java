@@ -89,6 +89,7 @@ public class ReservationFragment extends PlaceholderFragment {
 
     private void initButton(View rootView) {
         reserveButton = (Button) rootView.findViewById(R.id.reserve_button);
+        updateButton();
         reserveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,6 +215,10 @@ public class ReservationFragment extends PlaceholderFragment {
         }
     }
 
+    private void updateButton() {
+        reserveButton.setEnabled(currentChecked != null);
+    }
+
     private class ScheduleItemViewHolder extends RecyclerView.ViewHolder {
         public TextView text;
         public TextView time;
@@ -227,16 +232,17 @@ public class ReservationFragment extends PlaceholderFragment {
             this.time = time;
             this.scheduleItem = scheduleItem;
 
-            reset();
+            initText(scheduleItem.isIs_reserved(), false);
             initTime();
+            initCheckBox();
         }
 
-        public void initText() {
-            if(scheduleItem.isIs_reserved()) {
+        public void initText(boolean isReserved, boolean isChecked) {
+            if(isReserved) {
                 text.setText("Занято");
                 text.setTextColor(resources.getColor(R.color.black26));
             } else {
-                if(checkBox.isChecked()) {
+                if(isChecked) {
                     text.setText("Бронь");
                     text.setTextColor(resources.getColor(R.color.amber_700));
                 } else {
@@ -250,36 +256,37 @@ public class ReservationFragment extends PlaceholderFragment {
             time.setText(scheduleItem.getFrom());
         }
 
-        public void initCheckBox() {
-            final ScheduleItemViewHolder self = this;
+        private void initCheckBox() {
             if(scheduleItem.isIs_reserved()) {
                 checkBox.setEnabled(false);
                 checkBox.setChecked(true);
             } else {
+                final ScheduleItemViewHolder self = this;
+
                 checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if(currentChecked != null) {
-                            currentChecked.reset();
+                        if (isChecked) {
+                            if(currentChecked != null) {
+                                currentChecked.reset();
+                            }
+                            currentChecked = self;
+                        } else {
+                            currentChecked = null;
                         }
 
-                        reserveButton.setEnabled(true);
-                        checkBox.setOnCheckedChangeListener(null);
-                        checkBox.setChecked(true);
-                        initCheckBox();
-                        initText();
-
-                        currentChecked = self;
+                        initText(scheduleItem.isIs_reserved(), isChecked);
+                        updateButton();
                     }
                 });
             }
-        };
+        }
 
         public void reset() {
             checkBox.setOnCheckedChangeListener(null);
             checkBox.setChecked(false);
+            initText(scheduleItem.isIs_reserved(), false);
             initCheckBox();
-            initText();
         }
     }
 }
