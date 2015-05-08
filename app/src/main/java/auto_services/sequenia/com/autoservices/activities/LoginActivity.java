@@ -1,40 +1,86 @@
 package auto_services.sequenia.com.autoservices.activities;
 
+import android.content.res.Resources;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import auto_services.sequenia.com.autoservices.R;
+import auto_services.sequenia.com.autoservices.widgets.CarMarkSpinner;
+import auto_services.sequenia.com.autoservices.widgets.EditTextWithLabel;
 
 public class LoginActivity extends ActionBarActivity {
+
+    private EditTextWithLabel nameEditText;
+    private EditTextWithLabel phoneEditText;
+    private EditTextWithLabel registrationNumberEditText;
+    private CarMarkSpinner carMarkSpinner;
+
+    private TextView nameLabel;
+    private TextView phoneLabel;
+    private TextView registrationNumberLabel;
+    private TextView carMarkLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        initInputs();
+        initLabels();
+        bindLabels();
+
+        setupColors();
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return true;
+    private void initInputs() {
+        nameEditText = (EditTextWithLabel) findViewById(R.id.name);
+        phoneEditText = (EditTextWithLabel) findViewById(R.id.phone);
+        registrationNumberEditText = (EditTextWithLabel) findViewById(R.id.car_registration_number);
+        carMarkSpinner = (CarMarkSpinner) findViewById(R.id.car_mark);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    private void initLabels() {
+        nameLabel = (TextView) findViewById(R.id.name_label);
+        phoneLabel = (TextView) findViewById(R.id.phone_label);
+        registrationNumberLabel = (TextView) findViewById(R.id.car_registration_number_label);
+        carMarkLabel = (TextView) findViewById(R.id.car_mark_label);
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+    private void bindLabels() {
+        nameEditText.setLabel(nameLabel);
+        phoneEditText.setLabel(phoneLabel);
+        registrationNumberEditText.setLabel(registrationNumberLabel);
+        carMarkSpinner.setLabel(carMarkLabel);
+    }
 
-        return super.onOptionsItemSelected(item);
+    private void setupColors() {
+        Resources resources = getResources();
+        int textColor = resources.getColor(R.color.color_white);
+        int hintColor = resources.getColor(R.color.white70);
+        int background = R.drawable.edit_text_bg_light;
+
+        nameEditText.setTextColor(textColor);
+        phoneEditText.setTextColor(textColor);
+        registrationNumberEditText.setTextColor(textColor);
+        carMarkSpinner.setTextColor(textColor);
+
+        nameEditText.setHintTextColor(hintColor);
+        phoneEditText.setHintTextColor(hintColor);
+        registrationNumberEditText.setHintTextColor(hintColor);
+        carMarkSpinner.setTextHintColor(hintColor);
+
+        nameEditText.setBackgroundResource(background);
+        phoneEditText.setBackgroundResource(background);
+        registrationNumberEditText.setBackgroundResource(background);
+        carMarkSpinner.setBackgroundResource(background);
+
+        nameLabel.setTextColor(hintColor);
+        phoneLabel.setTextColor(hintColor);
+        registrationNumberLabel.setTextColor(hintColor);
+        carMarkLabel.setTextColor(hintColor);
     }
 }

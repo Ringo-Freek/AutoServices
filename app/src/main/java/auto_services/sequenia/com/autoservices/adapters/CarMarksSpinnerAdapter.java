@@ -74,11 +74,23 @@ public class CarMarksSpinnerAdapter extends ArrayAdapter<CarMark> {
 
         if(position == 0){
             label.setText(placeholder);
-            label.setTextColor(black26);
+
+            int textHintColor = getTextHintColor();
+            if(textHintColor != 0) {
+                label.setHintTextColor(textHintColor);
+            } else {
+                label.setTextColor(black26);
+            }
         } else {
             CarMark carMark = getItem(position - 1);
             label.setText(carMark.getName());
-            label.setTextColor(black87);
+
+            int textColor = getTextColor();
+            if(textColor != 0) {
+                label.setTextColor(textColor);
+            } else {
+                label.setTextColor(black87);
+            }
         }
 
         return row;
@@ -90,5 +102,13 @@ public class CarMarksSpinnerAdapter extends ArrayAdapter<CarMark> {
 
     public int getGravity() {
         return Gravity.CENTER;
+    }
+
+    public int getTextColor() {
+        return 0;
+    }
+
+    public int getTextHintColor() {
+        return 0;
     }
 }

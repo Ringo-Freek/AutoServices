@@ -10,6 +10,8 @@
 
     <color name="selector">@color/dark_grey</color>
     <color name="color_white">#ffffff</color>
+    <color name="white70">#46ffffff</color>
+    <color name="white30">#1effffff</color>
 
     <color name="blue_grey_700">#455a64</color>
     <color name="blue_grey_500">#607d8b</color>

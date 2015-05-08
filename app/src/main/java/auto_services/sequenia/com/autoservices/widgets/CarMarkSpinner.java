@@ -19,6 +19,8 @@ public class CarMarkSpinner extends SpinnerWithLabel {
 
     private int textSize = 20;
     private int gravity = Gravity.CENTER;
+    private int textColor = 0;
+    private int textHintColor = 0;
     private RealmResults<CarMark> carMarks;
 
     public CarMarkSpinner(Context context) {
@@ -54,6 +56,16 @@ public class CarMarkSpinner extends SpinnerWithLabel {
             public int getGravity() {
                 return self.getGravity();
             }
+
+            @Override
+            public int getTextColor() {
+                return self.getTextColor();
+            }
+
+            @Override
+            public int getTextHintColor() {
+                return self.getTextHintColor();
+            }
         });
     }
 
@@ -87,11 +99,27 @@ public class CarMarkSpinner extends SpinnerWithLabel {
         return gravity;
     }
 
+    public int getTextColor() {
+        return textColor;
+    }
+
+    public int getTextHintColor() {
+        return textHintColor;
+    }
+
     public void setTextSize(int textSize) {
         this.textSize = textSize;
     }
 
     public void setGravity(int gravity) {
         this.gravity = gravity;
+    }
+
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+    }
+
+    public void setTextHintColor(int textHintColor) {
+        this.textHintColor = textHintColor;
     }
 }
