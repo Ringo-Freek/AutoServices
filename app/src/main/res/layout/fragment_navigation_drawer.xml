@@ -35,7 +35,7 @@
                     <ImageView
                         android:layout_width="@dimen/avatar_size"
                         android:layout_height="@dimen/avatar_size"
-                        android:src="@drawable/ic_face_grey600_48dp"
+                        android:src="@drawable/ic_account_box_grey600_48dp"
                         />
 
                     <LinearLayout

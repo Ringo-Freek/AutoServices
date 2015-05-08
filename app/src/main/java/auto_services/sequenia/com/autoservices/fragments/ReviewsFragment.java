@@ -107,16 +107,17 @@ public class ReviewsFragment extends MasterFragment {
 
         reviewItem.rating.initRating(getActivity(), review.getMark());
 
-        Transformation transformation = new RoundedTransformationBuilder()
+        /*Transformation transformation = new RoundedTransformationBuilder()
                 .cornerRadiusDp(4)
                 .build();
         Picasso
                 .with(getActivity())
-                .load("http://developer.android.com/design/media/notifications_pattern_phone_ticker.png")
+                .load((String)null)
                 .transform(transformation)
                 .fit()
                 .centerCrop()
-                .into(reviewItem.avatar);
+                .error(R.drawable.ic_account_box_grey600_48dp)
+                .into(reviewItem.avatar);*/
     }
 
     @Override

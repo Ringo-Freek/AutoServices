@@ -2,16 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:gravity="center_vertical"
-			  style="@style/MarginTB"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="@dimen/material_double_list_item_height">
 
-              <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
-					  style="@style/TextViewBlack"
-                      android:layout_weight="1"
+              <LinearLayout
+                  android:layout_weight="1"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content">
+
+                  <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+                      style="@style/TextViewBlack.Medium"
                       android:id="@+id/enroll_item_name"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"/>
+
+                  <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+                      style="@style/TextViewBlack54"
+                      android:ellipsize="marquee"
+                      android:singleLine="true"
+                      android:id="@+id/enroll_item_description"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"/>
+
+              </LinearLayout>
 
                 <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
 						style="@style/TextViewBlack"
@@ -19,8 +32,5 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                <ImageView
-                    android:src="@drawable/ic_star_black_24dp"
-                    android:layout_width="@dimen/drawer_menu_icon_size"
-                    android:layout_height="@dimen/drawer_menu_icon_size" />
+                <include layout="@layout/money"/>
 </LinearLayout>

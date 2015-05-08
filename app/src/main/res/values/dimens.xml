@@ -58,7 +58,11 @@
     <dimen name="my_car_content_margin">50dp</dimen>
     <dimen name="my_car_edit_line_height">72dp</dimen>
 
-    <dimen name="avatar_size_in_review">38dp</dimen>
+    <dimen name="avatar_size_in_review">36dp</dimen>
 
     <dimen name="btn_circle_size">58dp</dimen>
+
+    <!--Иконки акции-->
+    <dimen name="action_height">62dp</dimen>
+    <dimen name="action_width">56dp</dimen>
 </resources>
