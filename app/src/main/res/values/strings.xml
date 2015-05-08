@@ -26,6 +26,9 @@
     <string name="publish">ОПУБЛИКОВАТЬ</string>
     <string name="reload">ПЕРЕЗАГРУЗИТЬ</string>
     <string name="reserve_now">ЗАБРОНИРОВАТЬ!</string>
+    <string name="next">ПРОДОЛЖИТЬ</string>
+    <string name="admin">АДМИНИСТРАТОР</string>
+    <string name="welcome">Для дальнейшей работы с приложением нажмите ПРОДОЛЖИТЬ</string>
 
     <!--Заголовки-->
     <string name="services">Услуги</string>

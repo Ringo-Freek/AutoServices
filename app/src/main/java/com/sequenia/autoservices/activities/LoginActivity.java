@@ -8,9 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.sequenia.autoservices.Global;
 import com.sequenia.autoservices.R;
 import com.sequenia.autoservices.widgets.CarMarkSpinner;
 import com.sequenia.autoservices.widgets.EditTextWithLabel;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends ActionBarActivity {
 
@@ -92,9 +95,23 @@ public class LoginActivity extends ActionBarActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showMainActivity();
+                register();
             }
         });
+    }
+
+    private void register() {
+        String name = nameEditText.getText().toString();
+        String phone = phoneEditText.getText().toString();
+        Integer carMarkId = carMarkSpinner.getSelectedCarMarkId();
+        String registrationNumber = registrationNumberEditText.getText().toString();
+
+        if(Global.validateName(this, name) &&
+                Global.validatePhone(this, phone) &&
+                Global.validateCarMarkId(this, carMarkId) &&
+                Global.validateRegistrationNumber(this, registrationNumber)) {
+            System.out.println("ADASDASDADAAD");
+        }
     }
 
     private void showMainActivity() {

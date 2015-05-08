@@ -7,8 +7,11 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.sequenia.autoservices.async_tasks.CarMarksTask;
 import com.sequenia.autoservices.objects.CarMark;
@@ -32,6 +35,20 @@ public class Global {
     private static final String PREF_CAR_MARKS_LOADED = "CarMarksLoaded";
     private static final String PREF_NAME = "Name";
     private static final String PREF_PHONE = "Phone";
+
+    private static final int MAX_NAME_LENGTH = 50;
+    private static final int PHONE_LENGTH = 10;
+    private static final String REGISTRATION_NUMBER_FORMAT = "\\A[a-zA-Zа-яА-Я]\\d\\d\\d[a-zA-Zа-яА-Я][a-zA-Zа-яА-Я]\\z";
+
+    // Строки ошибок
+    private static String ERROR_NULL_NAME = "Введите имя";
+    private static String ERROR_NULL_PHONE = "Введите телефон";
+    private static String ERROR_NULL_CAR_MARK = "Выберите марку автомобиля";
+    private static String ERROR_NULL_BODY_TYPE = "Выберите тип кузова";
+    private static String ERROR_NULL_REGISTRATION_NUMBER = "Введите регистрационный номер";
+    private static String ERROR_PHONE_FORMAT = "Телефон введен неверно";
+    private static String ERROR_REGISTRATION_NUMBER_FORMAT = "Регистрационный номер введен неверно";
+    private static String ERROR_NAME_LENGTH = "Имя не должно быть длиннее " + MAX_NAME_LENGTH + " символов";
 
     public static void loadCarMarksIfNeeds(final Context context) {
         if(!carMarksLoaded(context)) {
@@ -109,7 +126,6 @@ public class Global {
     }
 
     public static ArrayList<Integer> getBodyTypeIcons(Context context) {
-        Resources resources = context.getResources();
         ArrayList<Integer> bodyTypes = new ArrayList<Integer>();
 
         bodyTypes.add(R.drawable.ic_mini);
@@ -123,5 +139,114 @@ public class Global {
     public static LayoutInflater getInflaterForTheme(Context context, int theme) {
         ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, theme);
         return ((Activity) context).getLayoutInflater().cloneInContext(contextThemeWrapper);
+    }
+
+    private static boolean validate(Context context, ArrayList<String> errors) {
+        if(errors.size() > 0) {
+            showMessage(context, errors.get(0));
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static boolean validateName(Context context, String name) {
+        return validate(context, getNameErrors(name));
+    }
+
+    public static boolean validatePhone(Context context, String phone) {
+        return validate(context, getPhoneErrors(phone));
+    }
+
+    public static boolean validateCarMarkId(Context context, Integer carMarkId) {
+        return validate(context, getCarMarkIdErrors(carMarkId));
+    }
+
+    public static boolean validateBodyType(Context context, String bodyType) {
+        return validate(context, getBodyTypeErrors(bodyType));
+    }
+
+    public static boolean validateRegistrationNumber(Context context, String registrationNumber) {
+        return validate(context, getRegistrationNumberErrors(registrationNumber));
+    }
+
+    public static ArrayList<String> getNameErrors(String name) {
+        ArrayList<String> errors = new ArrayList<String>();
+
+        if(name == null) {
+            errors.add(ERROR_NAME_LENGTH);
+        } else {
+            if (name.length() > MAX_NAME_LENGTH) {
+                errors.add(ERROR_NAME_LENGTH);
+            }
+
+            if (name.length() == 0) {
+                errors.add(ERROR_NULL_NAME);
+            }
+        }
+
+        return errors;
+    }
+
+    public static ArrayList<String> getPhoneErrors(String phone) {
+        ArrayList<String> errors = new ArrayList<String>();
+
+        if(phone == null) {
+            errors.add(ERROR_NULL_PHONE);
+        } else {
+            if(phone.length() == 0) {
+                errors.add(ERROR_NULL_PHONE);
+            } else {
+                if(phone.length() != PHONE_LENGTH) {
+                    errors.add(ERROR_PHONE_FORMAT);
+                }
+            }
+        }
+
+        return errors;
+    }
+
+    public static ArrayList<String> getCarMarkIdErrors(Integer carMarkId) {
+        ArrayList<String> errors = new ArrayList<String>();
+
+        if(carMarkId == null) {
+            errors.add(ERROR_NULL_CAR_MARK);
+        }
+
+        return errors;
+    }
+
+    public static ArrayList<String> getBodyTypeErrors(String bodyType) {
+        ArrayList<String> errors = new ArrayList<String>();
+
+        if(bodyType == null) {
+            errors.add(ERROR_NULL_BODY_TYPE);
+        }
+
+        return errors;
+    }
+
+    public static ArrayList<String> getRegistrationNumberErrors(String registrationNumber) {
+        ArrayList<String> errors = new ArrayList<String>();
+
+        if(registrationNumber == null) {
+            errors.add(ERROR_NULL_REGISTRATION_NUMBER);
+        } else {
+            if(registrationNumber.length() == 0) {
+                errors.add(ERROR_NULL_REGISTRATION_NUMBER);
+            } else {
+                Pattern pattern = Pattern.compile(REGISTRATION_NUMBER_FORMAT);
+                Matcher matcher = pattern.matcher(registrationNumber);
+                if(!matcher.matches()) {
+                    errors.add(ERROR_REGISTRATION_NUMBER_FORMAT);
+                }
+            }
+        }
+
+        return errors;
+    }
+
+    public static void showMessage(Context context, String text) {
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
     }
 }
