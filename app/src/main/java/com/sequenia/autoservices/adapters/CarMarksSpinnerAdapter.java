@@ -77,7 +77,7 @@ public class CarMarksSpinnerAdapter extends ArrayAdapter<CarMark> {
 
             int textHintColor = getTextHintColor();
             if(textHintColor != 0) {
-                label.setHintTextColor(textHintColor);
+                label.setTextColor(textHintColor);
             } else {
                 label.setTextColor(black26);
             }
