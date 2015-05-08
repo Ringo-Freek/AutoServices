@@ -5,7 +5,7 @@
     android:paddingRight="@dimen/material_padding"
     android:paddingLeft="@dimen/material_padding">
 
-    <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+    <com.sequenia.autoservices.widgets.ModernhMediumTextView
         android:id="@+id/time"
         android:textSize="@dimen/sp16"
         android:textColor="@color/black87"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"/>
 
-    <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+    <com.sequenia.autoservices.widgets.ModernhMediumTextView
         android:id="@+id/text"
         android:textSize="@dimen/sp16"
         android:textColor="@color/black54"

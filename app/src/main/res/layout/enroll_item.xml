@@ -10,13 +10,13 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content">
 
-                  <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+                  <com.sequenia.autoservices.widgets.ModernhMediumTextView
                       style="@style/TextViewBlack.Medium"
                       android:id="@+id/enroll_item_name"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"/>
 
-                  <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+                  <com.sequenia.autoservices.widgets.ModernhMediumTextView
                       style="@style/TextViewBlack54"
                       android:ellipsize="marquee"
                       android:singleLine="true"
@@ -26,7 +26,7 @@
 
               </LinearLayout>
 
-                <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+                <com.sequenia.autoservices.widgets.ModernhMediumTextView
 						style="@style/TextViewBlack"
                         android:id="@+id/enroll_item_coast"
                         android:layout_width="wrap_content"

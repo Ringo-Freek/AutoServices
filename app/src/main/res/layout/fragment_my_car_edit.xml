@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+            <com.sequenia.autoservices.widgets.ModernhMediumTextView
                 android:id="@+id/body_type_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                 android:paddingBottom="@dimen/material_edit_text_line_margin"
                 android:layout_weight="1"/>
 
-            <auto_services.sequenia.com.autoservices.widgets.BodyTypeSpinner
+            <com.sequenia.autoservices.widgets.BodyTypeSpinner
                 android:id="@+id/body_type"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/material_edit_text_height"

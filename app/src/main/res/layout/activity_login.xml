@@ -27,14 +27,14 @@
             android:padding="@dimen/material_padding"
             android:gravity="center">
 
-            <auto_services.sequenia.com.autoservices.widgets.ModernhBoldButton
+            <com.sequenia.autoservices.widgets.ModernhBoldButton
                 android:id="@+id/next_button"
                 android:layout_width="@dimen/long_button_width"
                 android:layout_height="wrap_content"
                 style="@style/Btn.OrangeBgr"
                 android:layout_marginBottom="@dimen/material_padding"/>
 
-            <auto_services.sequenia.com.autoservices.widgets.ModernhBoldButton
+            <com.sequenia.autoservices.widgets.ModernhBoldButton
                 android:layout_width="@dimen/long_button_width"
                 android:layout_height="wrap_content"
                 style="@style/Btn.OrangeBgr"/>

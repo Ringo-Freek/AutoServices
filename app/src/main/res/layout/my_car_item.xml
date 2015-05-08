@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         android:gravity="center">
 
-        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+        <com.sequenia.autoservices.widgets.ModernhBoldTextView
             android:id="@+id/mark"
             android:textColor="@color/teal_800"
             android:textSize="@dimen/sp18"
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+        <com.sequenia.autoservices.widgets.ModernhMediumTextView
             android:id="@+id/car_registration_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

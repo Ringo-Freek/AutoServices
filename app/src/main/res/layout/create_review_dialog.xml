@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+        <com.sequenia.autoservices.widgets.ModernhBoldTextView
             style="@style/TextViewBlack.Big"
             android:id="@+id/dialog_header"
             android:layout_width="wrap_content"
@@ -39,14 +39,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+            <com.sequenia.autoservices.widgets.ModernhMediumTextView
                 style="@style/EditTextLabel.Small.GravityLeft"
                 android:id="@+id/text_view_your_name"
                 android:text="@string/your_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <auto_services.sequenia.com.autoservices.widgets.EditTextWithLabel
+            <com.sequenia.autoservices.widgets.EditTextWithLabel
                 style="@style/EditText.Medium"
                 android:id="@+id/edit_text_your_name"
                 android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/material_edit_text_height">
 
-                <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+                <com.sequenia.autoservices.widgets.ModernhBoldTextView
                     style="@style/TextViewBlack.Medium"
                     android:layout_weight="1"
                     android:text="@string/set_mark"
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     />
 
-                <auto_services.sequenia.com.autoservices.widgets.Rating
+                <com.sequenia.autoservices.widgets.Rating
                     android:gravity="right"
                     android:layout_weight="1"
                     android:id="@+id/rating"
@@ -75,14 +75,14 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
-            <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+            <com.sequenia.autoservices.widgets.ModernhMediumTextView
                 style="@style/EditTextLabel.Small.GravityLeft"
                 android:id="@+id/text_view_your_review"
                 android:text="@string/review_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <auto_services.sequenia.com.autoservices.widgets.EditTextWithLabel
+            <com.sequenia.autoservices.widgets.EditTextWithLabel
                 style="@style/EditText.Medium.Multiline"
                 android:inputType="textMultiLine"
                 android:id="@+id/edit_text_your_review"
@@ -97,7 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldButton
+        <com.sequenia.autoservices.widgets.ModernhBoldButton
             style="@style/Btn"
             android:id="@+id/dialog_btn"
             android:text="@string/publish"

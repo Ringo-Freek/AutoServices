@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/drawer_menu_item_height">
 
-    <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+    <com.sequenia.autoservices.widgets.ModernhMediumTextView
         android:layout_margin="@dimen/material_padding"
         android:id="@+id/title"
         style="@style/TextViewWhite"

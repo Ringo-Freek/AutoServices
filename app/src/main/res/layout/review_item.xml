@@ -20,12 +20,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <auto_services.sequenia.com.autoservices.widgets.Rating
+            <com.sequenia.autoservices.widgets.Rating
                 android:id="@+id/mark"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/avatar_size_in_review"/>
 
-            <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+            <com.sequenia.autoservices.widgets.ModernhMediumTextView
                 style="@style/TextViewBlack"
                 android:id="@+id/review_text"
                 android:paddingRight="@dimen/material_padding"
@@ -49,14 +49,14 @@
                 android:layout_width="@dimen/avatar_size_in_review"
                 android:layout_height="@dimen/avatar_size_in_review" />
 
-            <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+            <com.sequenia.autoservices.widgets.ModernhBoldTextView
                 android:layout_marginBottom="@dimen/material_padding_between_row_hafl"
                 style="@style/TextViewBlack.Small.AlignRight"
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+            <com.sequenia.autoservices.widgets.ModernhMediumTextView
                 style="@style/TextViewGrey.Small.AlignRight"
                 android:id="@+id/review_date"
                 android:layout_width="wrap_content"

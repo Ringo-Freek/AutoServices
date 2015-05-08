@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/material_padding"
     android:layout_height="@dimen/material_list_item_height">
 
-    <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+    <com.sequenia.autoservices.widgets.ModernhMediumTextView
         android:id="@+id/text"
         android:textSize="@dimen/sp14"
         android:textColor="@color/black87"

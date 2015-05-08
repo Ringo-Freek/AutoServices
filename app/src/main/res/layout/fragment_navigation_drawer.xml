@@ -45,7 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+                        <com.sequenia.autoservices.widgets.ModernhBoldTextView
                             android:id="@+id/user_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                             android:layout_marginBottom="@dimen/user_data_padding_row"
                             />
 
-                        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+                        <com.sequenia.autoservices.widgets.ModernhBoldTextView
                             android:id="@+id/car_mark"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                             android:layout_marginBottom="@dimen/user_data_padding_row"
                             />
 
-                        <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
+                        <com.sequenia.autoservices.widgets.ModernhBoldTextView
                             android:id="@+id/car_registration_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                 android:layout_height="@dimen/drawer_menu_icon_size"
                 />
 
-            <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+            <com.sequenia.autoservices.widgets.ModernhMediumTextView
                 android:id="@+id/title"
                 android:text="@string/login_admin"
                 style="@style/TextViewWhite"

@@ -12,7 +12,7 @@
        android:layout_height="@dimen/drawer_menu_icon_size"
    />
 
-   <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+   <com.sequenia.autoservices.widgets.ModernhMediumTextView
        android:id="@+id/title"
        style="@style/TextViewWhite"
        android:layout_width="wrap_content"

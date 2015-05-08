@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="auto_services.sequenia.com.autoservices" >
+    package="com.sequenia.autoservices" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -26,11 +26,11 @@
             android:value="AIzaSyAeKlFxyc2gMsFEUvE7tAh8wuqHW-DHebo" />
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.sequenia.autoservices.activities.MainActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="com.sequenia.autoservices.activities.LoginActivity"
             android:label="@string/title_activity_login" >
 
             <intent-filter>
