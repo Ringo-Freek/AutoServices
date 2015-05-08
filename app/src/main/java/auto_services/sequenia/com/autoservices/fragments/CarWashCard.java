@@ -113,6 +113,9 @@ public class CarWashCard extends PlaceholderDialogFragment {
                 showReviewsForm();
             }
         });
+
+        rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
+        rootView.findViewById(R.id.car_wash_card).setVisibility(View.VISIBLE);
     }
 
     private void showReservationForm() {
@@ -168,6 +171,7 @@ public class CarWashCard extends PlaceholderDialogFragment {
             View view = inflater.inflate(R.layout.enroll_item, null);
             ((TextView) view.findViewById(R.id.enroll_item_name)).setText(service.getName());
             ((TextView) view.findViewById(R.id.enroll_item_coast)).setText("от " + service.getPrice());
+            ((TextView) view.findViewById(R.id.enroll_item_description)).setText(service.getDescription());
             enrollLayout.addView(view);
         }
     }

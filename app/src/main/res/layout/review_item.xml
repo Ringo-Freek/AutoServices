@@ -43,12 +43,13 @@
             android:layout_height="wrap_content">
 
             <com.makeramen.roundedimageview.RoundedImageView
+                android:src="@drawable/ic_account_box_grey600_36dp"
                 android:layout_marginBottom="@dimen/material_padding_between_row_hafl"
                 android:id="@+id/avatar"
                 android:layout_width="@dimen/avatar_size_in_review"
                 android:layout_height="@dimen/avatar_size_in_review" />
 
-            <auto_services.sequenia.com.autoservices.widgets.ModernhMediumTextView
+            <auto_services.sequenia.com.autoservices.widgets.ModernhBoldTextView
                 android:layout_marginBottom="@dimen/material_padding_between_row_hafl"
                 style="@style/TextViewBlack.Small.AlignRight"
                 android:id="@+id/user_name"
