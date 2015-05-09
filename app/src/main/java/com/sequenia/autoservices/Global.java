@@ -35,19 +35,14 @@ public class Global {
     private static final String PREF_CAR_MARKS_LOADED = "CarMarksLoaded";
     private static final String PREF_NAME = "Name";
     private static final String PREF_PHONE = "Phone";
+    private static final String PREF_REGISTERED = "Registered";
 
     private static final int MAX_NAME_LENGTH = 50;
-    private static final int PHONE_LENGTH = 10;
-    private static final String REGISTRATION_NUMBER_FORMAT = "\\A[a-zA-Zа-яА-Я]\\d\\d\\d[a-zA-Zа-яА-Я][a-zA-Zа-яА-Я]\\z";
+    private static final String PHONE_FORMAT = "\\A\\+7\\d{10}\\z";
 
     // Строки ошибок
-    private static String ERROR_NULL_NAME = "Введите имя";
-    private static String ERROR_NULL_PHONE = "Введите телефон";
-    private static String ERROR_NULL_CAR_MARK = "Выберите марку автомобиля";
-    private static String ERROR_NULL_BODY_TYPE = "Выберите тип кузова";
-    private static String ERROR_NULL_REGISTRATION_NUMBER = "Введите регистрационный номер";
     private static String ERROR_PHONE_FORMAT = "Телефон введен неверно";
-    private static String ERROR_REGISTRATION_NUMBER_FORMAT = "Регистрационный номер введен неверно";
+    private static String ERROR_NULL_PHONE = "Введите номер телефона";
     private static String ERROR_NAME_LENGTH = "Имя не должно быть длиннее " + MAX_NAME_LENGTH + " символов";
 
     public static void loadCarMarksIfNeeds(final Context context) {
@@ -76,6 +71,18 @@ public class Global {
     private static boolean carMarksLoaded(Context context) {
         SharedPreferences sp = getSharedPreferences(context);
         return sp.getBoolean(PREF_CAR_MARKS_LOADED, false);
+    }
+
+    public static boolean isRegistered(Context context) {
+        SharedPreferences sp = getSharedPreferences(context);
+        return sp.getBoolean(PREF_REGISTERED, false);
+    }
+
+    public static void setRegistered(Context context, boolean registered) {
+        SharedPreferences sp = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean(PREF_REGISTERED, registered);
+        editor.commit();
     }
 
     private static void setCarMarksLoaded(Context context, boolean loaded) {
@@ -113,29 +120,6 @@ public class Global {
         return context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
     }
 
-    public static ArrayList<String> getBodyTypes(Context context) {
-        Resources resources = context.getResources();
-        ArrayList<String> bodyTypes = new ArrayList<String>();
-
-        bodyTypes.add(resources.getString(R.string.mini));
-        bodyTypes.add(resources.getString(R.string.sedan));
-        bodyTypes.add(resources.getString(R.string.suv));
-        bodyTypes.add(resources.getString(R.string.minibus));
-
-        return bodyTypes;
-    }
-
-    public static ArrayList<Integer> getBodyTypeIcons(Context context) {
-        ArrayList<Integer> bodyTypes = new ArrayList<Integer>();
-
-        bodyTypes.add(R.drawable.ic_mini);
-        bodyTypes.add(R.drawable.ic_sedan);
-        bodyTypes.add(R.drawable.ic_vnedorojnik);
-        bodyTypes.add(R.drawable.ic_microavtobus);
-
-        return bodyTypes;
-    }
-
     public static LayoutInflater getInflaterForTheme(Context context, int theme) {
         ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, theme);
         return ((Activity) context).getLayoutInflater().cloneInContext(contextThemeWrapper);
@@ -158,30 +142,12 @@ public class Global {
         return validate(context, getPhoneErrors(phone));
     }
 
-    public static boolean validateCarMarkId(Context context, Integer carMarkId) {
-        return validate(context, getCarMarkIdErrors(carMarkId));
-    }
-
-    public static boolean validateBodyType(Context context, String bodyType) {
-        return validate(context, getBodyTypeErrors(bodyType));
-    }
-
-    public static boolean validateRegistrationNumber(Context context, String registrationNumber) {
-        return validate(context, getRegistrationNumberErrors(registrationNumber));
-    }
-
     public static ArrayList<String> getNameErrors(String name) {
         ArrayList<String> errors = new ArrayList<String>();
 
-        if(name == null) {
-            errors.add(ERROR_NAME_LENGTH);
-        } else {
+        if(name != null) {
             if (name.length() > MAX_NAME_LENGTH) {
                 errors.add(ERROR_NAME_LENGTH);
-            }
-
-            if (name.length() == 0) {
-                errors.add(ERROR_NULL_NAME);
             }
         }
 
@@ -197,7 +163,9 @@ public class Global {
             if(phone.length() == 0) {
                 errors.add(ERROR_NULL_PHONE);
             } else {
-                if(phone.length() != PHONE_LENGTH) {
+                Pattern pattern = Pattern.compile(PHONE_FORMAT);
+                Matcher matcher = pattern.matcher(phone);
+                if(!matcher.matches()) {
                     errors.add(ERROR_PHONE_FORMAT);
                 }
             }
@@ -206,45 +174,6 @@ public class Global {
         return errors;
     }
 
-    public static ArrayList<String> getCarMarkIdErrors(Integer carMarkId) {
-        ArrayList<String> errors = new ArrayList<String>();
-
-        if(carMarkId == null) {
-            errors.add(ERROR_NULL_CAR_MARK);
-        }
-
-        return errors;
-    }
-
-    public static ArrayList<String> getBodyTypeErrors(String bodyType) {
-        ArrayList<String> errors = new ArrayList<String>();
-
-        if(bodyType == null) {
-            errors.add(ERROR_NULL_BODY_TYPE);
-        }
-
-        return errors;
-    }
-
-    public static ArrayList<String> getRegistrationNumberErrors(String registrationNumber) {
-        ArrayList<String> errors = new ArrayList<String>();
-
-        if(registrationNumber == null) {
-            errors.add(ERROR_NULL_REGISTRATION_NUMBER);
-        } else {
-            if(registrationNumber.length() == 0) {
-                errors.add(ERROR_NULL_REGISTRATION_NUMBER);
-            } else {
-                Pattern pattern = Pattern.compile(REGISTRATION_NUMBER_FORMAT);
-                Matcher matcher = pattern.matcher(registrationNumber);
-                if(!matcher.matches()) {
-                    errors.add(ERROR_REGISTRATION_NUMBER_FORMAT);
-                }
-            }
-        }
-
-        return errors;
-    }
 
     public static void showMessage(Context context, String text) {
         Toast.makeText(context, text, Toast.LENGTH_LONG).show();

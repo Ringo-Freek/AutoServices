@@ -24,13 +24,22 @@ public class BodyTypeSpinnerAdapter extends ArrayAdapter<Integer> {
     private String[] bodyTypes;
     private TypedArray bodyTypeIcons;
     private String[] bodyTypeLabels;
+    private int black87;
+    private int black26;
+    private String placeholder;
+
+    private boolean selected;
 
     public BodyTypeSpinnerAdapter(Context context) {
         super(context, R.layout.big_spinner_item, new Integer[4]);
 
         inflater = ((Activity) context).getLayoutInflater();
+        selected = false;
 
         Resources resources = context.getResources();
+        placeholder = "Не выбран";
+        black26 = resources.getColor(R.color.black26);
+        black87 = resources.getColor(R.color.black87);
 
         this.bodyTypes = resources.getStringArray(R.array.body_types);
         this.bodyTypeIcons = resources.obtainTypedArray(R.array.body_type_icons);
@@ -70,8 +79,13 @@ public class BodyTypeSpinnerAdapter extends ArrayAdapter<Integer> {
         label.setTextSize(TypedValue.COMPLEX_UNIT_SP, getTextSize());
         label.setGravity(getGravity());
 
-
-        label.setText(bodyTypeLabels[position]);
+        if(selected) {
+            label.setText(bodyTypeLabels[position]);
+            label.setTextColor(black87);
+        } else {
+            label.setText(placeholder);
+            label.setTextColor(black26);
+        }
 
         return row;
     }
@@ -86,5 +100,13 @@ public class BodyTypeSpinnerAdapter extends ArrayAdapter<Integer> {
 
     public int getGravity() {
         return Gravity.CENTER;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

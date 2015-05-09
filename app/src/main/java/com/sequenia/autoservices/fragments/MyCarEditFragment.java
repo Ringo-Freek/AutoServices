@@ -93,6 +93,7 @@ public class MyCarEditFragment extends DetailFragment {
 
     @Override
     public void showInfo() {
+        System.out.println("SHOW INFO");
         carMarkInput.selectCarMark(carMarkId);
         registrationNumberInput.setText(registrationNumber);
         bodyTypeInput.selectBodyType(bodyType);

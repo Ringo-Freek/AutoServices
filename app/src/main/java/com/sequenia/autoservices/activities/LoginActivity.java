@@ -10,10 +10,14 @@ import android.widget.TextView;
 
 import com.sequenia.autoservices.Global;
 import com.sequenia.autoservices.R;
+import com.sequenia.autoservices.objects.Car;
+import com.sequenia.autoservices.static_classes.RealmHelper;
 import com.sequenia.autoservices.widgets.CarMarkSpinner;
 import com.sequenia.autoservices.widgets.EditTextWithLabel;
 
 import java.util.ArrayList;
+
+import io.realm.Realm;
 
 public class LoginActivity extends ActionBarActivity {
 
@@ -107,10 +111,21 @@ public class LoginActivity extends ActionBarActivity {
         String registrationNumber = registrationNumberEditText.getText().toString();
 
         if(Global.validateName(this, name) &&
-                Global.validatePhone(this, phone) &&
-                Global.validateCarMarkId(this, carMarkId) &&
-                Global.validateRegistrationNumber(this, registrationNumber)) {
-            System.out.println("ADASDASDADAAD");
+                Global.validatePhone(this, phone)) {
+            Global.setName(this, name);
+            Global.setPhone(this, phone);
+
+            if(carMarkId != null) {
+                Car car = new Car();
+                car.setCar_mark_id(carMarkId);
+                car.setRegistration_number(registrationNumber);
+                car.setId(RealmHelper.getNextCarIndex(this));
+
+                RealmHelper.updateOrCreateCar(this, car);
+            }
+
+            Global.setRegistered(this, true);
+            showMainActivity();
         }
     }
 
@@ -118,5 +133,13 @@ public class LoginActivity extends ActionBarActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(Global.isRegistered(this)) {
+            showMainActivity();
+        }
     }
 }

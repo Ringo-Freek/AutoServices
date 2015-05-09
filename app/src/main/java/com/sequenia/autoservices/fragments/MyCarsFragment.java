@@ -81,7 +81,7 @@ public class MyCarsFragment extends MasterFragment {
             }
         });
 
-        int bodyTypeResId = R.drawable.ic_access_time_grey600_24dp;
+        int bodyTypeResId = 0;
 
         switch (car.getBody_type()) {
             case Car.MINI:
@@ -101,7 +101,9 @@ public class MyCarsFragment extends MasterFragment {
                 break;
         }
 
-        carViewHolder.carType.setImageResource(bodyTypeResId);
+        if(bodyTypeResId != 0) {
+            carViewHolder.carType.setImageResource(bodyTypeResId);
+        }
         carViewHolder.checkBox.setOnCheckedChangeListener(null);
         carViewHolder.checkBox.setChecked(car.isCurrent());
         carViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

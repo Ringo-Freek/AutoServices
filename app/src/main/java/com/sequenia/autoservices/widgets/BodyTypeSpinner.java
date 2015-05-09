@@ -3,6 +3,8 @@ package com.sequenia.autoservices.widgets;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.sequenia.autoservices.adapters.BodyTypeSpinnerAdapter;
@@ -14,6 +16,8 @@ public class BodyTypeSpinner extends Spinner {
 
     private int textSize = 20;
     private int gravity = Gravity.CENTER;
+
+    private boolean first = true;
 
     public BodyTypeSpinner(Context context) {
         super(context);
@@ -37,7 +41,7 @@ public class BodyTypeSpinner extends Spinner {
 
     private void init(Context context) {
         final BodyTypeSpinner self = this;
-        setAdapter(new BodyTypeSpinnerAdapter(context) {
+        final BodyTypeSpinnerAdapter adapter = new BodyTypeSpinnerAdapter(context) {
             @Override
             public int getTextSize() {
                 return self.getTextSize();
@@ -47,8 +51,25 @@ public class BodyTypeSpinner extends Spinner {
             public int getGravity() {
                 return self.getGravity();
             }
+        };
+        setAdapter(adapter);
+
+        setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(!first) {
+                    adapter.setSelected(true);
+                    adapter.notifyDataSetChanged();
+                }
+
+                first = false;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
-        setSelection(0);
     }
 
     public void selectBodyType(String bodyType) {
@@ -56,6 +77,7 @@ public class BodyTypeSpinner extends Spinner {
         String[] bodyTypes = adapter.getBodyTypes();
         for(int i = 0; i < bodyTypes.length; i++) {
             if(bodyType.equals(bodyTypes[i])) {
+                adapter.setSelected(true);
                 setSelection(i);
                 break;
             }
@@ -64,7 +86,10 @@ public class BodyTypeSpinner extends Spinner {
 
     public String getSelectedBodyType() {
         BodyTypeSpinnerAdapter adapter = (BodyTypeSpinnerAdapter) getAdapter();
-        String bodyType = adapter.getBodyTypes()[getSelectedItemPosition()];
+        String bodyType = null;
+        if(adapter.isSelected()) {
+            bodyType = adapter.getBodyTypes()[getSelectedItemPosition()];
+        }
         return bodyType;
     }
 
