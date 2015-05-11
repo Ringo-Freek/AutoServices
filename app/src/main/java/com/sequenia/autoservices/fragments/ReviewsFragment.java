@@ -1,5 +1,7 @@
 package com.sequenia.autoservices.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -209,6 +211,18 @@ public class ReviewsFragment extends MasterFragment {
 
     public void showDetailFragment(int itemId, int position) {
         CreateReviewDialog createReviewDialog = (CreateReviewDialog) DialogWindow.customInstance(getResources().getString(R.string.create_review), R.layout.create_review_dialog, new CreateReviewDialog());
+        createReviewDialog.setData(Integer.valueOf(carWashId));
+        createReviewDialog.setTargetFragment(this, CreateReviewDialog.CREATE_REVIEW_DIALOG);
         createReviewDialog.show(getFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == CreateReviewDialog.CREATE_REVIEW_DIALOG) {
+            if(resultCode == Activity.RESULT_OK) {
+                resumeFragment();
+            }
+        }
     }
 }

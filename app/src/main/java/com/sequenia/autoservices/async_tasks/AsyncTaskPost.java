@@ -1,5 +1,7 @@
 package com.sequenia.autoservices.async_tasks;
 
+import com.sequenia.autoservices.Global;
+
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -25,7 +27,7 @@ public abstract class AsyncTaskPost extends AsyncTaskRequest {
         DefaultHttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
 
-        StringEntity se = new StringEntity(jsonData);
+        StringEntity se = new StringEntity(Global.toUTF8(jsonData));
         post.setEntity(se);
 
         post.setHeader("Accept", "application/json");

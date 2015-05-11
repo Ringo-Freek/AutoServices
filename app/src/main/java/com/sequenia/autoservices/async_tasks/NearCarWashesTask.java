@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.sequenia.autoservices.Global;
 import com.sequenia.autoservices.objects.CarWash;
@@ -23,7 +24,8 @@ public abstract class NearCarWashesTask extends AsyncTaskGet {
                 + "&radius="
                 + radius
                 + "&auth_token="
-                + Global.testToken);
+                + Global.testToken
+                + "&date=" + new Date().getTime());
     }
 
     @Override

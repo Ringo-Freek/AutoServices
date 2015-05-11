@@ -9,6 +9,7 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,8 +43,11 @@ public class Global {
     private static final String PHONE_FORMAT = "\\A\\+7\\d{10}\\z";
 
     // Строки ошибок
+    private static String ERROR_NULL_RATING = "Поставьте оценку";
+    private static String ERROR_RATING_FORMAT = "Оценка не может быть больше 5";
     private static String ERROR_PHONE_FORMAT = "Введите номер телефона в международном формате (+79123456780)";
     private static String ERROR_NULL_PHONE = "Введите номер телефона";
+    private static String ERROR_NULL_NAME = "Введите имя";
     private static String ERROR_NAME_LENGTH = "Имя не должно быть длиннее " + MAX_NAME_LENGTH + " символов";
 
     public static void loadCarMarksIfNeeds(final Context context, final OnLoadListener onLoadListener) {
@@ -142,8 +146,30 @@ public class Global {
         return validate(context, getNameErrors(name));
     }
 
+    public static boolean validateNotNullName(Context context, String name) {
+        return validate(context, getNotNullNameErrors(name));
+    }
+
+    public static boolean validateRating(Context context, int rating) {
+        return validate(context, getRatingErrors(rating));
+    }
+
     public static boolean validatePhone(Context context, String phone) {
         return validate(context, getPhoneErrors(phone));
+    }
+
+    public static ArrayList<String> getRatingErrors(int rating) {
+        ArrayList<String> errors = new ArrayList<String>();
+
+        if(rating < 1) {
+            errors.add(ERROR_NULL_RATING);
+        } else {
+            if(rating > 5) {
+                errors.add(ERROR_RATING_FORMAT);
+            }
+        }
+
+        return errors;
     }
 
     public static ArrayList<String> getNameErrors(String name) {
@@ -152,6 +178,24 @@ public class Global {
         if(name != null) {
             if (name.length() > MAX_NAME_LENGTH) {
                 errors.add(ERROR_NAME_LENGTH);
+            }
+        }
+
+        return errors;
+    }
+
+    public static ArrayList<String> getNotNullNameErrors(String name) {
+        ArrayList<String> errors = new ArrayList<String>();
+
+        if(name == null) {
+            errors.add(ERROR_NULL_NAME);
+        } else {
+            if(name.length() == 0) {
+                errors.add(ERROR_NULL_NAME);
+            } else {
+                if (name.length() > MAX_NAME_LENGTH) {
+                    errors.add(ERROR_NAME_LENGTH);
+                }
             }
         }
 
@@ -181,5 +225,9 @@ public class Global {
 
     public static void showMessage(Context context, String text) {
         Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+    }
+
+    public static String toUTF8(String s) throws UnsupportedEncodingException {
+        return new String(s.getBytes("UTF-8"), "ISO-8859-1");
     }
 }

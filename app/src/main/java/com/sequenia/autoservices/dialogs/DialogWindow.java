@@ -5,6 +5,8 @@ package com.sequenia.autoservices.dialogs;
  * диалоговое окно с собственным заголовком и разметкой
  */
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -38,7 +40,7 @@ public abstract class DialogWindow extends DialogFragment {
         view.findViewById(R.id.dialog_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+                doneCloseDialog();
             }
         });
 
@@ -56,7 +58,11 @@ public abstract class DialogWindow extends DialogFragment {
         return getArguments().getInt(ARG_LAYOUT);
     }
 
-    public abstract void doneCloseDialog();
+    public void doneCloseDialog() {
+        Intent data = new Intent();
+        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, data);
+        dismiss();
+    }
 
     public abstract void initViewElements();
 
