@@ -39,6 +39,14 @@ public class Global {
     private static final String PREF_PHONE = "Phone";
     private static final String PREF_REGISTERED = "Registered";
 
+    private static final String[] PREF_FILTERS = {
+            "HasCafe", "HasTea", "HasWiFi", "HasBankTransfer", "HasActions", "OnlyOnlineReservation"
+    };
+
+    private static final String PREF_FILTER_RATING = "FilterRating";
+    private static final String PREF_FILTER_COAST = "FilterCoast";
+    private static final String PREF_FILTER_RADIUS = "FilterRadius";
+
     private static final int MAX_NAME_LENGTH = 50;
     private static final String PHONE_FORMAT = "\\A\\+7\\d{10}\\z";
 
@@ -93,11 +101,59 @@ public class Global {
         editor.commit();
     }
 
-    private static void setCarMarksLoaded(Context context, boolean loaded) {
+    public static void setCarMarksLoaded(Context context, boolean loaded) {
         SharedPreferences sp = getSharedPreferences(context);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean(PREF_CAR_MARKS_LOADED, loaded);
         editor.commit();
+    }
+
+    public static void setFilter(Context context, boolean enabled, int filterIndex) {
+        SharedPreferences sp = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean(PREF_FILTERS[filterIndex], enabled);
+        editor.commit();
+    }
+
+    public static void setRadius(Context context, int radius) {
+        SharedPreferences sp = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(PREF_FILTER_RADIUS, radius);
+        editor.commit();
+    }
+
+    public static void setCoast(Context context, int coast) {
+        SharedPreferences sp = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(PREF_FILTER_COAST, coast);
+        editor.commit();
+    }
+
+    public static void setRating(Context context, int rating) {
+        SharedPreferences sp = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(PREF_FILTER_RATING, rating);
+        editor.commit();
+    }
+
+    public static boolean getFilter(Context context, int filterIndex) {
+        SharedPreferences sp = getSharedPreferences(context);
+        return sp.getBoolean(PREF_FILTERS[filterIndex], false);
+    }
+
+    public static int getCoast(Context context) {
+        SharedPreferences sp = getSharedPreferences(context);
+        return sp.getInt(PREF_FILTER_COAST, 0);
+    }
+
+    public static int getRating(Context context) {
+        SharedPreferences sp = getSharedPreferences(context);
+        return sp.getInt(PREF_FILTER_RATING, 0);
+    }
+
+    public static int getRadius(Context context) {
+        SharedPreferences sp = getSharedPreferences(context);
+        return sp.getInt(PREF_FILTER_RADIUS, Global.radius);
     }
 
     public static void setName(Context context, String name) {
