@@ -3,7 +3,7 @@
 <ImageView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/star"
-        android:layout_marginLeft="@dimen/material_padding_between_row_hafl"
-        android:layout_marginRight="@dimen/material_padding_between_row_hafl"
+        android:layout_marginLeft="@dimen/material_padding_between_row_half"
+        android:layout_marginRight="@dimen/material_padding_between_row_half"
         android:layout_width="@dimen/drawer_menu_icon_size"
         android:layout_height="@dimen/drawer_menu_icon_size"/>

@@ -44,6 +44,7 @@ public class MainMapFragment extends PlaceholderFragment
 
     private LinearLayout carWashList;
     private LinearLayout carWashMap;
+    public ArrayList<CarWash> carWashes = new ArrayList<CarWash>();
 
     Location personLocation;
 
@@ -102,8 +103,9 @@ public class MainMapFragment extends PlaceholderFragment
                 Global.radius) {
 
             @Override
-            public void onSuccess(ArrayList<CarWash> carWashes) {
-                showCarWashesOnMap(carWashes, map);
+            public void onSuccess(ArrayList<CarWash> carWashesTask) {
+                carWashes = carWashesTask;
+                showCarWashesOnMap(carWashesTask, map);
             }
         }.execute();
     }
@@ -174,6 +176,14 @@ public class MainMapFragment extends PlaceholderFragment
     private void showList() {
         carWashList.setVisibility(View.VISIBLE);
         carWashMap.setVisibility(View.GONE);
+
+        for(int i = 0; i < carWashes.size(); i++){
+            CarWash carWash = carWashes.get(i);
+            carWash.setDistance(getDistanceBetweenLocationAndCarWash(carWash.getLatitude(), carWash.getLongitude()));
+        }
+
+        ListCarWash fragment = (ListCarWash) PlaceholderFragment.newInstance(PlaceholderFragment.CAR_LIST_SECTION);
+        getChildFragmentManager().beginTransaction().replace(R.id.car_wash_list_fragment, fragment).commit();
 
         current = CAR_WASH_LIST;
     }

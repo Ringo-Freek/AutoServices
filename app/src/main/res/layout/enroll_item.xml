@@ -6,12 +6,16 @@
               android:layout_height="@dimen/material_double_list_item_height">
 
               <LinearLayout
+                  android:layout_marginRight="@dimen/material_big_padding"
+                  android:orientation="vertical"
                   android:layout_weight="1"
+                  android:gravity="center_vertical"
                   android:layout_width="wrap_content"
-                  android:layout_height="wrap_content">
+                  android:layout_height="match_parent">
 
                   <com.sequenia.autoservices.widgets.ModernhMediumTextView
                       style="@style/TextViewBlack.Medium"
+                      android:paddingBottom="10dp"
                       android:id="@+id/enroll_item_name"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"/>
@@ -32,5 +36,5 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                <include layout="@layout/money"/>
+                <include layout="@layout/money_black"/>
 </LinearLayout>

@@ -22,7 +22,7 @@
     <dimen name="material_padding">16dp</dimen>
     <dimen name="icon_padding">12dp</dimen>
     <dimen name="material_padding_between_row">8dp</dimen>
-    <dimen name="material_padding_between_row_hafl">4dp</dimen>
+    <dimen name="material_padding_between_row_half">4dp</dimen>
     <dimen name="material_edit_text_line_margin">8dp</dimen>
     <dimen name="material_edit_text_height">48dp</dimen>
     <dimen name="material_list_item_height">48dp</dimen>
@@ -31,6 +31,7 @@
     <dimen name="material_icon_size">24dp</dimen>
     <dimen name="material_double_list_item_height">72dp</dimen>
     <dimen name="material_big_padding">24dp</dimen>
+    <dimen name="material_medium_padding">12dp</dimen>
 
     <!--Размеры для кнопок-->
     <dimen name="btn_height">48dp</dimen>
@@ -63,6 +64,10 @@
     <dimen name="btn_circle_size">58dp</dimen>
 
     <!--Иконки акции-->
-    <dimen name="action_height">62dp</dimen>
-    <dimen name="action_width">56dp</dimen>
+    <dimen name="action_height">56dp</dimen>
+    <dimen name="action_width">62dp</dimen>
+
+    <!--Высота футера в списке моек-->
+    <dimen name="car_list_footer">36dp</dimen>
+    <dimen name="car_list_margin_before_footer">2dp</dimen>
 </resources>

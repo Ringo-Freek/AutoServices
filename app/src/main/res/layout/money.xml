@@ -5,16 +5,17 @@
     android:layout_height="wrap_content">
 
     <com.sequenia.autoservices.widgets.ModernhMediumTextView
-        android:paddingLeft="@dimen/material_padding_between_row_hafl"
-        style="@style/TextViewBlack"
+        android:paddingLeft="@dimen/material_padding_between_row_half"
+        style="@style/TextViewBlack.Large"
+        android:textColor="@color/color_white"
         android:text="Р"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <View
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="14dp"
         android:layout_marginLeft="3dp"
-        android:layout_width="10dp"
-        android:layout_height="1dp"
-        android:background="#000000"/>
+        android:layout_width="9dp"
+        android:layout_height="1.3dp"
+        android:background="@color/color_white"/>
 </RelativeLayout>

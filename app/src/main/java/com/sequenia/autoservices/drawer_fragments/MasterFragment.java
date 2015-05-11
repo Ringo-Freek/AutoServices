@@ -63,6 +63,8 @@ public abstract class MasterFragment extends PlaceholderFragment {
 
         updateProgressAndLoadObjects(0);
 
+        setUpLayout(rootView);
+
         return rootView;
     }
 
@@ -319,4 +321,6 @@ public abstract class MasterFragment extends PlaceholderFragment {
             this.button = button;
         }
     }
+
+    public void setUpLayout(View view){}
 }

@@ -32,6 +32,7 @@
 
     <!--Заголовки-->
     <string name="services">Услуги</string>
+    <string name="actions">Акции</string>
 
     <!-- Placeholders -->
     <string name="your_name">Ваше имя</string>

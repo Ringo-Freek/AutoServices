@@ -47,6 +47,10 @@
         <item name="android:textColor">@color/teal_800</item>
     </style>
 
+    <style name="TextViewHeader.Medium" parent="TextViewHeader">
+        <item name="android:textSize">@dimen/sp16</item>
+    </style>
+
     <style name="TextViewHeader.Big" parent="TextViewHeader">
         <item name="android:textSize">@dimen/sp20</item>
     </style>
@@ -83,6 +87,10 @@
 
     <style name="TextViewBlack.Big" parent="@style/TextViewBlack">
         <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="TextViewBlack.Large" parent="@style/TextViewBlack">
+        <item name="android:textSize">18dp</item>
     </style>
 
     <style name="TextViewBlack.Medium" parent="@style/TextViewBlack">

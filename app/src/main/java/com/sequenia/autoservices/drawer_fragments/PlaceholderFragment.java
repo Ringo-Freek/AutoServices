@@ -15,6 +15,7 @@ import com.sequenia.autoservices.fragments.CarWashCard;
 import com.sequenia.autoservices.fragments.ContactsFragment;
 import com.sequenia.autoservices.fragments.FiltersFragment;
 import com.sequenia.autoservices.fragments.HistoryFragment;
+import com.sequenia.autoservices.fragments.ListCarWash;
 import com.sequenia.autoservices.fragments.MainMapFragment;
 import com.sequenia.autoservices.fragments.MyCarEditFragment;
 import com.sequenia.autoservices.fragments.MyCarsFragment;
@@ -41,6 +42,7 @@ public class PlaceholderFragment extends Fragment {
     public static final int RESERVATION_SECTION = MENU_ITEMS_COUNT + 1;
     public static final int REVIEWS_SECTION = MENU_ITEMS_COUNT + 2;
     public static final int MY_CAR_EDIT_SECTION = MENU_ITEMS_COUNT + 3;
+    public static final int CAR_LIST_SECTION = 999;
 
     private int number;                    // Номер секции меню.
     private boolean isMain = true;         // Главный ли фрагмент. Если главный, то все фрагменты в стеке удалятся.
@@ -108,6 +110,10 @@ public class PlaceholderFragment extends Fragment {
                 fragment = new MyCarEditFragment();
                 break;
 
+            case CAR_LIST_SECTION:
+                fragment = new ListCarWash();
+                break;
+
             default:
                 fragment = new PlaceholderFragment();
                 break;
@@ -153,11 +159,13 @@ public class PlaceholderFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        Bundle args = getArguments();
+        if(isInNavigation()) {
+            Bundle args = getArguments();
 
-        number = args.getInt(ARG_SECTION_NUMBER);
+            number = args.getInt(ARG_SECTION_NUMBER);
 
-        ((MainActivity) activity).onSectionAttached(number);
+            ((MainActivity) activity).onSectionAttached(number);
+        }
     }
 
     public int getNumber() {
@@ -178,6 +186,10 @@ public class PlaceholderFragment extends Fragment {
 
     public void setIsMain(boolean isMain) {
         this.isMain = isMain;
+    }
+
+    public boolean isInNavigation() {
+        return true;
     }
 
     public void resumeFragment() {
