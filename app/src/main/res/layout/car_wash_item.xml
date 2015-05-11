@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/dark_grey"
+    app:cardCornerRadius="@dimen/radius"
+    app:cardBackgroundColor="@color/color_white"
+    android:layout_marginTop="@dimen/material_padding_between_row_half"
+    android:layout_marginLeft="@dimen/material_padding_between_row"
+    android:layout_marginRight="@dimen/material_padding_between_row"
+    android:layout_marginBottom="@dimen/material_padding_between_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:padding="@dimen/icon_padding"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/car_wash_img"
+                    android:src="@drawable/ic_account_box_grey600_48dp"
+                    android:layout_width="@dimen/avatar_size"
+                    android:layout_height="@dimen/avatar_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/material_medium_padding"
+                    android:layout_marginRight="@dimen/material_medium_padding"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.sequenia.autoservices.widgets.ModernhBoldTextView
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/material_padding_between_row_half"
+                        android:layout_marginBottom="0dp"
+                        style="@style/TextViewHeader.Medium"
+                        android:id="@+id/car_wash_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <com.sequenia.autoservices.widgets.ModernhMediumTextView
+                        android:layout_gravity="right"
+                        style="@style/TextViewGrey"
+                        android:id="@+id/car_wash_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <com.sequenia.autoservices.widgets.ModernhBoldTextView
+                    android:layout_marginRight="@dimen/material_medium_padding"
+                    style="@style/TextViewGrey"
+                    android:id="@+id/car_wash_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.sequenia.autoservices.widgets.ModernhMediumTextView
+                    android:layout_marginBottom="@dimen/car_list_margin_before_footer"
+                    android:layout_marginRight="@dimen/material_medium_padding"
+                    style="@style/TextViewGrey"
+                    android:id="@+id/car_wash_schedule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <include layout="@layout/separator"/>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/material_padding_between_row_half"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/car_list_footer">
+
+                    <com.sequenia.autoservices.widgets.Rating
+                        android:layout_weight="1"
+                        android:id="@+id/mark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_marginRight="@dimen/material_padding_between_row"
+                        android:layout_gravity="right"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <com.sequenia.autoservices.widgets.ModernhMediumTextView
+                            style="@style/TextViewBlack"
+                            android:id="@+id/car_wash_min_coast"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <include layout="@layout/money_black"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/action"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_promo"
+            android:layout_width="@dimen/action_width"
+            android:layout_height="@dimen/action_height"
+            />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

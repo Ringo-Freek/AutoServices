@@ -63,6 +63,8 @@ public abstract class MasterFragment extends PlaceholderFragment {
 
         updateProgressAndLoadObjects(0);
 
+        setUpLayout(rootView);
+
         return rootView;
     }
 
@@ -332,4 +334,5 @@ public abstract class MasterFragment extends PlaceholderFragment {
     public boolean canCreate() {
         return true;
     }
+    public void setUpLayout(View view){}
 }

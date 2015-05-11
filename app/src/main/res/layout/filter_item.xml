@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/material_list_item_height">
+
+    <ImageView
+        android:id="@+id/filter_img"
+        android:layout_marginRight="@dimen/material_big_padding"
+        android:layout_marginLeft="@dimen/material_big_padding"
+        android:layout_width="@dimen/drawer_menu_icon_size"
+        android:layout_height="@dimen/drawer_menu_icon_size" />
+
+    <com.sequenia.autoservices.widgets.ModernhMediumTextView
+        android:id="@+id/filter_text"
+        style="@style/TextViewBlack"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switch_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    />
+</LinearLayout>

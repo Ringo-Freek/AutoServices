@@ -39,4 +39,23 @@
         <item>@string/suv</item>
         <item>@string/minibus</item>
     </array>
+
+    <!--Повторяющиеся поля в фильтре (титлы и картинки)-->
+    <array name="filter_titles">
+        <item>Кафе</item>
+        <item>Кофе/Чай</item>
+        <item>Бесплатный Wi-Fi</item>
+        <item>Безналичный расчет</item>
+        <item>Акции</item>
+        <item>Запись только on-line</item>
+    </array>
+
+    <array name="filter_images">
+        <item>@drawable/ic_local_restaurant_grey600_24dp</item>
+        <item>@drawable/ic_local_cafe_grey600_24dp</item>
+        <item>@drawable/ic_network_wifi_grey600_24dp</item>
+        <item>@drawable/ic_credit_card_grey600_24dp</item>
+        <item>@drawable/ic_local_attraction_grey600_24dp</item>
+        <item>@drawable/ic_dog_grey600_24dp</item>
+    </array>
 </resources>

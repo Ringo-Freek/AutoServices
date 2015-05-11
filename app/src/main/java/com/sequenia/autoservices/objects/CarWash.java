@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Ringo on 28.04.2015.
  * Формат мойки (данные с сервера)
  */
-public class CarWash {
+public class CarWash{
     private Integer id;
     private String name;
     private String item_type;
@@ -19,9 +19,13 @@ public class CarWash {
     private String time_to;
     private Float rating;
     private String image;
+    private String preview;
     private ArrayList<Services> services;
     private String[] features;
     private Integer reviews_count;
+    private Float distance;
+    private ArrayList<Actions> actions;
+    private Integer actions_count;
 
     public Integer getId() {
         return id;
@@ -81,5 +85,25 @@ public class CarWash {
 
     public Integer getReviews_count() {
         return reviews_count;
+    }
+
+    public ArrayList<Actions> getActions() {
+        return actions;
+    }
+
+    public Float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Float distance) {
+        this.distance = distance;
+    }
+
+    public String getPreview() {
+        return preview;
+    }
+
+    public Integer getActions_count() {
+        return actions_count;
     }
 }

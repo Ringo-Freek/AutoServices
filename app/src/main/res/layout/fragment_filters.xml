@@ -5,4 +5,143 @@
     android:layout_height="match_parent"
     android:background="@color/color_white">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_margin="@dimen/material_padding"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.sequenia.autoservices.widgets.ModernhMediumTextView
+                        android:text="@string/seep_bar_title_radius"
+                        android:layout_weight="1"
+                        style="@style/TextViewGrey"
+                        android:id="@+id/car_wash_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.autoservices.widgets.ModernhMediumTextView
+                        style="@style/TextViewGrey"
+                        android:text="12"
+                        android:id="@+id/seep_bar_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/seep_bar"
+                    android:layout_margin="@dimen/material_padding_between_row_half"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="@integer/max_seek_bar_radius"
+                    android:progress="0"/>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/material_padding"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/material_list_item_height">
+
+                    <ImageView
+                        android:layout_marginRight="@dimen/material_big_padding"
+                        android:layout_marginLeft="@dimen/material_big_padding"
+                        android:src="@drawable/ic_attach_money_grey600_24dp"
+                        android:layout_width="@dimen/drawer_menu_icon_size"
+                        android:layout_height="@dimen/drawer_menu_icon_size" />
+
+                    <com.sequenia.autoservices.widgets.ModernhMediumTextView
+                        android:text="@string/filter_label_coast"
+                        style="@style/TextViewBlack"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <Spinner
+                        android:layout_gravity="right"
+                        android:id="@+id/coast"
+                        android:background="@drawable/edit_text_bg"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
+                    </Spinner>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/material_padding"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/material_list_item_height">
+
+                    <ImageView
+                        android:layout_marginRight="@dimen/material_big_padding"
+                        android:layout_marginLeft="@dimen/material_big_padding"
+                        android:src="@drawable/ic_star_grey600_24dp"
+                        android:layout_width="@dimen/drawer_menu_icon_size"
+                        android:layout_height="@dimen/drawer_menu_icon_size" />
+
+                    <com.sequenia.autoservices.widgets.ModernhMediumTextView
+                        android:text="@string/filter_label_rating"
+                        style="@style/TextViewBlack"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.sequenia.autoservices.widgets.Rating
+                        android:id="@+id/mark"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </com.sequenia.autoservices.widgets.Rating>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/material_padding"
+                    android:orientation="vertical"
+                    android:id="@+id/filter_content_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.sequenia.autoservices.widgets.ModernhBoldButton
+                style="@style/Btn.Gray"
+                android:layout_weight="1"
+                android:id="@+id/search"
+                android:text="@string/filter_search"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_height" />
+
+            <com.sequenia.autoservices.widgets.ModernhBoldButton
+                style="@style/Btn.Gray"
+                android:layout_weight="1"
+                android:id="@+id/clear"
+                android:text="@string/filter_clear"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_height" />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

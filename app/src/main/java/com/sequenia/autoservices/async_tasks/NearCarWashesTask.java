@@ -25,7 +25,8 @@ public abstract class NearCarWashesTask extends AsyncTaskGet {
                 + radius
                 + "&auth_token="
                 + Global.testToken
-                + "&date=" + new Date().getTime());
+                + "&date="
+                + new Date().getTime());
     }
 
     @Override

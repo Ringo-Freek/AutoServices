@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.sequenia.autoservices.R;
+import com.sequenia.autoservices.objects.Actions;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -99,6 +100,7 @@ public class CarWashCard extends PlaceholderDialogFragment {
         btnCallPhone(carWash.getPhone());
         enroll(carWash.getServices());
         features(carWash.getFeatures());
+        createListActions(carWash.getActions());
 
         ((Button) rootView.findViewById(R.id.reservation_button)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,9 +170,9 @@ public class CarWashCard extends PlaceholderDialogFragment {
 
         for(int i = 0; i < enrollItems.size(); i++ ) {
             Services service = enrollItems.get(i);
-            View view = inflater.inflate(R.layout.enroll_item, null);
+            View view = inflater.inflate(R.layout.enroll_item, enrollLayout, false);
             ((TextView) view.findViewById(R.id.enroll_item_name)).setText(service.getName());
-            ((TextView) view.findViewById(R.id.enroll_item_coast)).setText("от " + service.getPrice());
+            ((TextView) view.findViewById(R.id.enroll_item_coast)).setText("от " + Math.round(service.getPrice()));
             ((TextView) view.findViewById(R.id.enroll_item_description)).setText(service.getDescription());
             enrollLayout.addView(view);
         }
@@ -220,6 +222,25 @@ public class CarWashCard extends PlaceholderDialogFragment {
                     break;
             }
             carWashHeader.addView(view);
+        }
+    }
+
+    public void createListActions(ArrayList<Actions> actionItems){
+        if(actionItems.size() != 0) {
+            rootView.findViewById(R.id.action).setVisibility(View.VISIBLE);
+
+            final LinearLayout actionsLayout = ((LinearLayout) rootView.findViewById(R.id.actions_list));
+            actionsLayout.setVisibility(View.VISIBLE);
+            LinearLayout actionsContent = (LinearLayout) rootView.findViewById(R.id.actions_content);
+
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+
+            for (int i = 0; i < actionItems.size(); i++) {
+                Actions actions = actionItems.get(i);
+                View view = inflater.inflate(R.layout.text_view_medium, actionsContent, false);
+                ((TextView) view.findViewById(R.id.text)).setText(actions.getDescription());
+                actionsContent.addView(view);
+            }
         }
     }
 }

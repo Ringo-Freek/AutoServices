@@ -38,6 +38,10 @@
         <item name="android:layout_width">@dimen/long_button_width</item>
     </style>
 
+    <style name="Btn.Gray" parent="@style/Btn">
+        <item name="android:background">@color/blue_grey_500</item>
+    </style>
+
     <style name="TextViewCustom">
         <item name="android:layout_marginBottom">@dimen/material_padding_between_row</item>
     </style>
@@ -45,6 +49,10 @@
     <style name="TextViewHeader" parent="@style/TextViewCustom">
         <item name="android:textSize">17dp</item>
         <item name="android:textColor">@color/teal_800</item>
+    </style>
+
+    <style name="TextViewHeader.Medium" parent="TextViewHeader">
+        <item name="android:textSize">@dimen/sp16</item>
     </style>
 
     <style name="TextViewHeader.Big" parent="TextViewHeader">
@@ -78,11 +86,15 @@
 
     <style name="TextViewBlack">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="TextViewBlack.Big" parent="@style/TextViewBlack">
         <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="TextViewBlack.Large" parent="@style/TextViewBlack">
+        <item name="android:textSize">18dp</item>
     </style>
 
     <style name="TextViewBlack.Medium" parent="@style/TextViewBlack">

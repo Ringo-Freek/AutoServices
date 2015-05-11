@@ -29,9 +29,12 @@
     <string name="next">ПРОДОЛЖИТЬ</string>
     <string name="admin">АДМИНИСТРАТОР</string>
     <string name="welcome">Для дальнейшей работы с приложением нажмите ПРОДОЛЖИТЬ</string>
+    <string name="filter_clear">ОЧИСТИТЬ</string>
+    <string name="filter_search">ПРИМЕНИТЬ</string>
 
     <!--Заголовки-->
     <string name="services">Услуги</string>
+    <string name="actions">Акции</string>
 
     <!-- Placeholders -->
     <string name="your_name">Ваше имя</string>
@@ -56,6 +59,9 @@
     <string name="reserve_data">Данные заказчика</string>
     <string name="schedule">Расписание</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="seep_bar_title_radius">Радиус отображения моек</string>
+    <string name="filter_label_rating">Рейтинг</string>
+    <string name="filter_label_coast">Цена</string>
 
     <string name="hello_world">Hello world!</string>
 </resources>
