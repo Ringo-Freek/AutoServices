@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.sequenia.autoservices.async_tasks.CarMarksTask;
+import com.sequenia.autoservices.listeners.OnLoadListener;
 import com.sequenia.autoservices.objects.CarMark;
 import com.sequenia.autoservices.static_classes.RealmHelper;
 
@@ -41,11 +42,11 @@ public class Global {
     private static final String PHONE_FORMAT = "\\A\\+7\\d{10}\\z";
 
     // Строки ошибок
-    private static String ERROR_PHONE_FORMAT = "Телефон введен неверно";
+    private static String ERROR_PHONE_FORMAT = "Введите номер телефона в международном формате (+79123456780)";
     private static String ERROR_NULL_PHONE = "Введите номер телефона";
     private static String ERROR_NAME_LENGTH = "Имя не должно быть длиннее " + MAX_NAME_LENGTH + " символов";
 
-    public static void loadCarMarksIfNeeds(final Context context) {
+    public static void loadCarMarksIfNeeds(final Context context, final OnLoadListener onLoadListener) {
         if(!carMarksLoaded(context)) {
             final ProgressDialog pd = new ProgressDialog(context);
             pd.setMessage("Загрузка моделей");
@@ -57,6 +58,9 @@ public class Global {
                 public void onSuccess(ArrayList<CarMark> carMarks) {
                     RealmHelper.updateCarMarks(context, carMarks);
                     setCarMarksLoaded(context, true);
+                    if(onLoadListener != null) {
+                        onLoadListener.onLoad();
+                    }
                     pd.dismiss();
                 }
 

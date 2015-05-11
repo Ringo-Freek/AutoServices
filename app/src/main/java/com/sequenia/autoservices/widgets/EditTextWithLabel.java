@@ -47,7 +47,7 @@ public class EditTextWithLabel extends EditText {
         }
     }
 
-    private void updateLabel(String text) {
+    public void updateLabel(String text) {
         if(text == null || text.length() == 0) {
             label.setVisibility(INVISIBLE);
         } else {

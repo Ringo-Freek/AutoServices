@@ -41,7 +41,7 @@
             android:text="@string/phone_number"
             style="@style/BigEditTextLabel"/>
 
-        <com.sequenia.autoservices.widgets.ModernhMediumEditText
+        <com.sequenia.autoservices.widgets.PhoneEditText
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/material_edit_text_height"

@@ -40,7 +40,7 @@ public class CarMarkSpinner extends SpinnerWithLabel {
         init(context);
     }
 
-    private void init(Context context) {
+    public void init(Context context) {
         final CarMarkSpinner self = this;
         carMarks = RealmHelper.getCarMarks(context);
         setAdapter(new CarMarksSpinnerAdapter(context, carMarks) {

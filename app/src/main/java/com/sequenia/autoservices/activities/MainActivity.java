@@ -75,8 +75,6 @@ public class MainActivity extends ActionBarActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         dialogShadow = findViewById(R.id.dialog_shadow);
-
-        Global.loadCarMarksIfNeeds(this);
     }
 
     @Override

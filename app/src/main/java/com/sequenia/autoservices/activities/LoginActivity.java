@@ -1,5 +1,6 @@
 package com.sequenia.autoservices.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.ActionBarActivity;
@@ -10,19 +11,17 @@ import android.widget.TextView;
 
 import com.sequenia.autoservices.Global;
 import com.sequenia.autoservices.R;
+import com.sequenia.autoservices.listeners.OnLoadListener;
 import com.sequenia.autoservices.objects.Car;
 import com.sequenia.autoservices.static_classes.RealmHelper;
 import com.sequenia.autoservices.widgets.CarMarkSpinner;
 import com.sequenia.autoservices.widgets.EditTextWithLabel;
-
-import java.util.ArrayList;
-
-import io.realm.Realm;
+import com.sequenia.autoservices.widgets.PhoneEditText;
 
 public class LoginActivity extends ActionBarActivity {
 
     private EditTextWithLabel nameEditText;
-    private EditTextWithLabel phoneEditText;
+    private PhoneEditText phoneEditText;
     private EditTextWithLabel registrationNumberEditText;
     private CarMarkSpinner carMarkSpinner;
 
@@ -48,7 +47,7 @@ public class LoginActivity extends ActionBarActivity {
 
     private void initInputs() {
         nameEditText = (EditTextWithLabel) findViewById(R.id.name);
-        phoneEditText = (EditTextWithLabel) findViewById(R.id.phone);
+        phoneEditText = (PhoneEditText) findViewById(R.id.phone);
         registrationNumberEditText = (EditTextWithLabel) findViewById(R.id.car_registration_number);
         carMarkSpinner = (CarMarkSpinner) findViewById(R.id.car_mark);
     }
@@ -106,7 +105,7 @@ public class LoginActivity extends ActionBarActivity {
 
     private void register() {
         String name = nameEditText.getText().toString();
-        String phone = phoneEditText.getText().toString();
+        String phone = phoneEditText.getPhone();
         Integer carMarkId = carMarkSpinner.getSelectedCarMarkId();
         String registrationNumber = registrationNumberEditText.getText().toString();
 
@@ -120,6 +119,7 @@ public class LoginActivity extends ActionBarActivity {
                 car.setCar_mark_id(carMarkId);
                 car.setRegistration_number(registrationNumber);
                 car.setId(RealmHelper.getNextCarIndex(this));
+                car.setCurrent(true);
 
                 RealmHelper.updateOrCreateCar(this, car);
             }
@@ -138,6 +138,16 @@ public class LoginActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        final Activity self = this;
+
+        Global.loadCarMarksIfNeeds(this, new OnLoadListener() {
+            @Override
+            public void onLoad() {
+                carMarkSpinner.init(self);
+            }
+        });
+
         if(Global.isRegistered(this)) {
             showMainActivity();
         }
