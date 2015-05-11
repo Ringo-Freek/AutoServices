@@ -99,9 +99,7 @@ public class MainMapFragment extends PlaceholderFragment
      */
     private void onLocationChange(Location location, final GoogleMap map) {
         personLocation = location;
-        new NearCarWashesTask((float) location.getLatitude(), (float) location.getLongitude(),
-                Global.radius) {
-
+        new NearCarWashesTask(getActivity(), (float) location.getLatitude(), (float) location.getLongitude()) {
             @Override
             public void onSuccess(ArrayList<CarWash> carWashesTask) {
                 carWashes = carWashesTask;
