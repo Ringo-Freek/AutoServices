@@ -107,12 +107,17 @@ public abstract class MasterFragment extends PlaceholderFragment {
     }
 
     private void initButtons(View rootView) {
-        rootView.findViewById(R.id.create_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDetailFragment(DetailFragment.NO_ITEM, DetailFragment.NO_ITEM);
-            }
-        });
+        Button button = (Button) rootView.findViewById(R.id.create_button);
+        if(canCreate()) {
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDetailFragment(DetailFragment.NO_ITEM, DetailFragment.NO_ITEM);
+                }
+            });
+        } else {
+            button.setVisibility(View.GONE);
+        }
     }
 
     private void initProgress(View rootView) {
@@ -318,5 +323,13 @@ public abstract class MasterFragment extends PlaceholderFragment {
             super(itemView);
             this.button = button;
         }
+    }
+
+    /**
+     * Если true, то видна кнопка СОЗДАТЬ
+     * @return
+     */
+    public boolean canCreate() {
+        return true;
     }
 }
