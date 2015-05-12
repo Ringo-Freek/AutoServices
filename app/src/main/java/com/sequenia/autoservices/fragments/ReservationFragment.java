@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.sequenia.autoservices.static_classes.Global;
@@ -150,6 +151,14 @@ public class ReservationFragment extends PlaceholderFragment {
     private void onReserveSuccess(long date, String time) {
         System.out.println("Забронировано");
 
+        Calendar reservationDate = Calendar.getInstance();
+        reservationDate.setTimeInMillis(date);
+        String[] times = time.split(":");
+        int hour = Integer.valueOf(times[0]);
+        int minute = Integer.valueOf(times[1]);
+        reservationDate.set(Calendar.HOUR_OF_DAY, hour);
+        reservationDate.set(Calendar.MINUTE, minute);
+
         HistoryCarWash historyCarWash = new HistoryCarWash();
         historyCarWash.setCarWashId(carWashId);
         historyCarWash.setAddress(carWashAddress);
@@ -157,8 +166,7 @@ public class ReservationFragment extends PlaceholderFragment {
         historyCarWash.setLongitude(longitude);
         historyCarWash.setTime_from(timeFrom);
         historyCarWash.setTime_to(timeTo);
-        historyCarWash.setDate(date);
-        historyCarWash.setTime(time);
+        historyCarWash.setDate(reservationDate.getTimeInMillis());
         historyCarWash.setName(carWashName);
 
         RealmHelper.saveCarWash(getActivity(), historyCarWash);

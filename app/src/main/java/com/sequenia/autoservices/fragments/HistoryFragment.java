@@ -29,9 +29,11 @@ import io.realm.RealmResults;
 public class HistoryFragment extends MasterFragment {
 
     private SimpleDateFormat formatDay;
+    private SimpleDateFormat formatTime;
 
     public HistoryFragment() {
         formatDay = new SimpleDateFormat("dd/MM/yy");
+        formatTime = new SimpleDateFormat("HH:mm");
     }
 
     @Override
@@ -71,7 +73,7 @@ public class HistoryFragment extends MasterFragment {
         carWashHolder.carWashAddress.setText(carWash.getAddress());
         carWashHolder.carWashSchedule.setText(carWash.getTime_from() + " - " + carWash.getTime_to());
 
-        String day = "";
+        String day;
 
         Calendar date = Calendar.getInstance();
         date.setTimeInMillis(carWash.getDate());
@@ -79,14 +81,14 @@ public class HistoryFragment extends MasterFragment {
         Calendar now = Calendar.getInstance();
 
         if(Global.isDaysEqual(now, date)) {
-            day = "сегодня " + carWash.getTime();
+            day = "сегодня " + formatTime.format(date.getTime());
         } else {
             now.add(Calendar.DATE, -1);
 
             if (Global.isDaysEqual(now, date)) {
-                day = "вчера " + carWash.getTime();
+                day = "вчера " + formatTime.format(date.getTime());
             } else {
-                day = formatDay.format(date);
+                day = formatDay.format(date.getTime());
             }
         }
 
@@ -155,5 +157,9 @@ public class HistoryFragment extends MasterFragment {
             this.setRatingButton = setRatingButton;
             this.rating = rating;
         }
+    }
+
+    public void setUpLayout(View view){
+        view.setBackgroundResource(R.color.dark_grey);
     }
 }

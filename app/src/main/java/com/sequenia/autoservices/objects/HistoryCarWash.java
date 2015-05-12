@@ -10,12 +10,11 @@ public class HistoryCarWash extends RealmObject {
     private int carWashId;
     private String address;
     private String name;
-    private String time_from;
-    private String time_to;
-    private long date;
+    private String time_from; // Время работы мойки
+    private String time_to;   // Время работы мойки
+    private long date;        // Дата, на которую записан пользователь
     private float latitude;
     private float longitude;
-    private String time;
     private int rating;
 
     public int getRating() {
@@ -24,14 +23,6 @@ public class HistoryCarWash extends RealmObject {
 
     public void setRating(int rating) {
         this.rating = rating;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public float getLongitude() {

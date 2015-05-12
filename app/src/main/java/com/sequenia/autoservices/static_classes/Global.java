@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.regex.Matcher;
@@ -17,6 +18,7 @@ import java.util.regex.Pattern;
 import com.sequenia.autoservices.async_tasks.CarMarksTask;
 import com.sequenia.autoservices.listeners.OnLoadListener;
 import com.sequenia.autoservices.objects.CarMark;
+import com.sequenia.autoservices.objects.HistoryCarWash;
 
 /**
  * Created by Ringo on 28.04.2015.
