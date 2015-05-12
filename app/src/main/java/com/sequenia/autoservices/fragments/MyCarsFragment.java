@@ -110,22 +110,26 @@ public class MyCarsFragment extends MasterFragment {
         carViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Realm realm = RealmHelper.initRealm(activity);
-                realm.beginTransaction();
-
-                if(currentCar != null) {
-                    currentCar.setCurrent(false);
-                }
-                car.setCurrent(true);
-
-                realm.commitTransaction();
-
-                currentCar = car;
-                adapter.notifyDataSetChanged();
-
-                updateDrawer();
+                check(activity, car, adapter);
             }
         });
+    }
+
+    private void check(Activity activity, Car car, RecyclerView.Adapter adapter) {
+        Realm realm = RealmHelper.initRealm(activity);
+        realm.beginTransaction();
+
+        if(currentCar != null) {
+            currentCar.setCurrent(false);
+        }
+        car.setCurrent(true);
+
+        realm.commitTransaction();
+
+        currentCar = car;
+        adapter.notifyDataSetChanged();
+
+        updateDrawer();
     }
 
     private void updateDrawer() {
