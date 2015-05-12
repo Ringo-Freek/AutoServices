@@ -248,6 +248,7 @@ public class ReservationFragment extends PlaceholderFragment {
             initText(scheduleItem.isIs_reserved(), false);
             initTime();
             initCheckBox();
+            initClick();
         }
 
         public void initText(boolean isReserved, boolean isChecked) {
@@ -293,6 +294,15 @@ public class ReservationFragment extends PlaceholderFragment {
                     }
                 });
             }
+        }
+
+        public void initClick() {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkBox.performClick();
+                }
+            });
         }
 
         public void reset() {
