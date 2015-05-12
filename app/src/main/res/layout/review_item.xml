@@ -29,8 +29,6 @@
                 style="@style/TextViewBlack"
                 android:id="@+id/review_text"
                 android:paddingRight="@dimen/material_padding"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:singleLine="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

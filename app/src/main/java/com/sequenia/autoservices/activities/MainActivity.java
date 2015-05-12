@@ -276,4 +276,8 @@ public class MainActivity extends ActionBarActivity
     public void hideDialogShadow() {
         dialogShadow.setVisibility(View.GONE);
     }
+
+    public void updateDrawer() {
+        mNavigationDrawerFragment.showData();
+    }
 }

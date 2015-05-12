@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import com.sequenia.autoservices.Global;
 
 import com.sequenia.autoservices.R;
+import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.drawer_fragments.MasterFragment;
 import com.sequenia.autoservices.drawer_fragments.PlaceholderFragment;
 import com.sequenia.autoservices.objects.Car;
@@ -121,8 +122,14 @@ public class MyCarsFragment extends MasterFragment {
 
                 currentCar = car;
                 adapter.notifyDataSetChanged();
+
+                updateDrawer();
             }
         });
+    }
+
+    private void updateDrawer() {
+        ((MainActivity) getActivity()).updateDrawer();
     }
 
     @Override

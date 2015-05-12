@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import com.sequenia.autoservices.Global;
 
 import com.sequenia.autoservices.R;
+import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.drawer_fragments.DetailFragment;
 import com.sequenia.autoservices.objects.Car;
 import com.sequenia.autoservices.static_classes.RealmHelper;
@@ -67,6 +68,7 @@ public class MyCarEditFragment extends DetailFragment {
     public void createItem() {
         if(updateUserData()) {
             RealmHelper.updateOrCreateCar(getActivity(), getData(RealmHelper.getNextCarIndex(getActivity())));
+            updateDrawer();
             close();
         }
     }
@@ -75,6 +77,7 @@ public class MyCarEditFragment extends DetailFragment {
     public void updateItem(int itemId) {
         if(updateUserData()) {
             RealmHelper.updateOrCreateCar(getActivity(), getData(itemId));
+            updateDrawer();
             close();
         }
     }
@@ -82,7 +85,12 @@ public class MyCarEditFragment extends DetailFragment {
     @Override
     public void deleteItem(int itemId) {
         RealmHelper.deleteCar(getActivity(), itemId);
+        updateDrawer();
         close();
+    }
+
+    private void updateDrawer() {
+        ((MainActivity) getActivity()).updateDrawer();
     }
 
     @Override

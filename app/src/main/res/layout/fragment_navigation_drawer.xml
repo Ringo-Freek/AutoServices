@@ -49,7 +49,6 @@
                             android:id="@+id/user_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Михаил"
                             android:textColor="@color/color_white"
                             android:textSize="@dimen/user_name_font_size"
                             android:layout_marginBottom="@dimen/user_data_padding_row"
@@ -59,7 +58,6 @@
                             android:id="@+id/car_mark"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Toyota"
                             style="@style/TextViewWhite"
                             android:layout_marginBottom="@dimen/user_data_padding_row"
                             />
@@ -68,7 +66,6 @@
                             android:id="@+id/car_registration_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="O 432 CM 54"
                             style="@style/TextViewWhite"
                             />
                     </LinearLayout>

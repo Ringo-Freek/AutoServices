@@ -32,6 +32,7 @@ import com.sequenia.autoservices.objects.ScheduleItem;
 import com.sequenia.autoservices.static_classes.RealmHelper;
 import com.sequenia.autoservices.widgets.BodyTypeSpinner;
 import com.sequenia.autoservices.widgets.CarMarkSpinner;
+import com.sequenia.autoservices.widgets.PhoneEditText;
 
 /**
  * Created by chybakut2004 on 30.04.15.
@@ -45,7 +46,7 @@ public class ReservationFragment extends PlaceholderFragment {
     private View rootView;
 
     private TextView nameTextView;
-    private TextView phoneTextView;
+    private PhoneEditText phoneTextView;
     private TextView registrationNumberTextView;
     private BodyTypeSpinner bodyTypeSpinner;
     private CarMarkSpinner carMarkSpinner;
@@ -96,26 +97,42 @@ public class ReservationFragment extends PlaceholderFragment {
 
     private void reserve() {
         if(currentChecked != null) {
-            ReserveData data = new ReserveData();
-            data.setAuth_token(Global.testToken);
-            data.setDate(String.valueOf(new Date().getTime()));
-            data.setReservation_time_id(currentChecked.scheduleItem.getId());
-            data.setBody_type(bodyTypeSpinner.getSelectedBodyType());
-            data.setCar_mark_id(carMarkSpinner.getSelectedCarMarkId());
-            data.setName(nameTextView.getText().toString());
-            data.setRegistration_number(registrationNumberTextView.getText().toString());
-            data.setPhone(phoneTextView.getText().toString());
-            new ReserveTask(data) {
-                @Override
-                public void onSuccess(Reservation reservation) {
-                    onReserveSuccess();
-                }
 
-                @Override
-                public void onError() {
-                    onReserveError();
-                }
-            }.execute();
+            String name = nameTextView.getText().toString();
+            String registrationNumber = registrationNumberTextView.getText().toString();
+            Integer carMarkId = carMarkSpinner.getSelectedCarMarkId();
+            String phone = phoneTextView.getPhone();
+            String bodyType = bodyTypeSpinner.getSelectedBodyType();
+
+            Activity activity = getActivity();
+
+            if(Global.validateNotNullName(activity, name) &&
+                    Global.validatePhone(activity, phone) &&
+                    Global.validateCarMarkId(activity, carMarkId) &&
+                    Global.validateRegistrationNumber(activity, registrationNumber) &&
+                    Global.validateBodyType(activity, bodyType)) {
+
+                ReserveData data = new ReserveData();
+                data.setAuth_token(Global.testToken);
+                data.setDate(String.valueOf(new Date().getTime()));
+                data.setReservation_time_id(currentChecked.scheduleItem.getId());
+                data.setBody_type(bodyType);
+                data.setCar_mark_id(carMarkId);
+                data.setName(name);
+                data.setRegistration_number(registrationNumber);
+                data.setPhone(phone);
+                new ReserveTask(data) {
+                    @Override
+                    public void onSuccess(Reservation reservation) {
+                        onReserveSuccess();
+                    }
+
+                    @Override
+                    public void onError() {
+                        onReserveError();
+                    }
+                }.execute();
+            }
         }
     }
 
@@ -138,7 +155,7 @@ public class ReservationFragment extends PlaceholderFragment {
 
         nameTextView = (TextView) rootView.findViewById(R.id.name);
         registrationNumberTextView = (TextView) rootView.findViewById(R.id.car_registration_number);
-        phoneTextView = (TextView) rootView.findViewById(R.id.phone);
+        phoneTextView = (PhoneEditText) rootView.findViewById(R.id.phone);
 
         carMarkSpinner = (CarMarkSpinner) rootView.findViewById(R.id.car_mark);
         carMarkSpinner.setTextSize(16);

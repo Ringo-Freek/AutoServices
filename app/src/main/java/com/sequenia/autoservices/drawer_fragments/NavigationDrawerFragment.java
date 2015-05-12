@@ -22,7 +22,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.sequenia.autoservices.Global;
 import com.sequenia.autoservices.R;
+import com.sequenia.autoservices.objects.Car;
+import com.sequenia.autoservices.objects.CarMark;
+import com.sequenia.autoservices.static_classes.RealmHelper;
 
 import java.util.ArrayList;
 
@@ -133,7 +137,36 @@ public class NavigationDrawerFragment extends Fragment {
             });
         }
 
+        showData();
+
         return mDrawerListView;
+    }
+
+    public void showData() {
+        TextView nameTextView = (TextView) mDrawerListView.findViewById(R.id.user_name);
+        TextView carMarkTextView = (TextView) mDrawerListView.findViewById(R.id.car_mark);
+        TextView registrationNumberTextView = (TextView) mDrawerListView.findViewById(R.id.car_registration_number);
+
+        Activity activity = getActivity();
+
+        String name = Global.getName(activity);
+        String carMarkName = "";
+        String registrationNumber = "";
+        Car car = RealmHelper.getCurrentCar(activity);
+        if(car != null) {
+            Integer carMarkId = car.getCar_mark_id();
+            if(carMarkId != null) {
+                CarMark carMark = RealmHelper.getCarMarkById(activity, carMarkId);
+                if(carMark != null) {
+                    carMarkName = carMark.getName();
+                }
+            }
+            registrationNumber = car.getRegistration_number();
+        }
+
+        nameTextView.setText(name);
+        carMarkTextView.setText(carMarkName);
+        registrationNumberTextView.setText(registrationNumber);
     }
 
     public boolean isDrawerOpen() {

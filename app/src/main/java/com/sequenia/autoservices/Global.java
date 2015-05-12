@@ -55,7 +55,10 @@ public class Global {
     private static String ERROR_RATING_FORMAT = "Оценка не может быть больше 5";
     private static String ERROR_PHONE_FORMAT = "Введите номер телефона в международном формате (+79123456780)";
     private static String ERROR_NULL_PHONE = "Введите номер телефона";
+    private static String ERROR_NULL_BODY_TYPE = "Выберите тип кузова";
     private static String ERROR_NULL_NAME = "Введите имя";
+    private static String ERROR_NULL_CAR_MARK = "Выберите марку автомобиля";
+    private static String ERROR_NULL_REGISTRATION_NUMBER = "Выберите регистрационный номер";
     private static String ERROR_NAME_LENGTH = "Имя не должно быть длиннее " + MAX_NAME_LENGTH + " символов";
 
     public static void loadCarMarksIfNeeds(final Context context, final OnLoadListener onLoadListener) {
@@ -214,6 +217,18 @@ public class Global {
         return validate(context, getPhoneErrors(phone));
     }
 
+    public static boolean validateBodyType(Context context, String bodyType) {
+        return validate(context, getBodyTypeErrors(bodyType));
+    }
+
+    public static boolean validateRegistrationNumber(Context context, String registrationNumber) {
+        return validate(context, getRegistrationNumberErrors(registrationNumber));
+    }
+
+    public static boolean validateCarMarkId(Context context, Integer carMarkId) {
+        return validate(context, getCarMarkIdErrors(carMarkId));
+    }
+
     public static ArrayList<String> getRatingErrors(int rating) {
         ArrayList<String> errors = new ArrayList<String>();
 
@@ -222,6 +237,48 @@ public class Global {
         } else {
             if(rating > 5) {
                 errors.add(ERROR_RATING_FORMAT);
+            }
+        }
+
+        return errors;
+    }
+
+    public static ArrayList<String> getCarMarkIdErrors(Integer carMarkId) {
+        ArrayList<String> errors = new ArrayList<String>();
+
+        if(carMarkId == null) {
+            errors.add(ERROR_NULL_CAR_MARK);
+        } else {
+            if(carMarkId == 0) {
+                errors.add(ERROR_NULL_CAR_MARK);
+            }
+        }
+
+        return errors;
+    }
+
+    public static ArrayList<String> getBodyTypeErrors(String bodyType) {
+        ArrayList<String> errors = new ArrayList<String>();
+
+        if(bodyType == null) {
+            errors.add(ERROR_NULL_BODY_TYPE);
+        } else {
+            if(bodyType.length() == 0) {
+                errors.add(ERROR_NULL_BODY_TYPE);
+            }
+        }
+
+        return errors;
+    }
+
+    public static ArrayList<String> getRegistrationNumberErrors(String registrationNumber) {
+        ArrayList<String> errors = new ArrayList<String>();
+
+        if(registrationNumber == null) {
+            errors.add(ERROR_NULL_REGISTRATION_NUMBER);
+        } else {
+            if(registrationNumber.length() == 0) {
+                errors.add(ERROR_NULL_REGISTRATION_NUMBER);
             }
         }
 
