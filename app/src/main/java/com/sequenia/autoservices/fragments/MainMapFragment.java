@@ -230,13 +230,15 @@ public class MainMapFragment extends PlaceholderFragment
         MainActivity activity = (MainActivity) getActivity();
         activity.showMenuItem(R.id.show_filter);
 
+        activity.updateFilterItem();
+
         switch (current) {
             case CAR_WASH_MAP:
                 showMapItems();
                 break;
 
             case CAR_WASH_LIST:
-                showMapItems();
+                showListItems();
                 break;
         }
     }

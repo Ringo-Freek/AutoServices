@@ -156,6 +156,11 @@ public class ListCarWash extends MasterFragment {
         }
     }
 
+    @Override
+    public boolean canCreate() {
+        return false;
+    }
+
     public void setUpLayout(View view){
         view.setBackgroundResource(R.color.dark_grey);
     }

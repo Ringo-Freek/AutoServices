@@ -38,6 +38,7 @@ public class Global {
     private static final String PREF_NAME = "Name";
     private static final String PREF_PHONE = "Phone";
     private static final String PREF_REGISTERED = "Registered";
+    private static final String PREF_FILTERED = "Filtered";
 
     private static final String[] PREF_FILTERS = {
             "HasCafe", "HasTea", "HasWiFi", "HasBankTransfer", "HasActions", "OnlyOnlineReservation"
@@ -97,10 +98,22 @@ public class Global {
         return sp.getBoolean(PREF_REGISTERED, false);
     }
 
+    public static boolean isFiltered(Context context) {
+        SharedPreferences sp = getSharedPreferences(context);
+        return sp.getBoolean(PREF_FILTERED, false);
+    }
+
     public static void setRegistered(Context context, boolean registered) {
         SharedPreferences sp = getSharedPreferences(context);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean(PREF_REGISTERED, registered);
+        editor.commit();
+    }
+
+    public static void setFiltered(Context context, boolean filtered) {
+        SharedPreferences sp = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean(PREF_FILTERED, filtered);
         editor.commit();
     }
 

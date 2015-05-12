@@ -256,6 +256,19 @@ public class MainActivity extends ActionBarActivity
         setMenuItemVisibility(itemId, true);
     }
 
+    public void updateFilterItem() {
+        if(menu != null) {
+            MenuItem filter = menu.findItem(R.id.show_filter);
+            if(filter != null) {
+                if(Global.isFiltered(this)) {
+                    filter.setIcon(R.drawable.ic_filter_amber700_24dp);
+                } else {
+                    filter.setIcon(R.drawable.ic_filter_white_24dp);
+                }
+            }
+        }
+    }
+
     public void hideMenuItem(int itemId) {
         setMenuItemVisibility(itemId, false);
     }

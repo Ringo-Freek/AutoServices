@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -132,15 +133,27 @@ public class FiltersFragment extends PlaceholderFragment implements View.OnClick
         setRadiusText(radius);
     }
 
-    public void applyFilter(){
+    public void applyFilter() {
+        boolean filtered = false;
+
         Activity activity = getActivity();
 
         for(int i = 0; i < switches.size(); i++) {
-            Global.setFilter(activity, switches.get(i).isChecked(), i);
+            boolean checked = switches.get(i).isChecked();
+            Global.setFilter(activity, checked, i);
+
+            filtered |= checked;
         }
 
-        Global.setRating(activity, rating.getRating());
-        Global.setRadius(activity, radiusBar.getProgress() * 1000);
+        int ratingValue = rating.getRating();
+        int radiusValue = radiusBar.getProgress() * 1000;
+        Global.setRating(activity, ratingValue);
+        Global.setRadius(activity, radiusValue);
+
+        filtered |= ratingValue > 0;
+        filtered |= radiusValue != Global.radius;
+
+        Global.setFiltered(activity, filtered);
     }
 
     public void closeFilter(){
