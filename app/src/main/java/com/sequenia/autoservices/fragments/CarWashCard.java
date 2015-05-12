@@ -116,6 +116,13 @@ public class CarWashCard extends PlaceholderDialogFragment {
             }
         });
 
+        rootView.findViewById(R.id.rating).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showReviewsForm();
+            }
+        });
+
         rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
         rootView.findViewById(R.id.car_wash_card).setVisibility(View.VISIBLE);
     }
