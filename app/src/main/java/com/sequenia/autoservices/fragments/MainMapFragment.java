@@ -46,6 +46,8 @@ public class MainMapFragment extends PlaceholderFragment
     private LinearLayout carWashMap;
     public ArrayList<CarWash> carWashes = new ArrayList<CarWash>();
 
+    private static final int distanceToUpdate = 500;
+
     Location personLocation;
 
     @Override
@@ -84,8 +86,6 @@ public class MainMapFragment extends PlaceholderFragment
         map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(location.getLatitude(), location.getLongitude()), Global.myPositionZoom));
                 onLocationChange(location, map);
             }
         });
@@ -98,14 +98,31 @@ public class MainMapFragment extends PlaceholderFragment
      * @param map - карта
      */
     private void onLocationChange(Location location, final GoogleMap map) {
-        personLocation = location;
-        new NearCarWashesTask(getActivity(), (float) location.getLatitude(), (float) location.getLongitude()) {
-            @Override
-            public void onSuccess(ArrayList<CarWash> carWashesTask) {
-                carWashes = carWashesTask;
-                showCarWashesOnMap(carWashesTask, map);
+        boolean needsUpdate = false;
+
+        if(personLocation == null) {
+            needsUpdate = true;
+        } else {
+            float distance = personLocation.distanceTo(location);
+            if(distance > distanceToUpdate || distance < - distanceToUpdate) {
+                needsUpdate = true;
             }
-        }.execute();
+        }
+
+        if(needsUpdate) {
+            personLocation = location;
+
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(location.getLatitude(), location.getLongitude()), Global.myPositionZoom));
+
+            new NearCarWashesTask(getActivity(), (float) location.getLatitude(), (float) location.getLongitude()) {
+                @Override
+                public void onSuccess(ArrayList<CarWash> carWashesTask) {
+                    carWashes = carWashesTask;
+                    showCarWashesOnMap(carWashesTask, map);
+                }
+            }.execute();
+        }
     }
 
     /**
@@ -129,9 +146,17 @@ public class MainMapFragment extends PlaceholderFragment
 
         for(int i = 0; i < carWashes.size(); i++){
             CarWash carWashI = carWashes.get(i);
+
+            int iconId;
+            if(carWashI.getActions_count() == null) {
+                iconId = R.drawable.ic_wash_free;
+            } else {
+                iconId = R.drawable.ic_wash_free_promo;
+            }
+
             map.addMarker(new MarkerOptions()
                     .title(carWashI.getId().toString())
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_wash_free))
+                    .icon(BitmapDescriptorFactory.fromResource(iconId))
                     .anchor(0.0f, 1.0f)
                     .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
         }
