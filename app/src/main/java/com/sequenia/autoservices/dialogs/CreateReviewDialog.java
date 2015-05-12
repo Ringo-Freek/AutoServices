@@ -3,7 +3,7 @@ package com.sequenia.autoservices.dialogs;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.sequenia.autoservices.Global;
+import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.R;
 import com.sequenia.autoservices.async_tasks.ReviewCreationTask;
 import com.sequenia.autoservices.objects.Review;

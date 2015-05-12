@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import com.sequenia.autoservices.Global;
+import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.objects.CarWash;
 import com.sequenia.autoservices.responses.JsonResponse;
 

@@ -1,23 +1,22 @@
-package com.sequenia.autoservices;
+package com.sequenia.autoservices.static_classes;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.sequenia.autoservices.async_tasks.CarMarksTask;
 import com.sequenia.autoservices.listeners.OnLoadListener;
 import com.sequenia.autoservices.objects.CarMark;
-import com.sequenia.autoservices.static_classes.RealmHelper;
 
 /**
  * Created by Ringo on 28.04.2015.
@@ -355,5 +354,15 @@ public class Global {
 
     public static String toUTF8(String s) throws UnsupportedEncodingException {
         return new String(s.getBytes("UTF-8"), "ISO-8859-1");
+    }
+
+    public static boolean isDaysEqual(Calendar dateNow, Calendar dateReview){
+        if(dateNow.get(Calendar.MONTH) == dateReview.get(Calendar.MONTH)
+                && dateNow.get(Calendar.DAY_OF_MONTH) == dateReview.get(Calendar.DAY_OF_MONTH)
+                && dateNow.get(Calendar.YEAR) == dateReview.get(Calendar.YEAR)){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

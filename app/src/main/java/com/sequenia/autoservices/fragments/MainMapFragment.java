@@ -21,7 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
-import com.sequenia.autoservices.Global;
+import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.R;
 import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.async_tasks.NearCarWashesTask;

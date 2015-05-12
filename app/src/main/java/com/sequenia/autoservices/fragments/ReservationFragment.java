@@ -19,13 +19,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.sequenia.autoservices.Global;
+import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.R;
 import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.async_tasks.ReserveTask;
 import com.sequenia.autoservices.async_tasks.ScheduleTask;
 import com.sequenia.autoservices.drawer_fragments.PlaceholderFragment;
 import com.sequenia.autoservices.objects.Car;
+import com.sequenia.autoservices.objects.HistoryCarWash;
 import com.sequenia.autoservices.objects.Reservation;
 import com.sequenia.autoservices.objects.ReserveData;
 import com.sequenia.autoservices.objects.ScheduleItem;
@@ -41,6 +42,10 @@ public class ReservationFragment extends PlaceholderFragment {
 
     private final static String ARG_CAR_WASH_ID = "CarWashId";
     private final static String ARG_CAR_WASH_NAME = "CarWashName";
+    private final static String ARG_TIME_FROM = "TimeFrom";
+    private final static String ARG_TIME_TO = "TimeTo";
+    private final static String ARG_LATITUDE = "Latitude";
+    private final static String ARG_LONGITUDE = "Longitude";
     private final static String ARG_CAR_WASH_ADDRESS = "CarWashAddress";
 
     private View rootView;
@@ -61,6 +66,10 @@ public class ReservationFragment extends PlaceholderFragment {
     private int carWashId;
     private String carWashName;
     private String carWashAddress;
+    private String timeFrom;
+    private String timeTo;
+    private float latitude;
+    private float longitude;
 
     private Resources resources;
 
@@ -103,6 +112,8 @@ public class ReservationFragment extends PlaceholderFragment {
             Integer carMarkId = carMarkSpinner.getSelectedCarMarkId();
             String phone = phoneTextView.getPhone();
             String bodyType = bodyTypeSpinner.getSelectedBodyType();
+            final long date = new Date().getTime();
+            final String time = currentChecked.scheduleItem.getFrom();
 
             Activity activity = getActivity();
 
@@ -114,7 +125,7 @@ public class ReservationFragment extends PlaceholderFragment {
 
                 ReserveData data = new ReserveData();
                 data.setAuth_token(Global.testToken);
-                data.setDate(String.valueOf(new Date().getTime()));
+                data.setDate(String.valueOf(date));
                 data.setReservation_time_id(currentChecked.scheduleItem.getId());
                 data.setBody_type(bodyType);
                 data.setCar_mark_id(carMarkId);
@@ -124,7 +135,7 @@ public class ReservationFragment extends PlaceholderFragment {
                 new ReserveTask(data) {
                     @Override
                     public void onSuccess(Reservation reservation) {
-                        onReserveSuccess();
+                        onReserveSuccess(date, time);
                     }
 
                     @Override
@@ -136,8 +147,22 @@ public class ReservationFragment extends PlaceholderFragment {
         }
     }
 
-    private void onReserveSuccess() {
+    private void onReserveSuccess(long date, String time) {
         System.out.println("Забронировано");
+
+        HistoryCarWash historyCarWash = new HistoryCarWash();
+        historyCarWash.setCarWashId(carWashId);
+        historyCarWash.setAddress(carWashAddress);
+        historyCarWash.setLatitude(latitude);
+        historyCarWash.setLongitude(longitude);
+        historyCarWash.setTime_from(timeFrom);
+        historyCarWash.setTime_to(timeTo);
+        historyCarWash.setDate(date);
+        historyCarWash.setTime(time);
+        historyCarWash.setName(carWashName);
+
+        RealmHelper.saveCarWash(getActivity(), historyCarWash);
+
         ((MainActivity) getActivity()).onBackPressed();
     }
 
@@ -199,11 +224,16 @@ public class ReservationFragment extends PlaceholderFragment {
         }
     }
 
-    public void setInfo(int carWashId, String carWashName, String carWashAddress) {
+    public void setInfo(int carWashId, String carWashName, String carWashAddress, String timeFrom, String timeTo, float latitude, float longitude) {
         Bundle args = getArguments();
         args.putInt(ARG_CAR_WASH_ID, carWashId);
         args.putString(ARG_CAR_WASH_NAME, carWashName);
         args.putString(ARG_CAR_WASH_ADDRESS, carWashAddress);
+
+        args.putString(ARG_TIME_FROM, timeFrom);
+        args.putString(ARG_TIME_TO, timeTo);
+        args.putFloat(ARG_LATITUDE, latitude);
+        args.putFloat(ARG_LONGITUDE, longitude);
     }
 
     @Override
@@ -213,6 +243,11 @@ public class ReservationFragment extends PlaceholderFragment {
         carWashId = args.getInt(ARG_CAR_WASH_ID);
         carWashName = args.getString(ARG_CAR_WASH_NAME);
         carWashAddress = args.getString(ARG_CAR_WASH_ADDRESS);
+
+        timeFrom = args.getString(ARG_TIME_FROM);
+        timeTo = args.getString(ARG_TIME_TO);
+        latitude = args.getFloat(ARG_LATITUDE);
+        longitude = args.getFloat(ARG_LONGITUDE);
     }
 
     private void showUserData() {

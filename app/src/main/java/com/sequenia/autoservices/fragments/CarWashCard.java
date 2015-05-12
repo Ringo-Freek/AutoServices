@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.sequenia.autoservices.Global;
+import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.async_tasks.CarWashTask;
 import com.sequenia.autoservices.drawer_fragments.PlaceholderDialogFragment;
@@ -130,7 +130,8 @@ public class CarWashCard extends PlaceholderDialogFragment {
     private void showReservationForm() {
         if(carWash != null) {
             ReservationFragment fragment = (ReservationFragment) PlaceholderFragment.newInstance(PlaceholderDialogFragment.RESERVATION_SECTION);
-            fragment.setInfo(Integer.valueOf(carWashId), carWash.getName(), carWash.getAddress());
+            fragment.setInfo(Integer.valueOf(carWashId), carWash.getName(), carWash.getAddress(),
+                    carWash.getTime_from(), carWash.getTime_to(), carWash.getLatitude(), carWash.getLongitude());
             ((MainActivity) getActivity()).addSubFragment(fragment);
         }
     }

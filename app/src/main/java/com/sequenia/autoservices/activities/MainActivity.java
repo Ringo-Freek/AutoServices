@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
-import com.sequenia.autoservices.Global;
+import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.R;
 import com.sequenia.autoservices.drawer_fragments.PlaceholderFragment;
 import com.sequenia.autoservices.fragments.MainMapFragment;

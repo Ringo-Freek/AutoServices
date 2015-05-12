@@ -1,6 +1,6 @@
 package com.sequenia.autoservices.async_tasks;
 
-import com.sequenia.autoservices.Global;
+import com.sequenia.autoservices.static_classes.Global;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPut;

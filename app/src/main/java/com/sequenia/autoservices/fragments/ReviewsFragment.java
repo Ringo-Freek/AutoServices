@@ -20,7 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import com.sequenia.autoservices.Global;
+import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.R;
 import com.sequenia.autoservices.async_tasks.ReviewsTask;
 import com.sequenia.autoservices.dialogs.CreateReviewDialog;
@@ -182,12 +182,12 @@ public class ReviewsFragment extends MasterFragment {
 
             reviewDate.setTimeInMillis(date.getTime());
 
-            if(dates(dateNow, reviewDate)){
+            if(Global.isDaysEqual(dateNow, reviewDate)){
                 reviewDateFormatted = "сегодня " + formatTime.format(date);
             } else {
                 dateNow.add(Calendar.DATE, -1);
 
-                if (dates(dateNow, reviewDate)) {
+                if (Global.isDaysEqual(dateNow, reviewDate)) {
                     reviewDateFormatted = "вчера " + formatTime.format(date);
                 } else {
                     reviewDateFormatted = formatDay.format(date);
@@ -197,16 +197,6 @@ public class ReviewsFragment extends MasterFragment {
             e.printStackTrace();
         }
         return  reviewDateFormatted;
-    }
-
-    public Boolean dates(Calendar dateNow, Calendar dateReview){
-        if(dateNow.get(Calendar.MONTH) == dateReview.get(Calendar.MONTH)
-                && dateNow.get(Calendar.DAY_OF_MONTH) == dateReview.get(Calendar.DAY_OF_MONTH)
-                && dateNow.get(Calendar.YEAR) == dateReview.get(Calendar.YEAR)){
-            return true;
-        }else{
-            return false;
-        }
     }
 
     public void showDetailFragment(int itemId, int position) {

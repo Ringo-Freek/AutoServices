@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
-import com.sequenia.autoservices.Global;
+import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.objects.CarMark;
 import com.sequenia.autoservices.responses.JsonResponse;
 import com.sequenia.autoservices.static_classes.RealmHelper;

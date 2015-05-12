@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import com.sequenia.autoservices.objects.Car;
 import com.sequenia.autoservices.objects.CarMark;
+import com.sequenia.autoservices.objects.HistoryCarWash;
+
 import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
@@ -104,5 +106,19 @@ public class RealmHelper {
 
     public static Car getCurrentCar(Context context) {
         return initRealm(context).where(Car.class).equalTo("isCurrent", true).findFirst();
+    }
+
+    public static void saveCarWash(Context context, HistoryCarWash carWash) {
+        Realm realm = initRealm(context);
+
+        realm.beginTransaction();
+
+        realm.copyToRealm(carWash);
+
+        realm.commitTransaction();
+    }
+
+    public static RealmResults<HistoryCarWash> getHistory(Context context) {
+        return initRealm(context).where(HistoryCarWash.class).findAllSorted("date", false);
     }
 }
