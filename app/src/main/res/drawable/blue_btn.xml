@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/button_main_shadow"></item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/teal_300"></solid>
+            <corners android:radius="@dimen/radius"></corners>
+        </shape>
+    </item>
+
+</layer-list>

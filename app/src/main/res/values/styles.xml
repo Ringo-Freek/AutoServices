@@ -38,6 +38,11 @@
         <item name="android:layout_width">@dimen/long_button_width</item>
     </style>
 
+    <style name="Btn.BlueBgr" parent="@style/Btn">
+        <item name="android:background">@drawable/blue_btn_background</item>
+        <item name="android:layout_width">@dimen/long_button_width</item>
+    </style>
+
     <style name="Btn.Gray" parent="@style/Btn">
         <item name="android:background">@color/blue_grey_500</item>
     </style>

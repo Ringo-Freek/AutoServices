@@ -121,4 +121,8 @@ public class RealmHelper {
     public static RealmResults<HistoryCarWash> getHistory(Context context) {
         return initRealm(context).where(HistoryCarWash.class).findAllSorted("date", false);
     }
+
+    public static HistoryCarWash getLastHistoryRecord(Context context) {
+        return initRealm(context).where(HistoryCarWash.class).findAllSorted("date", false).first();
+    }
 }

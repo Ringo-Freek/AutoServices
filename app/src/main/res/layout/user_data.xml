@@ -64,13 +64,24 @@
             android:text="@string/car_mark"
             style="@style/BigEditTextLabel"/>
 
-        <com.sequenia.autoservices.widgets.CarMarkSpinner
-            android:id="@+id/car_mark"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/material_edit_text_height"
-            android:gravity="center"
-            android:background="@drawable/edit_text_bg"/>
+            android:layout_height="wrap_content">
 
+            <com.sequenia.autoservices.widgets.CarMarkSpinner
+                android:id="@+id/car_mark"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/material_edit_text_height"
+                android:gravity="center"
+                android:background="@drawable/edit_text_bg"/>
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_arrow_drop_down_grey600_18dp"
+                android:layout_width="@dimen/icon_size_small"
+                android:layout_height="@dimen/icon_size_small" />
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout

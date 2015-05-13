@@ -45,12 +45,22 @@
         android:background="@color/color_white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:paddingTop="@dimen/material_padding_between_row"
         android:paddingBottom="@dimen/material_padding_between_row">
 
         <com.sequenia.autoservices.widgets.ModernhBoldButton
+            android:id="@+id/reservation_button"
+            android:visibility="gone"
             style="@style/Btn.OrangeBgr"
             android:text="@string/reserve"
+            android:layout_height="@dimen/btn_height" />
+
+        <com.sequenia.autoservices.widgets.ModernhBoldButton
+            android:id="@+id/current_reservation_button"
+            android:visibility="gone"
+            style="@style/Btn.BlueBgr"
+            android:text="@string/current_reservation"
             android:layout_height="@dimen/btn_height" />
 
     </LinearLayout>

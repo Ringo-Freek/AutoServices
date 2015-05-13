@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
+import com.sequenia.autoservices.objects.HistoryCarWash;
 import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.R;
 import com.sequenia.autoservices.activities.MainActivity;
@@ -46,6 +48,9 @@ public class MainMapFragment extends PlaceholderFragment
     private LinearLayout carWashMap;
     public ArrayList<CarWash> carWashes = new ArrayList<CarWash>();
 
+    private Button reserveButton;
+    private Button currentReservationButton;
+
     private static final int distanceToUpdate = 500;
 
     Location personLocation;
@@ -56,6 +61,9 @@ public class MainMapFragment extends PlaceholderFragment
 
         carWashList = (LinearLayout) view.findViewById(R.id.car_wash_list);
         carWashMap = (LinearLayout) view.findViewById(R.id.car_wash_map);
+
+        reserveButton = (Button) view.findViewById(R.id.reservation_button);
+        currentReservationButton = (Button) view.findViewById(R.id.current_reservation_button);
 
         showMap();
 
@@ -240,6 +248,20 @@ public class MainMapFragment extends PlaceholderFragment
             case CAR_WASH_LIST:
                 showListItems();
                 break;
+        }
+
+        updateButtons();
+    }
+
+    private void updateButtons() {
+        HistoryCarWash currentReservation = Global.getCurrentReservation(getActivity());
+
+        if(currentReservation == null) {
+            currentReservationButton.setVisibility(View.GONE);
+            reserveButton.setVisibility(View.VISIBLE);
+        } else {
+            currentReservationButton.setVisibility(View.VISIBLE);
+            reserveButton.setVisibility(View.GONE);
         }
     }
 }

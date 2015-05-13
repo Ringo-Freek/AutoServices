@@ -1,6 +1,5 @@
 package com.sequenia.autoservices.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +14,7 @@ import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.drawer_fragments.MasterFragment;
 import com.sequenia.autoservices.drawer_fragments.PlaceholderFragment;
 import com.sequenia.autoservices.objects.CarWash;
+import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.widgets.Rating;
 import com.squareup.picasso.Picasso;
 
@@ -67,7 +67,7 @@ public class ListCarWash extends MasterFragment {
         carWashItem.carWashName.setText(carWash.getName());
         carWashItem.carWashDistance.setText("~" + Math.round(carWash.getDistance()) + " м");
         carWashItem.carWashAddress.setText(carWash.getAddress());
-        carWashItem.carWashSchedule.setText(getSchedule(carWash.getTime_from(), carWash.getTime_to()));
+        carWashItem.carWashSchedule.setText(Global.getSchedule(carWash.getTime_from(), carWash.getTime_to()));
         carWashItem.carWashMinCoast.setText("250");
 
         carWashItem.rating.initRating(getActivity(), Math.round(carWash.getRating()));
@@ -84,18 +84,6 @@ public class ListCarWash extends MasterFragment {
                 ((MainActivity)getActivity()).addSubFragment(fragment);
             }
         });
-    }
-
-    public String getSchedule(String timeFrom, String timeTo){
-        if(timeFrom != null && timeTo != null){
-            if(timeFrom.equals("00:00")&&timeTo.equals("23:59")){
-                return "круглосуточно";
-            }else{
-                return timeFrom + " - " + timeTo;
-            }
-        }else{
-            return "не работает";
-        }
     }
 
     @Override

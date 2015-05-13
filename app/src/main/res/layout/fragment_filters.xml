@@ -42,11 +42,13 @@
                 </LinearLayout>
 
                 <SeekBar
+                    android:thumb="@drawable/seek_bar_circle"
                     android:id="@+id/seep_bar"
                     android:layout_margin="@dimen/material_padding_between_row_half"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:max="@integer/max_seek_bar_radius"
+                    android:progressDrawable="@drawable/seek_bar_style"
                     android:progress="0"/>
 
                 <LinearLayout
@@ -70,14 +72,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <Spinner
-                        android:layout_gravity="right"
-                        android:id="@+id/coast"
-                        android:background="@drawable/edit_text_bg"
+                    <RelativeLayout
                         android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent">
-                    </Spinner>
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:background="@drawable/edit_text_bg"
+                            android:id="@+id/coast"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                        </Spinner>
+                        
+                        <ImageView
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/ic_arrow_drop_down_grey600_18dp"
+                            android:layout_width="@dimen/icon_size_small"
+                            android:layout_height="@dimen/icon_size_small" />
+                    </RelativeLayout>
 
                 </LinearLayout>
 

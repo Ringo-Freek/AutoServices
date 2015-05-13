@@ -1,6 +1,7 @@
 package com.sequenia.autoservices.fragments;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
@@ -74,20 +75,21 @@ public class FiltersFragment extends PlaceholderFragment implements View.OnClick
         CoastAdapter coastAdapter = new CoastAdapter(getActivity(), R.layout.filter_item, coastList);
         coast.setAdapter(coastAdapter);
 
-        initSwitches(rootView, inflater, container);
+        initSwitches(rootView, container);
 
         rootView.findViewById(R.id.search).setOnClickListener(this);
         rootView.findViewById(R.id.clear).setOnClickListener(this);
         return rootView;
     }
 
-    private void initSwitches(View rootView, LayoutInflater inflater, ViewGroup container) {
+    private void initSwitches(View rootView, ViewGroup container) {
         LinearLayout filterItemsLayout = (LinearLayout)rootView.findViewById(R.id.filter_content_items);
         String[] titles = getResources().getStringArray(R.array.filter_titles);
         TypedArray images = getResources().obtainTypedArray(R.array.filter_images);
         switches = new ArrayList<SwitchCompat>();
 
         final Activity activity = getActivity();
+        LayoutInflater inflater = Global.getInflaterForTheme(getActivity(), R.style.Inputs);
 
         for(int i = 0; i < titles.length; i++){
             final int position = i;

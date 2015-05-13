@@ -70,4 +70,7 @@
     <!--Высота футера в списке моек-->
     <dimen name="car_list_footer">36dp</dimen>
     <dimen name="car_list_margin_before_footer">2dp</dimen>
+
+    <!--Размер иконки-->
+    <dimen name="icon_size_small">18dp</dimen>
 </resources>

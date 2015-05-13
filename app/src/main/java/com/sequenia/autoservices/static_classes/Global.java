@@ -382,4 +382,35 @@ public class Global {
 
         return now.getTimeInMillis() > d.getTimeInMillis();
     }
+
+    public static String getSchedule(String timeFrom, String timeTo){
+        if(timeFrom != null && timeTo != null){
+            if(timeFrom.equals("00:00")&&timeTo.equals("23:59")){
+                return "круглосуточно";
+            }else{
+                return timeFrom + " - " + timeTo;
+            }
+        }else{
+            return "сейчас не работает";
+        }
+    }
+
+    /**
+     * Возвращает текущую запись. Null, если сейчас никуда не записаны.
+     * @param context
+     * @return
+     */
+    public static HistoryCarWash getCurrentReservation(Context context) {
+        HistoryCarWash currentReservation = RealmHelper.getLastHistoryRecord(context);
+
+        if(currentReservation != null) {
+            Calendar date = Calendar.getInstance();
+            date.setTimeInMillis(currentReservation.getDate());
+            if(dateExpired(date)) {
+                currentReservation = null;
+            }
+        }
+
+        return currentReservation;
+    }
 }

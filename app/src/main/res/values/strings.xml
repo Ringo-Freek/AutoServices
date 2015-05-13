@@ -31,6 +31,7 @@
     <string name="welcome">Для дальнейшей работы с приложением нажмите ПРОДОЛЖИТЬ</string>
     <string name="filter_clear">ОЧИСТИТЬ</string>
     <string name="filter_search">ПРИМЕНИТЬ</string>
+    <string name="current_reservation">ТЕКУЩАЯ ЗАПИСЬ</string>
 
     <!--Заголовки-->
     <string name="services">Услуги</string>
