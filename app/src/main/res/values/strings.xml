@@ -18,6 +18,7 @@
     <string name="reservation">Запись на мойку</string>
     <string name="reviews">Отзывы</string>
     <string name="my_car_edit"></string>
+    <string name="current_reservation_title">Текущая запись</string>
 
     <!--Названия кнопок-->
     <string name="reserve">ЗАПИСАТЬСЯ НА МОЙКУ</string>
@@ -32,10 +33,13 @@
     <string name="filter_clear">ОЧИСТИТЬ</string>
     <string name="filter_search">ПРИМЕНИТЬ</string>
     <string name="current_reservation">ТЕКУЩАЯ ЗАПИСЬ</string>
+    <string name="call">ПОЗВОНИТЬ</string>
+    <string name="cancel">ОТКАЗАТЬСЯ</string>
 
     <!--Заголовки-->
     <string name="services">Услуги</string>
     <string name="actions">Акции</string>
+    <string name="reserved">Вы записаны на автомойку</string>
 
     <!-- Placeholders -->
     <string name="your_name">Ваше имя</string>

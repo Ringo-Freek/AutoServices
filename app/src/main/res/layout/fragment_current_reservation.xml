@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/car_wash_map"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_800_65">
+
+            <RelativeLayout
+                android:layout_width="@dimen/avatar_container_size"
+                android:layout_height="match_parent"
+                android:padding="@dimen/material_padding">
+
+                <com.sequenia.autoservices.widgets.ModernhMediumTextView
+                    android:id="@+id/car_wash_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/car_wash_img"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ic_account_box_grey600_48dp"
+                    android:layout_width="@dimen/avatar_size"
+                    android:layout_height="@dimen/avatar_size"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/material_padding"
+                android:paddingRight="@dimen/material_padding"
+                android:paddingBottom="@dimen/material_padding"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <com.sequenia.autoservices.widgets.ModernhBoldTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reserved"
+                    android:textSize="@dimen/sp14"
+                    android:textColor="@color/color_white"
+                    android:layout_marginBottom="@dimen/material_padding_between_row_half"/>
+
+                <com.sequenia.autoservices.widgets.ModernhBoldTextView
+                    android:id="@+id/car_wash_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/color_white"
+                    android:layout_marginBottom="@dimen/material_padding_between_row"/>
+
+                <com.sequenia.autoservices.widgets.ModernhBoldTextView
+                    android:id="@+id/car_wash_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp22"
+                    android:textColor="@color/color_white"
+                    android:layout_marginBottom="@dimen/material_padding_between_row"/>
+
+                <com.sequenia.autoservices.widgets.ModernhBoldTextView
+                    android:id="@+id/car_wash_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp14"
+                    android:textColor="@color/color_white"
+                    android:layout_marginBottom="@dimen/material_padding_between_row"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/color_white"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.sequenia.autoservices.widgets.ModernhBoldButton
+                style="@style/Btn.Teal"
+                android:layout_weight="1"
+                android:id="@+id/call_button"
+                android:text="@string/call"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_height" />
+
+            <com.sequenia.autoservices.widgets.ModernhBoldButton
+                style="@style/Btn.Teal"
+                android:layout_weight="1"
+                android:id="@+id/cancel_button"
+                android:text="@string/cancel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_height" />
+            
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

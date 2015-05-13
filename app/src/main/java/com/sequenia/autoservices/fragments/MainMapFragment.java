@@ -262,6 +262,17 @@ public class MainMapFragment extends PlaceholderFragment
         } else {
             currentReservationButton.setVisibility(View.VISIBLE);
             reserveButton.setVisibility(View.GONE);
+
+            currentReservationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CurrentReservationFragment fragment = (CurrentReservationFragment) PlaceholderFragment.newInstance(PlaceholderFragment.CURRENT_RESERVATION_SECTION);
+
+                    fragment.setData((float) personLocation.getLatitude(), (float) personLocation.getLongitude(), Global.myPositionZoom);
+
+                    ((MainActivity) getActivity()).addSubFragment(fragment);
+                }
+            });
         }
     }
 }

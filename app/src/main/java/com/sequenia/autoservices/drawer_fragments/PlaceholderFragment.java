@@ -13,6 +13,7 @@ import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.fragments.AboutFragment;
 import com.sequenia.autoservices.fragments.CarWashCard;
 import com.sequenia.autoservices.fragments.ContactsFragment;
+import com.sequenia.autoservices.fragments.CurrentReservationFragment;
 import com.sequenia.autoservices.fragments.FiltersFragment;
 import com.sequenia.autoservices.fragments.HistoryFragment;
 import com.sequenia.autoservices.fragments.ListCarWash;
@@ -42,6 +43,7 @@ public class PlaceholderFragment extends Fragment {
     public static final int RESERVATION_SECTION = MENU_ITEMS_COUNT + 1;
     public static final int REVIEWS_SECTION = MENU_ITEMS_COUNT + 2;
     public static final int MY_CAR_EDIT_SECTION = MENU_ITEMS_COUNT + 3;
+    public static final int CURRENT_RESERVATION_SECTION = MENU_ITEMS_COUNT + 4;
     public static final int CAR_LIST_SECTION = 999;
 
     private int number;                    // Номер секции меню.
@@ -112,6 +114,10 @@ public class PlaceholderFragment extends Fragment {
 
             case CAR_LIST_SECTION:
                 fragment = new ListCarWash();
+                break;
+
+            case CURRENT_RESERVATION_SECTION:
+                fragment = new CurrentReservationFragment();
                 break;
 
             default:

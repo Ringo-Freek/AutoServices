@@ -47,6 +47,10 @@
         <item name="android:background">@color/blue_grey_500</item>
     </style>
 
+    <style name="Btn.Teal" parent="@style/Btn">
+        <item name="android:background">@color/teal_800</item>
+    </style>
+
     <style name="TextViewCustom">
         <item name="android:layout_marginBottom">@dimen/material_padding_between_row</item>
     </style>

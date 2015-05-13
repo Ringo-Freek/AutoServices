@@ -53,6 +53,7 @@ public class MainActivity extends ActionBarActivity
         titles.add(getString(R.string.reservation));
         titles.add(getString(R.string.reviews));
         titles.add(getString(R.string.my_car_edit));
+        titles.add(getString(R.string.current_reservation_title));
 
         // Инициализация стека фрагментов
         FragmentManager fragmentManager = getSupportFragmentManager();

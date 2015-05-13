@@ -32,6 +32,7 @@
     <dimen name="material_double_list_item_height">72dp</dimen>
     <dimen name="material_big_padding">24dp</dimen>
     <dimen name="material_medium_padding">12dp</dimen>
+    <dimen name="avatar_container_size">104dp</dimen>
 
     <!--Размеры для кнопок-->
     <dimen name="btn_height">48dp</dimen>
@@ -44,6 +45,7 @@
     <dimen name="radius">4dp</dimen>
 
     <!-- Размеры шрифтов -->
+    <dimen name="sp22">22sp</dimen>
     <dimen name="sp20">20sp</dimen>
     <dimen name="sp18">18sp</dimen>
     <dimen name="sp16">16sp</dimen>
