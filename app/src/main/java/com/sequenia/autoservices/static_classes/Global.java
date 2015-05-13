@@ -365,4 +365,16 @@ public class Global {
             return false;
         }
     }
+
+    public static String getSchedule(String timeFrom, String timeTo){
+        if(timeFrom != null && timeTo != null){
+            if(timeFrom.equals("00:00")&&timeTo.equals("23:59")){
+                return "круглосуточно";
+            }else{
+                return timeFrom + " - " + timeTo;
+            }
+        }else{
+            return "сейчас не работает";
+        }
+    }
 }
