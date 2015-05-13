@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.support.v4.app.Fragment;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class Global {
     public static final float startLongitude = 82.9333f;
     public static final int startZoom = 10;
     public static final int myPositionZoom = 16;
+    public static final int previewCornerRadius = 4;
 
     private static final String SHARED_PREF_NAME = "Preferences";
     private static final String PREF_CAR_MARKS_LOADED = "CarMarksLoaded";
@@ -449,5 +451,12 @@ public class Global {
         }
 
         return str;
+    }
+
+    public static float getDistance(double latitude1, double longitude1, double latitude2, double longitude2) {
+        float[] results = new float[1];
+        Location.distanceBetween(latitude1, longitude1,
+                latitude2, longitude2, results);
+        return results[0];
     }
 }

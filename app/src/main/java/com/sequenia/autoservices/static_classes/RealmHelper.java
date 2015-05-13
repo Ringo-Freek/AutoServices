@@ -123,7 +123,12 @@ public class RealmHelper {
     }
 
     public static HistoryCarWash getLastHistoryRecord(Context context) {
-        return initRealm(context).where(HistoryCarWash.class).findAllSorted("date", false).first();
+        RealmResults<HistoryCarWash> historyCarWashes = initRealm(context).where(HistoryCarWash.class).findAllSorted("date", false);
+        if(historyCarWashes.size() == 0) {
+            return null;
+        } else {
+            return historyCarWashes.first();
+        }
     }
 
     public static void removeReservation(Context context, HistoryCarWash reservation) {

@@ -37,7 +37,10 @@
                 <com.sequenia.autoservices.widgets.ModernhMediumTextView
                     android:id="@+id/car_wash_distance"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp12"
+                    android:gravity="center"
+                    android:textColor="@color/color_white"/>
 
                 <ImageView
                     android:id="@+id/car_wash_img"

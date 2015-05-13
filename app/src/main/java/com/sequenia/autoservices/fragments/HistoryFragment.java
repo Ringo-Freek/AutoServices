@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.sequenia.autoservices.R;
 import com.sequenia.autoservices.drawer_fragments.MasterFragment;
 import com.sequenia.autoservices.drawer_fragments.PlaceholderFragment;
@@ -18,6 +19,8 @@ import com.sequenia.autoservices.objects.HistoryCarWash;
 import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.static_classes.RealmHelper;
 import com.sequenia.autoservices.widgets.Rating;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +35,14 @@ public class HistoryFragment extends MasterFragment {
 
     private int black54;
     private int amber700;
+
+    private Transformation transformation;
+
+    public HistoryFragment() {
+        transformation = new RoundedTransformationBuilder()
+                .cornerRadiusDp(Global.previewCornerRadius)
+                .build();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,6 +92,14 @@ public class HistoryFragment extends MasterFragment {
         carWashHolder.carWashName.setText(carWash.getName());
         carWashHolder.carWashAddress.setText(carWash.getAddress());
         carWashHolder.carWashSchedule.setText(carWash.getTime_from() + " - " + carWash.getTime_to());
+
+        Picasso
+            .with(getActivity())
+            .load(carWash.getPreview())
+            .fit()
+            .centerCrop()
+            .transform(transformation)
+            .into(carWashHolder.carWashImg);
 
         Calendar date = Calendar.getInstance();
         date.setTimeInMillis(carWash.getDate());

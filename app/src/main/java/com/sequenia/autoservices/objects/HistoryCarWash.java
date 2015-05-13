@@ -16,6 +16,15 @@ public class HistoryCarWash extends RealmObject {
     private float latitude;
     private float longitude;
     private int rating;
+    private String preview;
+
+    public String getPreview() {
+        return preview;
+    }
+
+    public void setPreview(String preview) {
+        this.preview = preview;
+    }
 
     public int getRating() {
         return rating;

@@ -28,7 +28,7 @@
 
                 <ImageView
                     android:id="@+id/car_wash_img"
-                    android:src="@drawable/ic_account_box_grey600_48dp"
+                    android:scaleType="centerCrop"
                     android:layout_width="@dimen/avatar_size"
                     android:layout_height="@dimen/avatar_size"/>
             </LinearLayout>

@@ -20,12 +20,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.sequenia.autoservices.R;
 import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.drawer_fragments.PlaceholderFragment;
 import com.sequenia.autoservices.objects.HistoryCarWash;
 import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.static_classes.RealmHelper;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.Calendar;
 
@@ -48,8 +51,14 @@ public class CurrentReservationFragment extends PlaceholderFragment
 
     private HistoryCarWash reservation;
 
+    private Transformation transformation;
+
     public CurrentReservationFragment() {
         setIsMain(false);
+
+        transformation = new RoundedTransformationBuilder()
+                .cornerRadiusDp(Global.previewCornerRadius)
+                .build();
     }
 
     @Override
@@ -84,6 +93,14 @@ public class CurrentReservationFragment extends PlaceholderFragment
             nameTextView.setText(reservation.getName());
             addressTextView.setText(reservation.getAddress());
             dateTextView.setText(Global.getDateStr(now, date));
+
+            Picasso
+                .with(getActivity())
+                .load(reservation.getPreview())
+                .fit()
+                .centerCrop()
+                .transform(transformation)
+                .into(image);
         }
 
         return view;
@@ -107,7 +124,12 @@ public class CurrentReservationFragment extends PlaceholderFragment
         map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
-
+                if(reservation != null) {
+                    distanceTextView.setText("~" + Math.round(Global.getDistance(
+                            reservation.getLatitude(), reservation.getLongitude(),
+                            location.getLatitude(), location.getLongitude()
+                    )) + " м");
+                }
             }
         });
     }

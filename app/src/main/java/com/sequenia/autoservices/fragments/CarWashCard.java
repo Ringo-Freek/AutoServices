@@ -136,7 +136,8 @@ public class CarWashCard extends PlaceholderDialogFragment {
         if(carWash != null) {
             ReservationFragment fragment = (ReservationFragment) PlaceholderFragment.newInstance(PlaceholderDialogFragment.RESERVATION_SECTION);
             fragment.setInfo(Integer.valueOf(carWashId), carWash.getName(), carWash.getAddress(),
-                    carWash.getTime_from(), carWash.getTime_to(), carWash.getLatitude(), carWash.getLongitude());
+                    carWash.getTime_from(), carWash.getTime_to(), carWash.getLatitude(), carWash.getLongitude(),
+                    carWash.getPreview());
             ((MainActivity) getActivity()).addSubFragment(fragment);
         }
     }

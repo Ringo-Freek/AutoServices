@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.sequenia.autoservices.R;
 import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.drawer_fragments.MasterFragment;
@@ -17,14 +18,21 @@ import com.sequenia.autoservices.objects.CarWash;
 import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.widgets.Rating;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 /**
  * Created by Ringo on 11.05.2015.
  */
 public class ListCarWash extends MasterFragment {
 
+    private Transformation transformation;
+
     public ListCarWash(){
         setIsMain(false);
+
+        transformation = new RoundedTransformationBuilder()
+                .cornerRadiusDp(Global.previewCornerRadius)
+                .build();
     }
 
     @Override
@@ -56,13 +64,13 @@ public class ListCarWash extends MasterFragment {
         CarWashItem carWashItem = (CarWashItem)holder;
         final CarWash carWash = (CarWash) object;
 
-        /*Picasso
+        Picasso
         .with(getActivity())
                 .load(carWash.getPreview())
                 .fit()
                 .centerCrop()
-                .error(R.drawable.ic_account_box_grey600_48dp)
-                .into(carWashItem.carWashImg)*/
+                .transform(transformation)
+                .into(carWashItem.carWashImg);
 
         carWashItem.carWashName.setText(carWash.getName());
         carWashItem.carWashDistance.setText("~" + Math.round(carWash.getDistance()) + " м");

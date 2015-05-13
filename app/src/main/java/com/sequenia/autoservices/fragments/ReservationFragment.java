@@ -48,6 +48,7 @@ public class ReservationFragment extends PlaceholderFragment {
     private final static String ARG_LATITUDE = "Latitude";
     private final static String ARG_LONGITUDE = "Longitude";
     private final static String ARG_CAR_WASH_ADDRESS = "CarWashAddress";
+    private final static String ARG_CAR_WASH_PREVIEW = "CarWashPreview";
 
     private View rootView;
 
@@ -71,6 +72,7 @@ public class ReservationFragment extends PlaceholderFragment {
     private String timeTo;
     private float latitude;
     private float longitude;
+    private String carWashPreview;
 
     private Resources resources;
 
@@ -168,6 +170,7 @@ public class ReservationFragment extends PlaceholderFragment {
         historyCarWash.setTime_to(timeTo);
         historyCarWash.setDate(reservationDate.getTimeInMillis());
         historyCarWash.setName(carWashName);
+        historyCarWash.setPreview(carWashPreview);
 
         RealmHelper.saveCarWash(getActivity(), historyCarWash);
 
@@ -234,7 +237,9 @@ public class ReservationFragment extends PlaceholderFragment {
         }
     }
 
-    public void setInfo(int carWashId, String carWashName, String carWashAddress, String timeFrom, String timeTo, float latitude, float longitude) {
+    public void setInfo(int carWashId, String carWashName, String carWashAddress,
+                        String timeFrom, String timeTo, float latitude, float longitude,
+                        String carWashPreview) {
         Bundle args = getArguments();
         args.putInt(ARG_CAR_WASH_ID, carWashId);
         args.putString(ARG_CAR_WASH_NAME, carWashName);
@@ -244,6 +249,7 @@ public class ReservationFragment extends PlaceholderFragment {
         args.putString(ARG_TIME_TO, timeTo);
         args.putFloat(ARG_LATITUDE, latitude);
         args.putFloat(ARG_LONGITUDE, longitude);
+        args.putString(ARG_CAR_WASH_PREVIEW, carWashPreview);
     }
 
     @Override
@@ -258,6 +264,7 @@ public class ReservationFragment extends PlaceholderFragment {
         timeTo = args.getString(ARG_TIME_TO);
         latitude = args.getFloat(ARG_LATITUDE);
         longitude = args.getFloat(ARG_LONGITUDE);
+        carWashPreview = args.getString(ARG_CAR_WASH_PREVIEW);
     }
 
     private void showUserData() {

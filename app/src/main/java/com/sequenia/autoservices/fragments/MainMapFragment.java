@@ -164,7 +164,8 @@ public class MainMapFragment extends PlaceholderFragment
             @Override
             public boolean onMarkerClick(Marker marker) {
                 CarWashCard fragment = (CarWashCard) PlaceholderFragment.newInstance(DIALOG_SECTION);
-                fragment.setInfo(marker.getTitle(), getDistanceBetweenLocationAndCarWash(marker.getPosition().latitude, marker.getPosition().longitude));
+                fragment.setInfo(marker.getTitle(), Global.getDistance(marker.getPosition().latitude, marker.getPosition().longitude,
+                        personLocation.getLatitude(), personLocation.getLongitude()));
                 ((MainActivity)getActivity()).addSubFragment(fragment);
                 return true;
             }
@@ -188,13 +189,6 @@ public class MainMapFragment extends PlaceholderFragment
                     .anchor(0.0f, 1.0f)
                     .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
         }
-    }
-
-    public float getDistanceBetweenLocationAndCarWash(double carWashLatitude, double carWashLongitude){
-        float[] results = new float[1];
-        Location.distanceBetween(carWashLatitude, carWashLongitude,
-                personLocation.getLatitude(), personLocation.getLongitude(), results);
-        return results[0];
     }
 
     @Override
@@ -230,7 +224,8 @@ public class MainMapFragment extends PlaceholderFragment
 
         for(int i = 0; i < carWashes.size(); i++){
             CarWash carWash = carWashes.get(i);
-            carWash.setDistance(getDistanceBetweenLocationAndCarWash(carWash.getLatitude(), carWash.getLongitude()));
+            carWash.setDistance(Global.getDistance(carWash.getLatitude(), carWash.getLongitude(),
+                    personLocation.getLatitude(), personLocation.getLongitude()));
         }
 
         ListCarWash fragment = (ListCarWash) PlaceholderFragment.newInstance(PlaceholderFragment.CAR_LIST_SECTION);
