@@ -67,6 +67,9 @@ public class Global {
     private static String ERROR_NULL_REGISTRATION_NUMBER = "Выберите регистрационный номер";
     private static String ERROR_NAME_LENGTH = "Имя не должно быть длиннее " + MAX_NAME_LENGTH + " символов";
 
+    private static final SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/yy");
+    private static final SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
+
     public static void loadCarMarksIfNeeds(final Context context, final OnLoadListener onLoadListener) {
         if(!carMarksLoaded(context)) {
             final ProgressDialog pd = new ProgressDialog(context);
@@ -418,8 +421,33 @@ public class Global {
         return currentReservation;
     }
 
+    public static void cancelCurrentReservation(Context context) {
+        HistoryCarWash currentReservation = getCurrentReservation(context);
+
+        if(currentReservation != null) {
+            RealmHelper.removeReservation(context, currentReservation);
+        }
+    }
+
     public static void showCurrentReservationFragment(PlaceholderFragment f) {
         CurrentReservationFragment fragment = (CurrentReservationFragment) PlaceholderFragment.newInstance(PlaceholderFragment.CURRENT_RESERVATION_SECTION);
         ((MainActivity) f.getActivity()).addSubFragment(fragment);
+    }
+
+    public static String getDateStr(Calendar now, Calendar date) {
+        String str = "";
+        if(Global.isDaysEqual(now, date)) {
+            str = "сегодня " + formatTime.format(date.getTime());
+        } else {
+            now.add(Calendar.DATE, -1);
+
+            if (Global.isDaysEqual(now, date)) {
+                str = "вчера " + formatTime.format(date.getTime());
+            } else {
+                str = formatDay.format(date.getTime());
+            }
+        }
+
+        return str;
     }
 }

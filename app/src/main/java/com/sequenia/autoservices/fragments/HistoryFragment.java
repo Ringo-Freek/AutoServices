@@ -30,16 +30,8 @@ import io.realm.RealmResults;
  */
 public class HistoryFragment extends MasterFragment {
 
-    private SimpleDateFormat formatDay;
-    private SimpleDateFormat formatTime;
-
     private int black54;
     private int amber700;
-
-    public HistoryFragment() {
-        formatDay = new SimpleDateFormat("dd/MM/yy");
-        formatTime = new SimpleDateFormat("HH:mm");
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,26 +82,11 @@ public class HistoryFragment extends MasterFragment {
         carWashHolder.carWashAddress.setText(carWash.getAddress());
         carWashHolder.carWashSchedule.setText(carWash.getTime_from() + " - " + carWash.getTime_to());
 
-        String day;
-
         Calendar date = Calendar.getInstance();
         date.setTimeInMillis(carWash.getDate());
-
         Calendar now = Calendar.getInstance();
 
-        if(Global.isDaysEqual(now, date)) {
-            day = "сегодня " + formatTime.format(date.getTime());
-        } else {
-            now.add(Calendar.DATE, -1);
-
-            if (Global.isDaysEqual(now, date)) {
-                day = "вчера " + formatTime.format(date.getTime());
-            } else {
-                day = formatDay.format(date.getTime());
-            }
-        }
-
-        carWashHolder.carWashDate.setText(day);
+        carWashHolder.carWashDate.setText(Global.getDateStr(now, date));
 
         if(carWash.getRating() == 0) {
             carWashHolder.setRatingButton.setVisibility(View.VISIBLE);

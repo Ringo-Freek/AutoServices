@@ -125,4 +125,14 @@ public class RealmHelper {
     public static HistoryCarWash getLastHistoryRecord(Context context) {
         return initRealm(context).where(HistoryCarWash.class).findAllSorted("date", false).first();
     }
+
+    public static void removeReservation(Context context, HistoryCarWash reservation) {
+        Realm realm = initRealm(context);
+
+        realm.beginTransaction();
+
+        reservation.removeFromRealm();
+
+        realm.commitTransaction();
+    }
 }

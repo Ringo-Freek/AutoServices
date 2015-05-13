@@ -1,5 +1,6 @@
 package com.sequenia.autoservices.fragments;
 
+import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,6 +27,8 @@ import com.sequenia.autoservices.objects.HistoryCarWash;
 import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.static_classes.RealmHelper;
 
+import java.util.Calendar;
+
 import io.realm.RealmResults;
 
 /**
@@ -34,6 +39,12 @@ public class CurrentReservationFragment extends PlaceholderFragment
 
     private Button callButton;
     private Button cancelButton;
+
+    private TextView distanceTextView;
+    private TextView nameTextView;
+    private TextView addressTextView;
+    private TextView dateTextView;
+    private ImageView image;
 
     private HistoryCarWash reservation;
 
@@ -49,6 +60,31 @@ public class CurrentReservationFragment extends PlaceholderFragment
 
         callButton = (Button) view.findViewById(R.id.call_button);
         cancelButton = (Button) view.findViewById(R.id.cancel_button);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity activity = getActivity();
+                Global.cancelCurrentReservation(activity);
+                activity.onBackPressed();
+            }
+        });
+
+        distanceTextView = (TextView) view.findViewById(R.id.car_wash_distance);
+        nameTextView = (TextView) view.findViewById(R.id.car_wash_name);
+        addressTextView = (TextView) view.findViewById(R.id.car_wash_address);
+        dateTextView = (TextView) view.findViewById(R.id.car_wash_date);
+        image = (ImageView) view.findViewById(R.id.car_wash_img);
+
+        if(reservation != null) {
+            Calendar date = Calendar.getInstance();
+            date.setTimeInMillis(reservation.getDate());
+            Calendar now = Calendar.getInstance();
+
+            nameTextView.setText(reservation.getName());
+            addressTextView.setText(reservation.getAddress());
+            dateTextView.setText(Global.getDateStr(now, date));
+        }
 
         return view;
     }

@@ -57,6 +57,9 @@ public class BodyTypeSpinner extends Spinner {
         setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                System.out.println("ADADASDASD");
+
                 if(!first) {
                     adapter.setSelected(true);
                     adapter.notifyDataSetChanged();
@@ -91,6 +94,15 @@ public class BodyTypeSpinner extends Spinner {
             bodyType = adapter.getBodyTypes()[getSelectedItemPosition()];
         }
         return bodyType;
+    }
+
+    @Override
+    public void setSelection(int position) {
+        if(position == getSelectedItemPosition()) {
+            getOnItemSelectedListener().onItemSelected(null, null, position, 0);
+        } else {
+            super.setSelection(position);
+        }
     }
 
     public int getTextSize() {

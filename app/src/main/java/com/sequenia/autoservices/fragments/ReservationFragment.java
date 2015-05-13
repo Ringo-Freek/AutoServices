@@ -171,7 +171,9 @@ public class ReservationFragment extends PlaceholderFragment {
 
         RealmHelper.saveCarWash(getActivity(), historyCarWash);
 
-        ((MainActivity) getActivity()).onBackPressed();
+        getActivity().onBackPressed();
+        getActivity().onBackPressed();
+        Global.showCurrentReservationFragment(this);
     }
 
     private void onReserveError() {

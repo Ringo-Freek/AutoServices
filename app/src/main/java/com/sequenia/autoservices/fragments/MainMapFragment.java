@@ -53,6 +53,8 @@ public class MainMapFragment extends PlaceholderFragment
 
     private static final int distanceToUpdate = 500;
 
+    private GoogleMap googleMap;
+
     Location personLocation;
 
     @Override
@@ -68,6 +70,22 @@ public class MainMapFragment extends PlaceholderFragment
         showMap();
 
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(googleMap != null) {
+            googleMap.setMyLocationEnabled(false);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(googleMap != null) {
+            googleMap.setMyLocationEnabled(true);
+        }
     }
 
     @Override
@@ -87,6 +105,8 @@ public class MainMapFragment extends PlaceholderFragment
      * Выставление на карте ближайших моек
      */
     public void onMapReady(final GoogleMap map) {
+        googleMap = map;
+
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(Global.startLatitude, Global.startLongitude), Global.startZoom));
 
