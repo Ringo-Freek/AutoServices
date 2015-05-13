@@ -255,6 +255,7 @@ public class MainMapFragment extends PlaceholderFragment
 
     private void updateButtons() {
         HistoryCarWash currentReservation = Global.getCurrentReservation(getActivity());
+        final PlaceholderFragment fragment = this;
 
         if(currentReservation == null) {
             currentReservationButton.setVisibility(View.GONE);
@@ -266,11 +267,7 @@ public class MainMapFragment extends PlaceholderFragment
             currentReservationButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CurrentReservationFragment fragment = (CurrentReservationFragment) PlaceholderFragment.newInstance(PlaceholderFragment.CURRENT_RESERVATION_SECTION);
-
-                    fragment.setData((float) personLocation.getLatitude(), (float) personLocation.getLongitude(), Global.myPositionZoom);
-
-                    ((MainActivity) getActivity()).addSubFragment(fragment);
+                    Global.showCurrentReservationFragment(fragment);
                 }
             });
         }

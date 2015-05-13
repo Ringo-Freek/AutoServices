@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v4.app.Fragment;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.widget.Toast;
@@ -15,7 +16,10 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.async_tasks.CarMarksTask;
+import com.sequenia.autoservices.drawer_fragments.PlaceholderFragment;
+import com.sequenia.autoservices.fragments.CurrentReservationFragment;
 import com.sequenia.autoservices.listeners.OnLoadListener;
 import com.sequenia.autoservices.objects.CarMark;
 import com.sequenia.autoservices.objects.HistoryCarWash;
@@ -412,5 +416,10 @@ public class Global {
         }
 
         return currentReservation;
+    }
+
+    public static void showCurrentReservationFragment(PlaceholderFragment f) {
+        CurrentReservationFragment fragment = (CurrentReservationFragment) PlaceholderFragment.newInstance(PlaceholderFragment.CURRENT_RESERVATION_SECTION);
+        ((MainActivity) f.getActivity()).addSubFragment(fragment);
     }
 }

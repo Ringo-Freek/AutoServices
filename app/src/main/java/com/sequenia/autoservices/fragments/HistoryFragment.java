@@ -71,16 +71,19 @@ public class HistoryFragment extends MasterFragment {
         TextView carWashAddress = (TextView)view.findViewById(R.id.car_wash_address);
         TextView carWashSchedule = (TextView)view.findViewById(R.id.car_wash_schedule);
         View setRatingButton = view.findViewById(R.id.set_rating_button);
+        View content = view.findViewById(R.id.item_content);
 
         Rating rating = (Rating)view.findViewById(R.id.mark);
         rating.initRating(getActivity(), 0);
 
-        return new CarWashItem(view, carWashImg, carWashName, carWashDate, carWashAddress, carWashSchedule, setRatingButton, rating);
+        return new CarWashItem(view, carWashImg, carWashName,
+                carWashDate, carWashAddress, carWashSchedule,
+                setRatingButton, rating, content);
     }
 
     @Override
     public void bindViewHolder(RecyclerView.ViewHolder holder, int position, RecyclerView.Adapter adapter, Object object) {
-        HistoryCarWash carWash = (HistoryCarWash) object;
+        final HistoryCarWash carWash = (HistoryCarWash) object;
         final CarWashItem carWashHolder = (CarWashItem) holder;
 
         carWashHolder.carWashName.setText(carWash.getName());
@@ -121,7 +124,17 @@ public class HistoryFragment extends MasterFragment {
             carWashHolder.carWashDate.setTextColor(black54);
         } else {
             carWashHolder.carWashDate.setTextColor(amber700);
+            carWashHolder.content.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showMap();
+                }
+            });
         }
+    }
+
+    private void showMap() {
+        Global.showCurrentReservationFragment(this);
     }
 
     @Override
@@ -158,6 +171,7 @@ public class HistoryFragment extends MasterFragment {
         public TextView carWashSchedule;
         public View setRatingButton;
         public Rating rating;
+        public View content;
 
         public CarWashItem(
                 View itemView,
@@ -167,7 +181,8 @@ public class HistoryFragment extends MasterFragment {
                 TextView carWashAddress,
                 TextView carWashSchedule,
                 View setRatingButton,
-                Rating rating) {
+                Rating rating,
+                View content) {
             super(itemView);
             this.carWashImg = carWashImg;
             this.carWashName = carWashName;
@@ -176,6 +191,7 @@ public class HistoryFragment extends MasterFragment {
             this.carWashSchedule  = carWashSchedule;
             this.setRatingButton = setRatingButton;
             this.rating = rating;
+            this.content = content;
         }
     }
 

@@ -32,16 +32,8 @@ import io.realm.RealmResults;
 public class CurrentReservationFragment extends PlaceholderFragment
         implements OnMapReadyCallback {
 
-    private static final String ARG_START_LATITUDE = "StartLatitude";
-    private static final String ARG_START_LONGITUDE = "StartLongitude";
-    private static final String ARG_START_ZOOM = "StartZoom";
-
     private Button callButton;
     private Button cancelButton;
-
-    private float startLatitude;
-    private float startLongitude;
-    private float startZoom;
 
     private HistoryCarWash reservation;
 
@@ -63,9 +55,6 @@ public class CurrentReservationFragment extends PlaceholderFragment
 
     @Override
     public void onMapReady(GoogleMap map) {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(startLatitude, startLongitude), startZoom));
-
         map.setOnMarkerClickListener(null);
 
         if(reservation != null) {
@@ -73,6 +62,9 @@ public class CurrentReservationFragment extends PlaceholderFragment
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_wash_free))
                     .anchor(0.0f, 1.0f)
                     .position(new LatLng(reservation.getLatitude(), reservation.getLongitude())));
+
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(reservation.getLatitude(), reservation.getLongitude()), Global.myPositionZoom));
         }
 
         map.setMyLocationEnabled(true);
@@ -91,23 +83,5 @@ public class CurrentReservationFragment extends PlaceholderFragment
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
-
-    public void setData(float startLatitude, float startLongitude, float startZoom) {
-        Bundle args = getArguments();
-        args.putFloat(ARG_START_LATITUDE, startLatitude);
-        args.putFloat(ARG_START_LONGITUDE, startLongitude);
-        args.putFloat(ARG_START_ZOOM, startZoom);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Bundle args = getArguments();
-
-        this.startLatitude = args.getFloat(ARG_START_LATITUDE);
-        this.startLongitude = args.getFloat(ARG_START_LONGITUDE);
-        this.startZoom = args.getFloat(ARG_START_ZOOM);
     }
 }

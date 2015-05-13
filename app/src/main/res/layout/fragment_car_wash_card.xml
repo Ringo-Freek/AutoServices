@@ -287,7 +287,7 @@
                 style="@style/Btn"
                 android:id="@+id/reservation_button"
                 android:text="@string/reserve"
-                android:background="@drawable/car_wash_card_btn"
+                android:background="@drawable/car_wash_card_btn_bg"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/btn_height" />
         </LinearLayout>

@@ -102,12 +102,17 @@ public class CarWashCard extends PlaceholderDialogFragment {
         features(carWash.getFeatures());
         createListActions(carWash.getActions());
 
-        ((Button) rootView.findViewById(R.id.reservation_button)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showReservationForm();
-            }
-        });
+        Button reserveButton = (Button) rootView.findViewById(R.id.reservation_button);
+        if(Global.getCurrentReservation(getActivity()) == null) {
+            reserveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showReservationForm();
+                }
+            });
+        } else {
+            reserveButton.setEnabled(false);
+        }
 
         ((LinearLayout) rootView.findViewById(R.id.reviews_button)).setOnClickListener(new View.OnClickListener() {
             @Override
