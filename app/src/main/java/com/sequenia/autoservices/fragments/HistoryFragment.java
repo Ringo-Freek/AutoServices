@@ -1,5 +1,7 @@
 package com.sequenia.autoservices.fragments;
 
+import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -31,9 +33,21 @@ public class HistoryFragment extends MasterFragment {
     private SimpleDateFormat formatDay;
     private SimpleDateFormat formatTime;
 
+    private int black54;
+    private int amber700;
+
     public HistoryFragment() {
         formatDay = new SimpleDateFormat("dd/MM/yy");
         formatTime = new SimpleDateFormat("HH:mm");
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Resources resources = getActivity().getResources();
+        black54 = resources.getColor(R.color.black54);
+        amber700 = resources.getColor(R.color.amber_700);
+
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
@@ -101,6 +115,12 @@ public class HistoryFragment extends MasterFragment {
             carWashHolder.setRatingButton.setVisibility(View.GONE);
             carWashHolder.rating.setVisibility(View.VISIBLE);
             carWashHolder.rating.initRating(getActivity(), carWash.getRating());
+        }
+
+        if(Global.dateExpired(date)) {
+            carWashHolder.carWashDate.setTextColor(black54);
+        } else {
+            carWashHolder.carWashDate.setTextColor(amber700);
         }
     }
 

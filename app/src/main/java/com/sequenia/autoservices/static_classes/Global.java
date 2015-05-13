@@ -367,4 +367,19 @@ public class Global {
             return false;
         }
     }
+
+    /**
+     * true, если прошел час после переданной даты
+     *
+     * @param date
+     * @return
+     */
+    public static boolean dateExpired(Calendar date) {
+        Calendar now = Calendar.getInstance();
+        Calendar d = Calendar.getInstance();
+        d.setTimeInMillis(date.getTimeInMillis());
+        d.add(Calendar.HOUR_OF_DAY, 1);
+
+        return now.getTimeInMillis() > d.getTimeInMillis();
+    }
 }
