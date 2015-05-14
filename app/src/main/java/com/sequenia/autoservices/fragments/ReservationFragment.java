@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -77,6 +78,8 @@ public class ReservationFragment extends PlaceholderFragment {
     private String carWashPreview;
 
     private Resources resources;
+
+    private static final String RESERVING_MESSAGE = "Бронирование";
 
     public ReservationFragment() {
         setIsMain(false);
@@ -141,14 +144,18 @@ public class ReservationFragment extends PlaceholderFragment {
                 updateProfile(data);
                 updateCar(data);
 
+                showProgressDialog(RESERVING_MESSAGE);
+
                 new ReserveTask(data) {
                     @Override
                     public void onSuccess(Reservation reservation) {
+                        closeProgressDialog();
                         onReserveSuccess(date, time);
                     }
 
                     @Override
                     public void onError() {
+                        closeProgressDialog();
                         onReserveError();
                     }
                 }.execute();
@@ -230,11 +237,13 @@ public class ReservationFragment extends PlaceholderFragment {
         historyCarWash.setName(carWashName);
         historyCarWash.setPreview(carWashPreview);
 
-        RealmHelper.saveCarWash(getActivity(), historyCarWash);
+        Activity activity = getActivity();
+
+        RealmHelper.saveCarWash(activity, historyCarWash);
 
         getActivity().onBackPressed();
         getActivity().onBackPressed();
-        Global.showCurrentReservationFragment(this);
+        Global.showCurrentReservationFragment(activity);
     }
 
     private void onReserveError() {
@@ -273,6 +282,21 @@ public class ReservationFragment extends PlaceholderFragment {
         new ScheduleTask(carWashId, new Date().getTime()) {
             @Override
             public void onSuccess(ArrayList<ScheduleItem> schedule) {
+                Calendar now = Calendar.getInstance();
+                for(ScheduleItem scheduleItem : schedule) {
+                    Calendar date = Calendar.getInstance();
+
+                    String[] times = scheduleItem.getFrom().split(":");
+                    int hour = Integer.valueOf(times[0]);
+                    int minute = Integer.valueOf(times[1]);
+                    date.set(Calendar.HOUR_OF_DAY, hour);
+                    date.set(Calendar.MINUTE, minute);
+                    date.set(Calendar.SECOND, 0);
+
+                    if(date.getTimeInMillis() < now.getTimeInMillis()) {
+                        scheduleItem.setIs_reserved(true);
+                    }
+                }
                 showSchedule(schedule, localInflater);
                 progressBar.setVisibility(View.GONE);
             }
@@ -410,7 +434,9 @@ public class ReservationFragment extends PlaceholderFragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    checkBox.performClick();
+                    if(!scheduleItem.isIs_reserved()) {
+                        checkBox.performClick();
+                    }
                 }
             });
         }

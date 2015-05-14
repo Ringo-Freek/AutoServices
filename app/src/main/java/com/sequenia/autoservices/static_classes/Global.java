@@ -439,9 +439,9 @@ public class Global {
         }
     }
 
-    public static void showCurrentReservationFragment(PlaceholderFragment f) {
+    public static void showCurrentReservationFragment(Activity activity) {
         CurrentReservationFragment fragment = (CurrentReservationFragment) PlaceholderFragment.newInstance(PlaceholderFragment.CURRENT_RESERVATION_SECTION);
-        ((MainActivity) f.getActivity()).addSubFragment(fragment);
+        ((MainActivity) activity).addSubFragment(fragment);
     }
 
     public static String getDateStr(Calendar now, Calendar date) {

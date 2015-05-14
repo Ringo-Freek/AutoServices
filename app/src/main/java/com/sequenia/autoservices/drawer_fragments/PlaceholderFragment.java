@@ -1,6 +1,7 @@
 package com.sequenia.autoservices.drawer_fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -49,6 +50,8 @@ public class PlaceholderFragment extends Fragment {
     private int number;                    // Номер секции меню.
     private boolean isMain = true;         // Главный ли фрагмент. Если главный, то все фрагменты в стеке удалятся.
     private boolean shadowVisible = false; // Видна ли тень под фрагментом.
+
+    private ProgressDialog pd;
 
     /**
      * The fragment argument representing the section number for this
@@ -200,5 +203,19 @@ public class PlaceholderFragment extends Fragment {
 
     public void resumeFragment() {
 
+    }
+
+    public void showProgressDialog(String message) {
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage(message);
+        pd.setCancelable(false);
+        pd.show();
+    }
+
+    public void closeProgressDialog() {
+        if(pd != null) {
+            pd.dismiss();
+            pd = null;
+        }
     }
 }

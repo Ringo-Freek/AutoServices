@@ -339,7 +339,7 @@ public class MainMapFragment extends PlaceholderFragment
             currentReservationButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Global.showCurrentReservationFragment(fragment);
+                    Global.showCurrentReservationFragment(getActivity());
                 }
             });
         }

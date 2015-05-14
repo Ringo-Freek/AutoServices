@@ -63,6 +63,8 @@ public class CurrentReservationFragment extends PlaceholderFragment
 
     private boolean pathShown = false;
 
+    private static final String MESSAGE = "Построение пути";
+
     private HistoryCarWash reservation;
 
     private Transformation transformation;
@@ -122,6 +124,8 @@ public class CurrentReservationFragment extends PlaceholderFragment
 
     @Override
     public void onMapReady(final GoogleMap map) {
+        showProgressDialog(MESSAGE);
+
         map.setOnMarkerClickListener(null);
 
         if(reservation != null) {
@@ -186,6 +190,8 @@ public class CurrentReservationFragment extends PlaceholderFragment
         Bounds bounds = route.getBounds();
         DirectionLocation southwest = bounds.getSouthwest();
         DirectionLocation notrheast = bounds.getNortheast();
+
+        closeProgressDialog();
 
         map.addPolyline(options);
         LatLngBounds b = new LatLngBounds(new LatLng(southwest.getLat(), southwest.getLng()),

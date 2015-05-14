@@ -168,7 +168,7 @@ public class HistoryFragment extends MasterFragment {
     }
 
     private void showMap() {
-        Global.showCurrentReservationFragment(this);
+        Global.showCurrentReservationFragment(getActivity());
     }
 
     @Override
