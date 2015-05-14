@@ -80,7 +80,7 @@ public class CarWashCard extends PlaceholderDialogFragment {
     /**
      * забивка в карточку результата, полученного с сервера
      */
-    public void initDataCarWash(CarWash carWash){
+    public void initDataCarWash(final CarWash carWash){
         this.carWash = carWash;
 
         Picasso
@@ -107,7 +107,7 @@ public class CarWashCard extends PlaceholderDialogFragment {
             reserveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showReservationForm();
+                    Global.showReservationForm(carWash, Integer.valueOf(carWashId), getActivity());
                 }
             });
         } else {
@@ -130,16 +130,6 @@ public class CarWashCard extends PlaceholderDialogFragment {
 
         rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
         rootView.findViewById(R.id.car_wash_card).setVisibility(View.VISIBLE);
-    }
-
-    private void showReservationForm() {
-        if(carWash != null) {
-            ReservationFragment fragment = (ReservationFragment) PlaceholderFragment.newInstance(PlaceholderDialogFragment.RESERVATION_SECTION);
-            fragment.setInfo(Integer.valueOf(carWashId), carWash.getName(), carWash.getAddress(),
-                    carWash.getTime_from(), carWash.getTime_to(), carWash.getLatitude(), carWash.getLongitude(),
-                    carWash.getPreview());
-            ((MainActivity) getActivity()).addSubFragment(fragment);
-        }
     }
 
     private void showReviewsForm() {

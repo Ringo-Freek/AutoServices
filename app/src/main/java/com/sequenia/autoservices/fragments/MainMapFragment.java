@@ -67,9 +67,36 @@ public class MainMapFragment extends PlaceholderFragment
         reserveButton = (Button) view.findViewById(R.id.reservation_button);
         currentReservationButton = (Button) view.findViewById(R.id.current_reservation_button);
 
+        reserveButton.setEnabled(false);
+        reserveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nearestReservation();
+            }
+        });
+
         showMap();
 
         return view;
+    }
+
+    private void nearestReservation() {
+        CarWash nearest = null;
+        float minDistance = Float.MAX_VALUE;
+
+        for(CarWash carWash : carWashes) {
+            float d = Global.getDistance(personLocation.getLatitude(), personLocation.getLongitude(),
+                    carWash.getLatitude(), carWash.getLongitude());
+
+            if(d < minDistance) {
+                minDistance = d;
+                nearest = carWash;
+            }
+        }
+
+        if(nearest != null) {
+            Global.showReservationForm(nearest, nearest.getId(), getActivity());
+        }
     }
 
     @Override
@@ -147,6 +174,7 @@ public class MainMapFragment extends PlaceholderFragment
                 @Override
                 public void onSuccess(ArrayList<CarWash> carWashesTask) {
                     carWashes = carWashesTask;
+                    updateButtons();
                     showCarWashesOnMap(carWashesTask, map);
                 }
             }.execute();
@@ -275,6 +303,8 @@ public class MainMapFragment extends PlaceholderFragment
         if(currentReservation == null) {
             currentReservationButton.setVisibility(View.GONE);
             reserveButton.setVisibility(View.VISIBLE);
+
+            reserveButton.setEnabled(carWashes.size() > 0);
         } else {
             currentReservationButton.setVisibility(View.VISIBLE);
             reserveButton.setVisibility(View.GONE);

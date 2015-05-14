@@ -21,10 +21,13 @@ import java.util.regex.Pattern;
 import com.google.android.gms.maps.model.LatLng;
 import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.async_tasks.CarMarksTask;
+import com.sequenia.autoservices.drawer_fragments.PlaceholderDialogFragment;
 import com.sequenia.autoservices.drawer_fragments.PlaceholderFragment;
 import com.sequenia.autoservices.fragments.CurrentReservationFragment;
+import com.sequenia.autoservices.fragments.ReservationFragment;
 import com.sequenia.autoservices.listeners.OnLoadListener;
 import com.sequenia.autoservices.objects.CarMark;
+import com.sequenia.autoservices.objects.CarWash;
 import com.sequenia.autoservices.objects.DirectionLocation;
 import com.sequenia.autoservices.objects.HistoryCarWash;
 
@@ -496,5 +499,15 @@ public class Global {
         }
 
         return poly;
+    }
+
+    public static void showReservationForm(CarWash carWash, int carWashId, Activity activity) {
+        if(carWash != null) {
+            ReservationFragment fragment = (ReservationFragment) PlaceholderFragment.newInstance(PlaceholderDialogFragment.RESERVATION_SECTION);
+            fragment.setInfo(carWashId, carWash.getName(), carWash.getAddress(),
+                    carWash.getTime_from(), carWash.getTime_to(), carWash.getLatitude(), carWash.getLongitude(),
+                    carWash.getPreview());
+            ((MainActivity) activity).addSubFragment(fragment);
+        }
     }
 }
