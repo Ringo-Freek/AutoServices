@@ -144,9 +144,7 @@ public class PlaceholderFragment extends Fragment {
      *
      * Нужно перегрузить, чтобы настроить свой вид в дочерних фрагментах.
      */
-    public void restoreMenu(Menu menu) {
-        MainActivity activity = (MainActivity) getActivity();
-
+    public void restoreMenu(Menu menu, MainActivity activity) {
         activity.hideMenuItem(R.id.show_list);
         activity.hideMenuItem(R.id.show_map);
         activity.hideMenuItem(R.id.show_filter);

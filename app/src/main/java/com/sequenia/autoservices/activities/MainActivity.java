@@ -94,7 +94,7 @@ public class MainActivity extends ActionBarActivity
 
         if(number >= PlaceholderFragment.MENU_ITEMS_COUNT) {
             ((TextView)findViewById(R.id.toolbar_title)).setText(mTitle);
-            fragmentStack.lastElement().restoreMenu(menu);
+            fragmentStack.lastElement().restoreMenu(menu, this);
         }
     }
 
@@ -143,7 +143,7 @@ public class MainActivity extends ActionBarActivity
     public void restoreMenu() {
         PlaceholderFragment fragment = fragmentStack.lastElement();
         if(fragment != null) {
-            fragment.restoreMenu(menu);
+            fragment.restoreMenu(menu, this);
         }
     }
 
@@ -162,7 +162,7 @@ public class MainActivity extends ActionBarActivity
             if(index > 0) {
                 PlaceholderFragment previousFragment = fragmentStack.get(index - 1);
                 if(previousFragment != null) {
-                    previousFragment.restoreMenu(menu);
+                    previousFragment.restoreMenu(menu, this);
                 }
             }
         }

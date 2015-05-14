@@ -18,8 +18,7 @@ public class PlaceholderDialogFragment extends PlaceholderFragment {
     }
 
     @Override
-    public void restoreMenu(Menu menu) {
-        MainActivity activity = (MainActivity) getActivity();
+    public void restoreMenu(Menu menu, MainActivity activity) {
         activity.restorePreviousFragmentMenu(this);
     }
 }

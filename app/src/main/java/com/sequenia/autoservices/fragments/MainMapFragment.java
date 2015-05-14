@@ -56,6 +56,8 @@ public class MainMapFragment extends PlaceholderFragment
 
     private GoogleMap googleMap;
 
+    private static final String MESSAGE = "Определение местоположения";
+
     Location personLocation;
 
     @Override
@@ -143,6 +145,8 @@ public class MainMapFragment extends PlaceholderFragment
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(Global.startLatitude, Global.startLongitude), Global.startZoom));
 
+        //showProgressDialog(MESSAGE);
+
         map.setMyLocationEnabled(true);
         map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
             @Override
@@ -173,19 +177,24 @@ public class MainMapFragment extends PlaceholderFragment
         if(needsUpdate) {
             personLocation = location;
 
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(personLocation.getLatitude(), personLocation.getLongitude()), Global.myPositionZoom));
-
-            loadCarWashes(map);
+            loadCarWashes(map, true);
         }
     }
 
-    private void loadCarWashes(final GoogleMap map) {
+    private void loadCarWashes(final GoogleMap map, final boolean moveToMyLocation) {
         if(personLocation != null) {
 
             new NearCarWashesTask(getActivity(), (float) personLocation.getLatitude(), (float) personLocation.getLongitude()) {
                 @Override
                 public void onSuccess(ArrayList<CarWash> carWashesTask) {
+
+                    //closeProgressDialog();
+
+                    if(moveToMyLocation) {
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                                new LatLng(personLocation.getLatitude(), personLocation.getLongitude()), Global.myPositionZoom));
+                    }
+
                     carWashes = carWashesTask;
                     updateButtons();
                     showCarWashesOnMap(carWashesTask, map);
@@ -196,7 +205,7 @@ public class MainMapFragment extends PlaceholderFragment
 
     public void update() {
         if(googleMap != null) {
-            loadCarWashes(googleMap);
+            loadCarWashes(googleMap, false);
         }
 
         ((MainActivity) getActivity()).setNeedsUpdate(false);
@@ -302,10 +311,9 @@ public class MainMapFragment extends PlaceholderFragment
     }
 
     @Override
-    public void restoreMenu(Menu menu) {
-        super.restoreMenu(menu);
+    public void restoreMenu(Menu menu, MainActivity activity) {
+        super.restoreMenu(menu, activity);
 
-        MainActivity activity = (MainActivity) getActivity();
         activity.showMenuItem(R.id.show_filter);
 
         activity.updateFilterItem();
@@ -325,7 +333,6 @@ public class MainMapFragment extends PlaceholderFragment
 
     private void updateButtons() {
         HistoryCarWash currentReservation = Global.getCurrentReservation(getActivity());
-        final PlaceholderFragment fragment = this;
 
         if(currentReservation == null) {
             currentReservationButton.setVisibility(View.GONE);
