@@ -31,6 +31,7 @@ public class LoginActivity extends ActionBarActivity {
     private TextView carMarkLabel;
 
     private Button nextButton;
+    private Button nextWithoutRegistrationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,14 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 register();
+            }
+        });
+
+        nextWithoutRegistrationButton = (Button) findViewById(R.id.next_without_registration_button);
+        nextWithoutRegistrationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMainActivity();
             }
         });
     }

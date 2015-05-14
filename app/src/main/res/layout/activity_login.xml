@@ -44,6 +44,14 @@
                 android:text="@string/next"/>
 
             <com.sequenia.autoservices.widgets.ModernhBoldButton
+                android:id="@+id/next_without_registration_button"
+                android:layout_width="@dimen/long_button_width"
+                android:layout_height="wrap_content"
+                style="@style/Btn.OrangeBgr"
+                android:layout_marginBottom="@dimen/material_padding"
+                android:text="@string/next_without_registration"/>
+
+            <com.sequenia.autoservices.widgets.ModernhBoldButton
                 android:layout_width="@dimen/long_button_width"
                 android:layout_height="wrap_content"
                 style="@style/Btn.OrangeBgr"

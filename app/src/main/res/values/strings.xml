@@ -28,6 +28,7 @@
     <string name="reload">ПЕРЕЗАГРУЗИТЬ</string>
     <string name="reserve_now">ЗАБРОНИРОВАТЬ!</string>
     <string name="next">ПРОДОЛЖИТЬ</string>
+    <string name="next_without_registration">ПРОДОЛЖИТЬ БЕЗ РЕГИСТРАЦИИ</string>
     <string name="admin">АДМИНИСТРАТОР</string>
     <string name="welcome">Для дальнейшей работы с приложением нажмите ПРОДОЛЖИТЬ</string>
     <string name="filter_clear">ОЧИСТИТЬ</string>
