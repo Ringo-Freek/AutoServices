@@ -36,6 +36,8 @@ import com.sequenia.autoservices.widgets.BodyTypeSpinner;
 import com.sequenia.autoservices.widgets.CarMarkSpinner;
 import com.sequenia.autoservices.widgets.PhoneEditText;
 
+import io.realm.Realm;
+
 /**
  * Created by chybakut2004 on 30.04.15.
  */
@@ -135,6 +137,10 @@ public class ReservationFragment extends PlaceholderFragment {
                 data.setName(name);
                 data.setRegistration_number(registrationNumber);
                 data.setPhone(phone);
+
+                updateProfile(data);
+                updateCar(data);
+
                 new ReserveTask(data) {
                     @Override
                     public void onSuccess(Reservation reservation) {
@@ -147,6 +153,58 @@ public class ReservationFragment extends PlaceholderFragment {
                     }
                 }.execute();
             }
+        }
+    }
+
+    private void  updateProfile(ReserveData data) {
+        Activity activity = getActivity();
+        if(!Global.isRegistered(activity)) {
+            Global.setName(activity, data.getName());
+            Global.setPhone(activity, data.getPhone());
+            Global.setRegistered(activity, true);
+        }
+    }
+
+    private void updateCar(ReserveData data) {
+        Activity activity = getActivity();
+        Car car = RealmHelper.getCurrentCar(activity);
+
+        if(car == null) {
+            Car newCar = new Car();
+            newCar.setBody_type(data.getBody_type());
+            newCar.setId(RealmHelper.getNextCarIndex(activity));
+            newCar.setCurrent(true);
+            newCar.setRegistration_number(data.getRegistration_number());
+            newCar.setCar_mark_id(data.getCar_mark_id());
+
+            RealmHelper.updateOrCreateCar(activity, newCar);
+        } else {
+            Realm realm = RealmHelper.initRealm(activity);
+            realm.beginTransaction();
+
+            if(car.getCar_mark_id() == 0) {
+                car.setCar_mark_id(data.getCar_mark_id());
+            }
+
+            String bodyType = car.getBody_type();
+            if(bodyType == null) {
+                car.setBody_type(data.getBody_type());
+            } else {
+                if(bodyType.equals("")) {
+                    car.setBody_type(data.getBody_type());
+                }
+            }
+
+            String registrationNumber = car.getRegistration_number();
+            if(registrationNumber == null) {
+                car.setRegistration_number(data.getRegistration_number());
+            } else {
+                if(registrationNumber.equals("")) {
+                    car.setRegistration_number(data.getRegistration_number());
+                }
+            }
+
+            realm.commitTransaction();
         }
     }
 
