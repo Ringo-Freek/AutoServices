@@ -40,7 +40,7 @@ public abstract class DialogWindow extends DialogFragment {
         view.findViewById(R.id.dialog_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doneCloseDialog();
+                doneCloseDialog(new Intent());
             }
         });
 
@@ -58,8 +58,7 @@ public abstract class DialogWindow extends DialogFragment {
         return getArguments().getInt(ARG_LAYOUT);
     }
 
-    public void doneCloseDialog() {
-        Intent data = new Intent();
+    public void doneCloseDialog(Intent data) {
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, data);
         dismiss();
     }

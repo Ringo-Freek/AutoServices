@@ -104,4 +104,9 @@ public abstract class AsyncTaskRequest extends AsyncTask<Void, Void, String> {
     public abstract void initNotConnection();
     public abstract void initRuntimeError();
     public abstract void initErrorLoadData();
+
+    public void setUrl(String url) {
+        this.url = url;
+        System.out.println(this.url);
+    }
 }

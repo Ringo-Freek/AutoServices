@@ -1,6 +1,7 @@
 package com.sequenia.autoservices.dialogs;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.sequenia.autoservices.static_classes.Global;
@@ -18,7 +19,8 @@ import com.sequenia.autoservices.widgets.Rating;
 public class CreateReviewDialog extends DialogWindow {
 
     public static final int CREATE_REVIEW_DIALOG = 1;
-    public static final int NEEDS_UPDATE = 2;
+
+    public static final String RATING_VALUE_DATA = "Rating";
 
     private static final String ARG_ITEM_ID = "ItemId";
 
@@ -28,10 +30,10 @@ public class CreateReviewDialog extends DialogWindow {
     private int itemId;
 
     @Override
-    public void doneCloseDialog() {
+    public void doneCloseDialog(final Intent data) {
         String name = editTextYourName.getText().toString();
         String review = editTextYourReview.getText().toString();
-        int mark = rating.getRating();
+        final int mark = rating.getRating();
 
         final Activity activity = getActivity();
 
@@ -42,7 +44,8 @@ public class CreateReviewDialog extends DialogWindow {
             )){
                 @Override
                 public void onSuccess(Review review) {
-                    CreateReviewDialog.super.doneCloseDialog();
+                    data.putExtra(RATING_VALUE_DATA, mark);
+                    CreateReviewDialog.super.doneCloseDialog(data);
                 }
 
                 @Override

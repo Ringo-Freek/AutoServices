@@ -1,6 +1,7 @@
 package com.sequenia.autoservices.fragments;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,19 +19,30 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.sequenia.autoservices.R;
 import com.sequenia.autoservices.activities.MainActivity;
+import com.sequenia.autoservices.async_tasks.DirectionTask;
 import com.sequenia.autoservices.drawer_fragments.PlaceholderFragment;
+import com.sequenia.autoservices.objects.Bounds;
+import com.sequenia.autoservices.objects.DirectionLocation;
+import com.sequenia.autoservices.objects.DirectionsResponse;
 import com.sequenia.autoservices.objects.HistoryCarWash;
+import com.sequenia.autoservices.objects.Leg;
+import com.sequenia.autoservices.objects.Route;
+import com.sequenia.autoservices.objects.Step;
 import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.static_classes.RealmHelper;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import io.realm.RealmResults;
 
@@ -48,6 +60,8 @@ public class CurrentReservationFragment extends PlaceholderFragment
     private TextView addressTextView;
     private TextView dateTextView;
     private ImageView image;
+
+    private boolean pathShown = false;
 
     private HistoryCarWash reservation;
 
@@ -107,7 +121,7 @@ public class CurrentReservationFragment extends PlaceholderFragment
     }
 
     @Override
-    public void onMapReady(GoogleMap map) {
+    public void onMapReady(final GoogleMap map) {
         map.setOnMarkerClickListener(null);
 
         if(reservation != null) {
@@ -129,10 +143,55 @@ public class CurrentReservationFragment extends PlaceholderFragment
                             reservation.getLatitude(), reservation.getLongitude(),
                             location.getLatitude(), location.getLongitude()
                     )) + " м");
+
+                    if(!pathShown) {
+                        showPath(location.getLatitude(), location.getLongitude(), map);
+                    }
                 }
             }
         });
     }
+
+    private void showPath(final double currentLat, final double currentLng, final GoogleMap map) {
+        new DirectionTask(currentLat, currentLng, reservation.getLatitude(), reservation.getLongitude()) {
+
+            @Override
+            public void onSuccess(DirectionsResponse response) {
+                ArrayList<Route> routes = response.getRoutes();
+                if(routes.size() > 0) {
+                    showRoute(currentLat, currentLng, routes.get(0), map);
+                }
+                pathShown = true;
+            }
+
+            @Override
+            public void onError() {
+                pathShown = true;
+            }
+        }.execute();
+    }
+
+    private void showRoute(double currentLat, double currentLng, Route route, GoogleMap map) {
+        List<LatLng> points = Global.decodePoly(route.getOverview_polyline().getPoints());
+
+        PolylineOptions options = new PolylineOptions().width(5)
+                .color(getActivity().getResources().getColor(R.color.teal_800))
+                .geodesic(true);
+        options.add(new LatLng(currentLat, currentLng));
+
+        for(int i = 0; i < points.size(); i++) {
+            options.add(points.get(i));
+        }
+
+        Bounds bounds = route.getBounds();
+        DirectionLocation southwest = bounds.getSouthwest();
+        DirectionLocation notrheast = bounds.getNortheast();
+
+        map.addPolyline(options);
+        LatLngBounds b = new LatLngBounds(new LatLng(southwest.getLat(), southwest.getLng()),
+                new LatLng(notrheast.getLat(), notrheast.getLng()));
+        map.animateCamera(CameraUpdateFactory.newLatLngBounds(b, 100));
+    };
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

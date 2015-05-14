@@ -1,6 +1,7 @@
 package com.sequenia.autoservices.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.sequenia.autoservices.R;
+import com.sequenia.autoservices.dialogs.CreateReviewDialog;
+import com.sequenia.autoservices.dialogs.DialogWindow;
 import com.sequenia.autoservices.drawer_fragments.MasterFragment;
 import com.sequenia.autoservices.drawer_fragments.PlaceholderFragment;
 import com.sequenia.autoservices.objects.HistoryCarWash;
@@ -26,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import io.realm.Realm;
 import io.realm.RealmResults;
 
 /**
@@ -35,6 +39,8 @@ public class HistoryFragment extends MasterFragment {
 
     private int black54;
     private int amber700;
+
+    private HistoryCarWash editingHistory;
 
     private Transformation transformation;
 
@@ -110,6 +116,13 @@ public class HistoryFragment extends MasterFragment {
         if(carWash.getRating() == 0) {
             carWashHolder.setRatingButton.setVisibility(View.VISIBLE);
             carWashHolder.rating.setVisibility(View.GONE);
+
+            carWashHolder.setRatingButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showRatingWindow(carWash);
+                }
+            });
         } else {
             carWashHolder.setRatingButton.setVisibility(View.GONE);
             carWashHolder.rating.setVisibility(View.VISIBLE);
@@ -126,6 +139,31 @@ public class HistoryFragment extends MasterFragment {
                     showMap();
                 }
             });
+        }
+    }
+
+    private void showRatingWindow(HistoryCarWash carWash) {
+        editingHistory = carWash;
+        CreateReviewDialog createReviewDialog = (CreateReviewDialog) DialogWindow.customInstance(getResources().getString(R.string.create_review), R.layout.create_review_dialog, new CreateReviewDialog());
+        createReviewDialog.setData(Integer.valueOf(carWash.getCarWashId()));
+        createReviewDialog.setTargetFragment(this, CreateReviewDialog.CREATE_REVIEW_DIALOG);
+        createReviewDialog.show(getFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == CreateReviewDialog.CREATE_REVIEW_DIALOG) {
+            if(resultCode == Activity.RESULT_OK) {
+                if(editingHistory != null) {
+                    int rating = data.getIntExtra(CreateReviewDialog.RATING_VALUE_DATA, 0);
+                    Realm realm = RealmHelper.initRealm(getActivity());
+                    realm.beginTransaction();
+                    editingHistory.setRating(rating);
+                    realm.commitTransaction();
+                    getAdapter().notifyDataSetChanged();
+                }
+            }
         }
     }
 

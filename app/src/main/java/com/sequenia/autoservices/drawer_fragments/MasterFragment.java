@@ -335,4 +335,8 @@ public abstract class MasterFragment extends PlaceholderFragment {
         return true;
     }
     public void setUpLayout(View view){}
+
+    public RecyclerView.Adapter getAdapter() {
+        return adapter;
+    }
 }

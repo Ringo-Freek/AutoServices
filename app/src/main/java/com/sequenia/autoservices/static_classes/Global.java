@@ -14,15 +14,18 @@ import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.async_tasks.CarMarksTask;
 import com.sequenia.autoservices.drawer_fragments.PlaceholderFragment;
 import com.sequenia.autoservices.fragments.CurrentReservationFragment;
 import com.sequenia.autoservices.listeners.OnLoadListener;
 import com.sequenia.autoservices.objects.CarMark;
+import com.sequenia.autoservices.objects.DirectionLocation;
 import com.sequenia.autoservices.objects.HistoryCarWash;
 
 /**
@@ -31,6 +34,8 @@ import com.sequenia.autoservices.objects.HistoryCarWash;
  */
 public class Global {
     public static final String host = "http://188.226.140.45/api/v1/";
+    public static final String DIRECTIONS_API_PATH = "https://maps.googleapis.com/maps/api/directions/json";
+
     public static final String testToken = "mfrhGMakKqqk11Wwx5N-";
     public static final Integer radius = 5000;
 
@@ -458,5 +463,38 @@ public class Global {
         Location.distanceBetween(latitude1, longitude1,
                 latitude2, longitude2, results);
         return results[0];
+    }
+
+    public static List<LatLng> decodePoly(String encoded) {
+
+        List<LatLng> poly = new ArrayList<LatLng>();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),(((double) lng / 1E5)));
+            poly.add(p);
+        }
+
+        return poly;
     }
 }
