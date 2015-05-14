@@ -30,6 +30,8 @@ public class MainActivity extends ActionBarActivity
     private CharSequence mTitle;
     private View dialogShadow;
 
+    private boolean needsUpdate = false;
+
     // Стек фрагментов. Используется для навигации между фрагментами.
     private Stack<PlaceholderFragment> fragmentStack;
 
@@ -293,5 +295,13 @@ public class MainActivity extends ActionBarActivity
 
     public void updateDrawer() {
         mNavigationDrawerFragment.showData();
+    }
+
+    public void setNeedsUpdate(boolean needsUpdate) {
+        this.needsUpdate = needsUpdate;
+    }
+
+    public boolean isNeedsUpdate() {
+        return this.needsUpdate;
     }
 }

@@ -14,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.sequenia.autoservices.activities.MainActivity;
 import com.sequenia.autoservices.static_classes.Global;
 import com.sequenia.autoservices.R;
 import com.sequenia.autoservices.adapters.CoastAdapter;
@@ -152,6 +153,8 @@ public class FiltersFragment extends PlaceholderFragment implements View.OnClick
         filtered |= radiusValue != Global.radius;
 
         Global.setFiltered(activity, filtered);
+
+        ((MainActivity) activity).setNeedsUpdate(true);
     }
 
     public void closeFilter(){

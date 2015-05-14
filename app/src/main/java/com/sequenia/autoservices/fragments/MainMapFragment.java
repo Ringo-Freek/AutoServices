@@ -47,6 +47,7 @@ public class MainMapFragment extends PlaceholderFragment
     private LinearLayout carWashList;
     private LinearLayout carWashMap;
     public ArrayList<CarWash> carWashes = new ArrayList<CarWash>();
+    private ArrayList<Marker> markers = new ArrayList<Marker>();
 
     private Button reserveButton;
     private Button currentReservationButton;
@@ -113,6 +114,11 @@ public class MainMapFragment extends PlaceholderFragment
         if(googleMap != null) {
             googleMap.setMyLocationEnabled(true);
         }
+
+        if(((MainActivity) getActivity()).isNeedsUpdate()) {
+            System.out.println("adadadasdsa");
+            update();
+        }
     }
 
     @Override
@@ -168,9 +174,16 @@ public class MainMapFragment extends PlaceholderFragment
             personLocation = location;
 
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(location.getLatitude(), location.getLongitude()), Global.myPositionZoom));
+                    new LatLng(personLocation.getLatitude(), personLocation.getLongitude()), Global.myPositionZoom));
 
-            new NearCarWashesTask(getActivity(), (float) location.getLatitude(), (float) location.getLongitude()) {
+            loadCarWashes(map);
+        }
+    }
+
+    private void loadCarWashes(final GoogleMap map) {
+        if(personLocation != null) {
+
+            new NearCarWashesTask(getActivity(), (float) personLocation.getLatitude(), (float) personLocation.getLongitude()) {
                 @Override
                 public void onSuccess(ArrayList<CarWash> carWashesTask) {
                     carWashes = carWashesTask;
@@ -179,6 +192,14 @@ public class MainMapFragment extends PlaceholderFragment
                 }
             }.execute();
         }
+    }
+
+    public void update() {
+        if(googleMap != null) {
+            loadCarWashes(googleMap);
+        }
+
+        ((MainActivity) getActivity()).setNeedsUpdate(false);
     }
 
     /**
@@ -201,6 +222,11 @@ public class MainMapFragment extends PlaceholderFragment
 
         map.getUiSettings().setZoomControlsEnabled(true);
 
+        for(Marker marker : markers) {
+            marker.remove();
+        }
+        markers.clear();
+
         for(int i = 0; i < carWashes.size(); i++){
             CarWash carWashI = carWashes.get(i);
 
@@ -211,11 +237,12 @@ public class MainMapFragment extends PlaceholderFragment
                 iconId = R.drawable.ic_wash_free_promo;
             }
 
-            map.addMarker(new MarkerOptions()
+            Marker marker = map.addMarker(new MarkerOptions()
                     .title(carWashI.getId().toString())
                     .icon(BitmapDescriptorFactory.fromResource(iconId))
                     .anchor(0.0f, 1.0f)
                     .position(new LatLng(carWashI.getLatitude(), carWashI.getLongitude())));
+            markers.add(marker);
         }
     }
 
