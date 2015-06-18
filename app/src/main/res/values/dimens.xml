@@ -75,4 +75,10 @@
 
     <!--Размер иконки-->
     <dimen name="icon_size_small">18dp</dimen>
+
+    <!-- Размер chexbox -->
+    <dimen name="check_box_size">24dp</dimen>
+
+    <!-- Размер кнопок в блоке добавления расписания -->
+    <dimen name="schedule_setting_size_button">28dp</dimen>
 </resources>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white">
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:padding="@dimen/material_padding"
+        android:orientation="horizontal"
+        android:id="@+id/weekdays"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:text="@string/pn"
+            android:layout_marginLeft="0dp"
+            style="@style/CheckBox"
+            android:layout_width="@dimen/check_box_size"
+            android:layout_height="@dimen/check_box_size" />
+
+        <CheckBox
+            android:text="@string/vt"
+            style="@style/CheckBox"
+            android:layout_width="@dimen/check_box_size"
+            android:layout_height="@dimen/check_box_size" />
+
+        <CheckBox
+            android:text="@string/cp"
+            style="@style/CheckBox"
+            android:layout_width="@dimen/check_box_size"
+            android:layout_height="@dimen/check_box_size" />
+
+        <CheckBox
+            android:text="@string/cht"
+            style="@style/CheckBox"
+            android:layout_width="@dimen/check_box_size"
+            android:layout_height="@dimen/check_box_size" />
+
+        <CheckBox
+            android:text="@string/pt"
+            style="@style/CheckBox"
+            android:layout_width="@dimen/check_box_size"
+            android:layout_height="@dimen/check_box_size" />
+
+        <CheckBox
+            android:text="@string/cb"
+            style="@style/CheckBox"
+            android:layout_width="@dimen/check_box_size"
+            android:layout_height="@dimen/check_box_size" />
+
+        <CheckBox
+            android:layout_marginRight="0dp"
+            android:text="@string/vc"
+            style="@style/CheckBox"
+            android:layout_width="@dimen/check_box_size"
+            android:layout_height="@dimen/check_box_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="@dimen/material_padding"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/material_list_item_height">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:background="@drawable/edit_text_bg"
+                android:id="@+id/working_time_from"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </Spinner>
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_arrow_drop_down_grey600_18dp"
+                android:layout_width="@dimen/icon_size_small"
+                android:layout_height="@dimen/icon_size_small" />
+        </RelativeLayout>
+
+        <include layout="@layout/tire_between"/>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:background="@drawable/edit_text_bg"
+                android:id="@+id/working_time_to"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </Spinner>
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_arrow_drop_down_grey600_18dp"
+                android:layout_width="@dimen/icon_size_small"
+                android:layout_height="@dimen/icon_size_small" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="@dimen/material_padding"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/material_list_item_height">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:background="@drawable/edit_text_bg"
+                android:id="@+id/break_time_from"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </Spinner>
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_arrow_drop_down_grey600_18dp"
+                android:layout_width="@dimen/icon_size_small"
+                android:layout_height="@dimen/icon_size_small" />
+        </RelativeLayout>
+
+        <include layout="@layout/tire_between"/>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:background="@drawable/edit_text_bg"
+                android:id="@+id/break_time_to"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </Spinner>
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_arrow_drop_down_grey600_18dp"
+                android:layout_width="@dimen/icon_size_small"
+                android:layout_height="@dimen/icon_size_small" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <include layout="@layout/schedule_settings_buttons"/>
+</LinearLayout>

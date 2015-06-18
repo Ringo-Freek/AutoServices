@@ -69,5 +69,12 @@
     <string name="filter_label_rating">Рейтинг</string>
     <string name="filter_label_coast">Цена</string>
 
-    <string name="hello_world">Hello world!</string>
+    <!-- Дни недели -->
+    <string name="pn">ПН</string>
+    <string name="vt">ВТ</string>
+    <string name="cp">СР</string>
+    <string name="cht">ЧТ</string>
+    <string name="pt">ПТ</string>
+    <string name="cb">СБ</string>
+    <string name="vc">ВС</string>
 </resources>

@@ -175,4 +175,14 @@
         <item name="android:textColor">@color/black54</item>
         <item name="android:textSize">@dimen/sp14</item>
     </style>
+
+    <style name="CheckBox">
+        <time name="android:layout_width">@dimen/check_box_size</time>
+        <time name="android:layout_height">@dimen/check_box_size</time>
+        <item name="android:layout_margin">@dimen/material_padding_between_row_half</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/check_box_bgr</item>
+        <item name="android:textColor">@color/color_white</item>
+    </style>
 </resources>
